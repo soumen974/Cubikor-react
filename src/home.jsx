@@ -35,6 +35,7 @@ export default function home() {
  
          <div className="get-cupon">
              <a href="#" className="cupon"> <h5>Get20% Off</h5></a> 
+             <div className='coupon-code'>soB17ChD <div className='copy-code'>copy</div></div>
           </div>
         
          

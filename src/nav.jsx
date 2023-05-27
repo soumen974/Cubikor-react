@@ -1,13 +1,40 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import logoCube from './images-app/page-logo.jpg';
+import Section1 from "./home";
+import Cubes from "./CubeNew";
+import CubesBestseller from "./CubeBestSell";
+import Section02 from "./Section02";
+import Section03 from "./Section03";
+import Section04 from './Section04';
+import Section05 from "./Section05";
+import Section06 from "./Section06";
+import Footer from "./footer";
+import AboutUs from "./AboutUs";
 
 export default function Nav() {
   const inlineStyleSVG = { listStyle: 'none' };
   const [useMyaccnt, setUseMyaccnt] = useState(false);
+  const [useMyAbotUs, setuseMyAbotUs] = useState(false);
+  const [useFullBody, setuseFullBody] = useState(true);
+  
+
 
   function MyAccountSVG() {
     setUseMyaccnt(true);
+  }
+
+  function ShowAbotUs(){
+    setuseMyAbotUs(true);
+    setuseFullBody(false);
+  }
+
+  
+  function handleOutsideClick(event) {
+    if (event.target.classList.contains('clk-on')) {
+      setuseMyAbotUs(false);
+      setuseFullBody(true);
+    }
   }
 
   return (
@@ -37,7 +64,7 @@ export default function Nav() {
               </button>
             </form>
             <a href="#" className="op-love">
-              <li style={inlineStyleSVG}>
+              <li className='clk-on' onClick={handleOutsideClick} style={inlineStyleSVG}>
                 <svg
                   viewBox="0 0 24 24"
                   strokeLinecap="round"
@@ -49,7 +76,7 @@ export default function Nav() {
               </li>
             </a>
             <a href="#" className="op-bag">
-              <li style={inlineStyleSVG}>
+              <li className='clk-on' onClick={handleOutsideClick} style={inlineStyleSVG}>
                 <svg
                   fill="none"
                   viewBox="0 0 24 24"
@@ -97,24 +124,25 @@ export default function Nav() {
           <div className="links-2">
             <ul>
               <a href="#" className="op">
-                <li>Home</li>
+                <li className='clk-on' onClick={handleOutsideClick}>Home</li>
               </a>
               <a href="#Cubes-new" className="op">
-                <li>Cubes</li>
+                <li className='clk-on' onClick={handleOutsideClick}>Cubes</li>
               </a>
-              <a href="#" className="op">
+              <a href="#" className="op" onClick={ShowAbotUs}>
                 <li>About us</li>
               </a>
               <a href="#comunity" className="op">
-                <li>Community</li>
+                <li className='clk-on' onClick={handleOutsideClick}>Community</li>
               </a>
               <a href="#footer" className="op">
-                <li>Contact</li>
+                <li >Contact</li>
               </a>
             </ul>
           </div>
         </div>
-        {/* {useMyaccnt &&  */}
+        
+        {/* {useMyaccnt && 
         <>
                   <div className='corn-box-accnt-top'><br/></div>
 
@@ -129,11 +157,41 @@ export default function Nav() {
           
         </div>
         </>
-        {/* } */}
+        } */}
+
+       
+        
 
        
       </nav>
+
+      {
+        useFullBody &&
+        <>
+
+       <Section1/>
+      <Cubes/>
+      <CubesBestseller/>
+      <Section02/>
+      <Section03/>
+      <Section04/>
+      <Section05/>
+      <Section06/> 
+      
+        </>
+
+
+      }
+
+      
      
+      {
+          useMyAbotUs &&
+          <AboutUs/>
+
+        }
+
+      <Footer/>
       
     </>
   );
