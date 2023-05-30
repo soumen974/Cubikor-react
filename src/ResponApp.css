@@ -1,0 +1,48 @@
+/* Small mobile screens  Portrait orientation */
+@media only screen and (max-width: 480px) {
+    /* CSS rules specific to small mobile screens */
+  }
+  
+  /* Medium mobile screens */
+  @media only screen and (min-width: 481px) and (max-width: 767px) {
+    /* CSS rules specific to medium mobile screens */
+  }
+  
+  /* Large mobile screens */
+  @media only screen and (min-width: 768px) and (max-width: 1023px) {
+    /* CSS rules specific to large mobile screens */
+  }
+  
+
+  /* ------------------------------------------------------------------------------- */
+
+  /* Small mobile screens Landscape orientation */
+@media only screen and (max-width: 767px) {
+    /* CSS rules specific to small mobile screens */
+  }
+  
+  /* Large mobile screens */
+  @media only screen and (min-width: 768px) and (max-width: 1023px) {
+    /* CSS rules specific to large mobile screens */
+  }
+  
+
+
+  /* ----------------------write from here---------------------------------- */
+
+      /* CSS rules specific to small mobile screens */
+
+    @media only screen and (max-width: 480px) {
+      nav{
+        /* display: none; */
+        background-color: white;
+      }
+      .links-2{
+        display: none;
+      }
+      *{
+        background-color: #ffffff;
+        
+    }
+    }
+  

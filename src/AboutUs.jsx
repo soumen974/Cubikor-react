@@ -35,6 +35,7 @@ document.title = 'Redirected Page';
                 
                 <img src={img2} alt=""/>
             </div>
+            <button type='submit'>Join us </button>
 
         </div>
         
@@ -48,19 +49,24 @@ document.title = 'Redirected Page';
                 <div class="abt-img-with-details">
                     <img src={img3} alt=""/>
                     <h4>Soumen Bhunia</h4>
-                    <h6></h6>
+                    <h5>UI/UX designer</h5>
+                    <h5>Full stack developer</h5>
+                    <h5> Product Designer </h5>
+                    
                 </div>
 
                 <div class="abt-img-with-details">
                     <img src={img4} alt=""/>
                     <h4>Souvagya R Dash</h4>
-                    <h6></h6>
+                    <h5>UI/UX designer</h5>
+  
+                   
                 </div>
 
                 <div class="abt-img-with-details">
                     <img src={img5} alt=""/>
                     <h4>Ritesh Das</h4>
-                    <h6></h6>
+                    <h5>UI/UX designer</h5>
                 </div>
                 {/* <div class="abt-img-with-details">
                     <img src="subash-yllo-img.png" alt=""/>

@@ -6,7 +6,15 @@ export default function footer() {
     
     <footer id="footer">
         <hr/>
+        <div className='subscribe-us'>
+                <h2>Subscribe to get notified  </h2>
+                <form>
+                    <input type='text' placeholder='Enter Your Mail '/>
+                    <button type='submit' >Subscribe Us</button>
+                </form>
+            </div>
         <div className="ft-whole">
+            
             <div className="lft-foot-logo">
                 <h2>Cubikor</h2>
                 2023 © Cubikor All rights reserved.
