@@ -18,7 +18,7 @@ export default function Nav() {
   const [useMyAbotUs, setuseMyAbotUs] = useState(false);
   const [useFullBody, setuseFullBody] = useState(true);
   
-
+ 
 
   function MyAccountSVG() {
     setUseMyaccnt(true);
@@ -170,13 +170,13 @@ export default function Nav() {
         <>
 
        <Section1/>
-      <Cubes/>
+      {/* <Cubes/>
       <CubesBestseller/>
       <Section02/>
       <Section03/>
       <Section04/>
       <Section05/>
-      <Section06/> 
+      <Section06/>  */}
       
         </>
 
@@ -191,7 +191,7 @@ export default function Nav() {
 
         }
 
-      <Footer/>
+      {/* <Footer/> */}
       
     </>
   );
