@@ -11,14 +11,15 @@ import Section05 from "./Section05";
 import Section06 from "./Section06";
 import Footer from "./footer";
 import AboutUs from "./AboutUs";
-
+import ContactUs from "./ContactUs";
 export default function Nav() {
   const inlineStyleSVG = { listStyle: 'none' };
   const [useMyaccnt, setUseMyaccnt] = useState(false);
   const [useMyAbotUs, setuseMyAbotUs] = useState(false);
   const [useFullBody, setuseFullBody] = useState(true);
+  const [useContactUs, setuseContactUs] = useState(false);
   
- 
+
 
   function MyAccountSVG() {
     setUseMyaccnt(true);
@@ -28,12 +29,19 @@ export default function Nav() {
     setuseMyAbotUs(true);
     setuseFullBody(false);
   }
+  function ShowContactUs(){
+    setuseMyAbotUs(false);
+    setuseContactUs(true);
+    setuseFullBody(false);
+
+  }
 
   
   function handleOutsideClick(event) {
     if (event.target.classList.contains('clk-on')) {
       setuseMyAbotUs(false);
       setuseFullBody(true);
+      setuseContactUs(false);
     }
   }
 
@@ -135,8 +143,8 @@ export default function Nav() {
               <a href="#comunity" className="op">
                 <li className='clk-on' onClick={handleOutsideClick}>Community</li>
               </a>
-              <a href="#footer" className="op">
-                <li >Contact</li>
+              <a href="#" className="op" onClick={ShowContactUs}>
+                <li >Contact Us</li>
               </a>
             </ul>
           </div>
@@ -170,28 +178,31 @@ export default function Nav() {
         <>
 
        <Section1/>
-      {/* <Cubes/>
+      <Cubes/>
       <CubesBestseller/>
       <Section02/>
       <Section03/>
       <Section04/>
       <Section05/>
-      <Section06/>  */}
+      <Section06/> 
       
         </>
 
 
-      }
-
-      
-     
+      }     
       {
           useMyAbotUs &&
           <AboutUs/>
 
         }
+        {
+          useContactUs &&
+          <ContactUs/>
+        }
 
-      {/* <Footer/> */}
+      
+
+      <Footer/>
       
     </>
   );

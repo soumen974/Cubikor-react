@@ -110,7 +110,9 @@ background-color: #ededed;
 margin-left: -0.55%;
 
 }
-
+.up-logo-srch{
+    display: flex;
+}
 
 .menu{
     position:static;
@@ -276,6 +278,9 @@ color: black;
    
 }
 
+.op-love-mb{
+    display: none;
+}
 .my-account lord-icon:hover + .corn-box-accnt-top + .hover-account-show {
     display: block;
 }
@@ -313,7 +318,7 @@ nav input[type="text"]{
     height: 2px;
     outline: none;
     color: #000000;
-    background: #ffffff;
+    background: #ffffff ;
     border-radius: 7px;
     padding: 14px;
     font-size: 17px;
@@ -355,7 +360,6 @@ nav button{
     height: 560px;
     width: 695px;
     margin-right: -0.05px;
-    
     
 }
 .home-things{

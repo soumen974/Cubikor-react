@@ -25,40 +25,41 @@ export default function CubeNew() {
         <div className="sales-background">
             <div className="sales-tag">
                 
-                <div className="cube-box">
-                     <div className='cube-box-header'>
-                        <div className="cube-tag">New</div>
+            <div className="cube-box">
+                   <div className='cube-box-up'>
+                       <div className='cube-box-header'>
+                          <div className="cube-tag">New</div>
 
                               
                         
-                        <div className='cube-love'>
+                           <div className='cube-love'>
 
-                            <svg
-                              viewBox="0 0 24 24"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              className="feather feather-heart">
-                              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                            </svg> 
+                                <svg
+                                   viewBox="0 0 24 24"
+                                   strokeLinecap="round"
+                                   strokeLinejoin="round"
+                                   className="feather feather-heart">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg> 
                             
-                        </div>
+                             </div>
 
+                        </div>
+                        
+                         <div className="cube-img"><img src={img1} alt="cube"/></div>
                     </div>
-                   
-                    
+
+                    <div className='cube-box-down'>
+                         <div className="cube-caption"><a href="#" className="cube-caption">Drift 3M PLUS 3x3 (Magnetic)</a>  </div>
     
-                    <div className="cube-img"><img src={img1} alt="cube"/></div>
+                        <div className="cube-costs">
+                            <div className="cube-price">$ 149</div>
     
-                    <div className="cube-caption"><a href="#" className="cube-caption">Drift 3M PLUS 3x3 (Magnetic)</a>  </div>
+                             <div className="cube-cut-price"><s>$ 199</s></div>
     
-                    <div className="cube-costs">
-                        <div className="cube-price">$ 149</div>
-    
-                        <div className="cube-cut-price"><s>$ 199</s></div>
-    
-                        <div className="cube-discount">save 13%</div>
-                    </div>
-                    <div className="cube-rating">
+                             <div className="cube-discount">save 13%</div>
+                        </div>
+                        <div className="cube-rating">
                         <svg   
                        
                         viewBox="0 0 24 24"
@@ -93,14 +94,14 @@ export default function CubeNew() {
                           className="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                      </svg>
                      
-                     <svg   
+                       <svg   
                        
                      viewBox="0 0 24 24"
                       stroke="currentColor"
                        stroke-linecap="round"
                         stroke-linejoin="round"
                          className="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                    </svg>
+                      </svg>
                     
                        
 
@@ -114,6 +115,7 @@ export default function CubeNew() {
                     </div>
     
     
+                    </div>
                 </div>
 
                 <div className="cube-box">
@@ -1094,7 +1096,6 @@ export default function CubeNew() {
     
                 </div>
 
-                
 
             </div>
            
