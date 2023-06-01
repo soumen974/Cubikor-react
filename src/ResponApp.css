@@ -35,9 +35,253 @@
     
   
       @media (max-width: 768px) {
-        nav {
-          margin-top: 0;
-          margin-bottom: 10px; 
+        *{
+          text-decoration: none;
+          box-sizing: border-box;
+          font-family: 'Poppins';
+          transition: ease-in-out;
+          scroll-behavior: smooth;
+          background-color: #ffffff;
+
+          
+      }
+      html{
+          background-color: #ededed00;
+          
+      }
+      
+  
+        .section-1{
+          background-color: #ffffff;
+          /* margin-right: -0.55%; */
+          margin-top:-1%; ;
+          /* margin-left: -0.55%; */
+          /* background-position: center; */
+          /* background-attachment: fixed; */
+          /* background-size: cover; */
+          height: 100vh;
+      }
+      .get-cupon{
+         display: none;
+      
+      }
+      
+  
+    
+     
+      nav{
+      overflow:visible;
+      position: -webkit-sticky;
+      position: sticky;
+      z-index: 9999;
+      top: 0;
+      margin-top: -2.5%;
+      background-color: #fffbfb;
+      /* backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px); */
+      /* margin-right: -0.55%; */
+      /* margin-left: -0.55%; */
+      
+      }
+      .up-logo-srch{
+          display: flex;
+      }
+      
+      .menu{
+          position:static;
+          display: inline;
+      }
+      
+      .logo{
+          /* margin-left: 2%; */
+          margin-top: -8%;
+          font-size: 26px;
+          margin-right: 3%;
+          display: flex;
+          color: black;
+      }
+      .logo img {
+      
+         height: 31px;
+         width: 34px;
+         border-radius: 50%;
+         margin-top: 25px;
+         margin-right: 15%;
+         transition: transform .9s ease-in-out;
+          
+      }
+      .logo img:hover {
+          transform: rotate(180deg);
         }
+      .links{
+          margin-left: 80%;
+          font-size: 19px;
+          margin-top: 1%;
+          margin-right: 10%;
+          margin-left: 4%;
+      
+          
+      }
+      .links-2{
+          
+          display: none;
+      }
+     
+      
+      
+      .op-love svg{
+          margin-top: 8px;
+          margin-left: -18px;
+          margin-right: 15px;
+          padding-top: 7px;
+          width:44px;
+          height:44px;
+          fill:#FD0404;
+             stroke-width:1px;
+      
+      }
+      .op-love svg :hover{
+          animation: heartbeat 3s infinite;
+          padding-top: 1px;
+      
+      
+      }
+      
+      
+      .op-bag svg{
+         display: none;
+      }
+      .links ul li{
+          display: inline-flex;
+      }
+      
+      .links-2 ul li{
+          display: inline-flex;
+          justify-content: space-around;
+          padding: 1px;
+          max-width: 100%;
+      }
+      
+      .entry{
+      
+       display:flexbox;
+       margin-top: -1%;
+       padding: 5px;
+       font-size: 17px;
+       margin-left :13% ;
+       
+      }
+      .log h4{
+    display: none;
+      }
+     
+      .sign h4{
+         display: none;
+      }
+      
+      
+      .my-account lord-icon{
+        display: none;
+          margin-left: -12px;
+          margin-top: 44%;
+          background-color: #ffffff;
+          border-radius: 50%;
+         font-weight: lighter;
+         width: 100px;
+         height : 100px;
+         cursor: pointer;
+         
+      }
+      
+      .op-love-mb{
+          display: none;
+      }
+      
+      
+      .hover-account-show{
+       display: none;
+       margin-top: 22px;
+       margin-left: 1310px;
+       position:fixed;
+       overflow:hidden;
+       border: 1px solid none;
+       border-radius: 10px;
+       background-color: white;
+       padding: 50px;
+      text-align:center;
+       max-width: 10%;
+      }
+      
+      
+    
+      nav input[type="text"]{
+          
+          width: 450px; 
+          height: 65px;
+          outline: none;
+          color: #000000;
+          background: #ffffff ;
+          border-radius: 7px;
+          padding: 14px;
+          font-size: 17px;
+          border: 2px solid rgb(255, 255, 255);
+          margin-top: 12px;
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.17);
+      }
+      nav ::placeholder {
+          color: #000000; 
+          font-weight: lighter;
+        }
+      nav button{
+          margin-left: -13%;
+          height: 33px;
+          font-size: 22px;
+          outline: none;
+          border-radius: 7px;
+          letter-spacing: 1px;
+          cursor: pointer;
+          margin-top: 12px;
+          border: 2px solid rgba(0, 0, 0, 0);
+          background-color: #3165f400;
+          padding: 10px;
+          /* transition: all 0.3s ease-in-out; */
+      }
+      .sec-br svg {
+          color: rgb(0, 0, 0);
+          width:33px;
+          height:33px; 
+           fill:none;
+          stroke-width:2px;
+          margin-bottom: 10px;
+          margin-top: 3px;
+          background-color: transparent;
+
+      }
+      
+      
+      .hm-rgt img{
+          display: none;
+          
+      }
+      .home-things{
+          display: flex;
+      }
+      
+      .hm-lft{
+          margin-left: 10.2%;
+          margin-top: 5%;
+      }
+      .hm-rgt{
+          margin-top:1%;
+      
+          margin-left: 3%;
+      }
+      .search{
+          display: flex;
+          margin-top: 0.2%;
+          margin-left: 15%;
+      }
+      
+
       }
     

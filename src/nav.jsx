@@ -178,13 +178,13 @@ export default function Nav() {
         <>
 
        <Section1/>
-      <Cubes/>
+      {/* <Cubes/>
       <CubesBestseller/>
       <Section02/>
       <Section03/>
       <Section04/>
       <Section05/>
-      <Section06/> 
+      <Section06/>  */}
       
         </>
 
@@ -202,7 +202,7 @@ export default function Nav() {
 
       
 
-      <Footer/>
+      {/* <Footer/> */}
       
     </>
   );
