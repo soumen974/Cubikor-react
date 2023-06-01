@@ -12,7 +12,7 @@ import Section06 from "./Section06";
 import Footer from "./footer";
 import AboutUs from "./AboutUs";
 import ContactUs from "./ContactUs";
-// import LoginPage from "./LoginPage";
+import LoginPage from './LoginPage';
 
 export default function Nav() {
   const inlineStyleSVG = { listStyle: 'none' };
@@ -20,7 +20,9 @@ export default function Nav() {
   const [useMyAbotUs, setuseMyAbotUs] = useState(false);
   const [useFullBody, setuseFullBody] = useState(true);
   const [useContactUs, setuseContactUs] = useState(false);
-  
+  const [useLoginShow, setuseLoginShow] = useState(false);
+  const [useSignUpShow, setuseSignUpShow] = useState(false);
+
 
 
   function MyAccountSVG() {
@@ -38,10 +40,10 @@ export default function Nav() {
 
   }
   function LoginShow(){
-
+    setuseLoginShow(true);
   }
   function SignUpShow(){
-    
+    setuseSignUpShow(true);
   }
 
   
@@ -51,6 +53,11 @@ export default function Nav() {
       setuseFullBody(true);
       setuseContactUs(false);
     }
+  }
+
+  function CutShowLog(event){
+      setuseLoginShow(false);
+
   }
 
   return (
@@ -109,13 +116,13 @@ export default function Nav() {
           </div>
 
           <div className="entry">
-            <a href="#">
+            <a >
               <div className="log" onClick={LoginShow}>
                 <h4>Log in</h4>
               </div>
             </a>
 
-            <a href="#">
+            <a >
               <div className="sign" onClick={SignUpShow}>
                 <h4>Sign up</h4>
               </div>
@@ -181,6 +188,27 @@ export default function Nav() {
        
       </nav>
 
+      {/* this is for only showing the contact us page */}
+      {
+          useContactUs &&
+          <ContactUs/>
+        }
+
+        {/* this is for login page showing  */}
+
+        {
+          useLoginShow && 
+          <>
+          <LoginPage/>
+          <div className='cut-show' onClick={CutShowLog}>
+              <svg   x="0" y="0" version="1.1" viewBox="0 0 29 29" ><path d="M14.637 27.065a12.457 12.457 0 0 1-8.838-3.655c-4.874-4.874-4.874-12.804 0-17.678a12.419 12.419 0 0 1 8.839-3.662c3.339 0 6.478 1.3 8.838 3.662 2.361 2.361 3.662 5.5 3.662 8.839s-1.3 6.478-3.662 8.839a12.46 12.46 0 0 1-8.839 3.655zm.001-22.995a10.428 10.428 0 0 0-7.425 3.076c-1.983 1.983-3.075 4.62-3.075 7.425s1.092 5.441 3.075 7.425c4.094 4.094 10.756 4.095 14.849 0 1.983-1.983 3.076-4.62 3.076-7.425s-1.092-5.441-3.076-7.425a10.432 10.432 0 0 0-7.424-3.076z"></path><path d="M10.395 19.813a.999.999 0 0 1-.707-1.707l8.485-8.485a.999.999 0 1 1 1.414 1.414l-8.485 8.485a.993.993 0 0 1-.707.293z"></path><path d="M18.88 19.813a.997.997 0 0 1-.707-.293l-8.485-8.485a.999.999 0 1 1 1.414-1.414l8.485 8.485a.999.999 0 0 1-.707 1.707z"></path></svg>
+       </div>
+          </>
+        }
+        
+
+      
+      {/* this is for full home page */}
       {
         useFullBody &&
         <>
@@ -196,20 +224,16 @@ export default function Nav() {
       
         </>
 
-
       }     
-      {
+
+        {/*this is to show only about us page*/}
+        {
           useMyAbotUs &&
           <AboutUs/>
 
         }
-        {
-          useContactUs &&
-          <ContactUs/>
-        }
 
       
-
       <Footer/>
       
     </>

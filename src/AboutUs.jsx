@@ -42,7 +42,7 @@ document.title = 'Redirected Page';
     </section>
 
     <section class="abt-team">
-        <dic class="abt-team-back">
+        <div class="abt-team-back">
             <h1>Team</h1>
             <h6>Meet the people behind our project</h6>
             <div class="abt-images">
@@ -77,7 +77,7 @@ document.title = 'Redirected Page';
                 
                 
             </div>
-        </dic>
+        </div>
     </section>
 
     </>

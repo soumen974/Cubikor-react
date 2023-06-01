@@ -5,7 +5,7 @@ export default function Section04() {
     <>
     
     <section className="section-4">
-        <dic className="whole-s4">
+        <div className="whole-s4">
             <div className="lft-s4">
                 <h4>Costsaver</h4>
                 <h2>Experience the unparalleled smoothness and speed of our cutting -edge cubes.</h2>
@@ -36,7 +36,7 @@ export default function Section04() {
             <div className="rgt-s4">
                 <img src={img1} alt=""/>
             </div>
-        </dic>
+        </div>
     </section>
 
     </>

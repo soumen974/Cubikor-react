@@ -3,6 +3,7 @@ import './App.css';
 import './AboutUs.css'
 import './ContactUs.css'
 import './ResponApp.css'
+import './loginPageStyle.css'
 
 import Navbar from "./nav";
 
