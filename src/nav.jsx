@@ -12,6 +12,8 @@ import Section06 from "./Section06";
 import Footer from "./footer";
 import AboutUs from "./AboutUs";
 import ContactUs from "./ContactUs";
+// import LoginPage from "./LoginPage";
+
 export default function Nav() {
   const inlineStyleSVG = { listStyle: 'none' };
   const [useMyaccnt, setUseMyaccnt] = useState(false);
@@ -34,6 +36,12 @@ export default function Nav() {
     setuseContactUs(true);
     setuseFullBody(false);
 
+  }
+  function LoginShow(){
+
+  }
+  function SignUpShow(){
+    
   }
 
   
@@ -102,13 +110,13 @@ export default function Nav() {
 
           <div className="entry">
             <a href="#">
-              <div className="log">
+              <div className="log" onClick={LoginShow}>
                 <h4>Log in</h4>
               </div>
             </a>
 
             <a href="#">
-              <div className="sign">
+              <div className="sign" onClick={SignUpShow}>
                 <h4>Sign up</h4>
               </div>
             </a>
@@ -178,13 +186,13 @@ export default function Nav() {
         <>
 
        <Section1/>
-      {/* <Cubes/>
+      <Cubes/>
       <CubesBestseller/>
       <Section02/>
       <Section03/>
       <Section04/>
       <Section05/>
-      <Section06/>  */}
+      <Section06/> 
       
         </>
 
@@ -202,7 +210,7 @@ export default function Nav() {
 
       
 
-      {/* <Footer/> */}
+      <Footer/>
       
     </>
   );

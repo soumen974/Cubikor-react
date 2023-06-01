@@ -904,18 +904,19 @@ margin-left: 20%;
     margin-right: 14%;
     padding-left: 5%;
     border-radius: 16px;
-    background-color: #F2F2F2;
+    background-color: #04F06A;
     height: 114vh;
     box-shadow: 0px 0 14px #0000001c;
 
 }
 .whole-s5-2{
     display: flex;
-    border: 1px solid rgb(255, 255, 255);
+    border: 1px solid ;
+    border-color: transparent;
     margin-left: -11%;
     margin-right: -4%;
     border-radius: 16px;
-    background-color: #fff;
+    background-color: #3164F4;
     height: 110vh;
     box-shadow: 0px 0 14px #0000001c;
    
@@ -925,7 +926,8 @@ margin-left: 20%;
     max-width: 525px;
     font-size: 16px;
     line-height: 24px;
-    color: gray;
+    color: rgba(255, 255, 255, 0.799);
+
 }
 
 .lft-s5 img{
@@ -940,7 +942,7 @@ margin-left: 20%;
 .lft-s5 h2{
     font-size: 48px;
     /* margin-left: 2%; */
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
 
     max-width: 500px;
     line-height: 60px;
@@ -948,6 +950,8 @@ margin-left: 20%;
 }
 
 .lft-s5 h3{
+    color: rgba(0, 0, 0, 0.715);
+
     margin-top:-4%;
     font-size: 21px;
     line-height: 25px;
@@ -974,22 +978,27 @@ margin-left: 20%;
 .rgt-s5{
     margin-left: 5%;
     margin-top: 7%;
+    
 }
 .st-1{
-  margin-top: 17%;
+  margin-top: 10%;
 }
 .st-1 h2{
     margin-top: -6px;
     font-size: 32px;
+    color: white;
+
 }
 .st-1 h4{
-    font-size: 16px;
+    color: #04F06A;
+    font-weight: lighter;
+    font-size: 19px;
     margin-bottom: 13%;
     max-width: 280px;
 }
 .st-1 hr{
      width:456px;
-    border:2px solid #d9d9d9a2;
+    border:2px solid #0000005e;
     border-radius: 6px;
 }
 .section-6{
@@ -1222,15 +1231,48 @@ margin-left: 20%;
   .lft-foot-nav{
     margin-top: 2%;
   }
+
+  .mid-foot-social{
+    margin-top: 3%;
+  }
     .mid-foot-social ul li {
     text-decoration: none;
         list-style: none;
-        line-height: 1.8;
+        line-height: 2;
         color: black;
         font-size: 18px;
 
 
   }
+  .mid-foot-social svg{
+    width:27px;
+    height:27px;
+  }
+
+  .mid-foot-social svg:hover{
+    fill:#1877F2;
+
+  }
+ 
+  .mid-foot-social .instagram-icon:hover {
+    fill: #E4405F;
+    transition: fill 0.9s ease;
+    animation: gradientEffect 3s infinite;
+  }
+  
+  @keyframes gradientEffect {
+    0% {
+      fill: #E4405F;
+    }
+    50% {
+      fill: #FF9D44;
+    }
+    100% {
+      fill: #E4405F;
+    }
+  }
+  
+  
     .rgt-foot-toc ul li {
         text-decoration: none;
             list-style: none;
