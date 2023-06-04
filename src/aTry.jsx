@@ -98,7 +98,8 @@ export default function () {
     
     
                     </div>
-                </div>                 
+                </div>      
+                           
                 <div className="Try-cube-box">
                    <div className='Try-cube-box-up'>
                        <div className='Try-cube-box-header'>

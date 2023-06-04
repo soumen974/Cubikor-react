@@ -513,7 +513,7 @@ margin-top:-5%;
     
 }
 .cube-box{
-    background-color: white;
+    /* background-color: white; */
     border-radius: 0px;
     max-width: 100%;
     max-height: 100%;
@@ -1305,5 +1305,208 @@ margin-left: 20%;
          border-radius: 10px;
     }
 
- 
-.try-body{}
+ /* ----------------------------------------- */
+.try-body{
+    display: inline-flex;
+    margin-left: 30rem;
+}
+.Try-cube-box{
+    /* justify-content: space-between; */
+    border-radius: 0px;
+    max-width: 100%;
+    max-height: 100%;
+    /* border: 1px solid #0000007a; */
+    padding: 5px;
+    
+}
+.Try-cube-box:hover    .Try-cube-img img  {
+    box-shadow: 0 4px 22px rgba(0, 0, 0, 0.116);
+}
+.Try-cube-box:hover  .Try-cube-box-up {
+    /* box-shadow: 0 0 4px black; */
+    /* transform: scale(1.2); */
+    transform: translateY(-55%);
+
+}
+.Try-cube-box:hover  .Try-cube-love svg{
+    display: none;
+    
+
+}
+.Try-cube-box:hover{
+    margin-top: 4.12%;
+}
+
+
+.Try-hover-show-thing{
+    display: none;
+}
+
+.Try-cube-box:hover  .Try-hover-show-thing  {
+    /* box-shadow: 0 0 4px black; */
+    display: flex;
+    padding: 2px;
+    justify-content: space-between;
+    margin-top:-50% ;
+    transition: transform 0.3s ease;
+
+}
+
+.Try-cube-love svg{
+    display: none;
+
+    height: 1rem;
+    width: 1rem;
+
+}
+.Try-hover-show-thing-box-1{
+    position:static;
+    border: 2px solid rgba(255, 166, 0, 0);
+    background-color: #F9C80E;;
+    color: black;
+    border-radius: 6px;
+    padding: 7px;
+    margin-bottom: 6px;
+    text-align: center;
+    cursor: pointer;
+    transform: translateY(55%);
+    transition: transform 0.3s ease;
+
+
+}
+.Try-cube-box:hover  .Try-hover-show-thing-box-1{
+    transform: translateY(0%);
+
+}
+.Try-hover-show-thing-box-2{
+    position:static;
+
+    border: 2px solid rgba(255, 166, 0, 0);
+    background-color: #FD0404;
+    color: white;
+    border-radius: 6px;
+    padding: 7px;
+    margin-bottom: 6px;
+    text-align: center;
+    cursor: pointer;
+    transform: translateY(55%);
+    transition: transform 0.1s ease;
+}
+
+.Try-cube-box:hover  .Try-hover-show-thing-box-2{
+    transform: translateY(0%);
+
+}
+
+.Try-cube-box-up{
+    width: 100%;
+    /* height: 100%; */
+    transition: transform 0.3s ease;
+    padding: 10px;
+    margin-bottom: .1rem;
+}
+.Try-cube-box-down{
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.16);
+    /* padding: 1px; */
+    border-radius: 6px;
+    margin-left: 0.5rem;
+    width: 210px;
+    padding-top: 5%;
+}
+
+.Try-cube-box:hover .Try-cube-box-down{
+    margin-top: 0.25rem;
+}
+.Try-cube-box-header{}
+.Try-cube-tag{
+    position: relative;
+    background-color: #04F06A;
+    max-width: 60px;
+    /* padding-left: 12px; */
+    text-align: center;
+    margin-bottom: -15px;
+    margin-left: 0.01rem;
+    transition: transform 0.3s ease;
+
+}
+
+.Try-cube-img img {
+    height:13rem;
+    width: 13rem;
+    border-radius: 6px;
+    /* margin-left: -9.3%; */
+    margin-top: -6%;
+    margin-bottom: -8%;
+    /* border: 1px solid; */
+    transition: transform 0.3s ease;
+
+}
+.Try-cube-caption{
+    font-size: 13px;
+    max-width: 100%;
+    margin-left: 5%;
+    text-decoration: underline;
+    color: #0044ff;
+}
+.Try-cube-costs{
+    display: inline-flex;
+    justify-content: space-around;
+    padding: 9px 5px 5px 15px;
+    margin-left: 2px;
+}
+.Try-cube-price{
+    background-color: #FF4B3E;
+    color: white;
+    max-height: 25px;
+    max-width: 90px;
+    padding: 0 5px 0 12px ;
+}
+.Try-cube-discount{
+    border:1px solid ;
+    color:#FF4B3E;
+    border-radius: 3px;
+    font-size: 12px;
+    max-height: 25px;
+    max-width: 90px;
+    padding: 2px 2px 0 2px ;
+    margin-left: -20%;
+}
+
+.Try-cube-rating {
+    margin-left: 8%;
+
+}
+.Try-cube-rating svg{
+    height: 14px;
+    width: 15px;
+    fill:#3164F4;
+    color: #3164F4;
+}
+.Try-cube-stock{
+    margin-left: 9%;
+    margin-bottom: 4%;
+    margin-top: -4.3%;
+    color: #04F06A;
+    font-size: 15px;
+}
+.hover-show-thing{
+    display: none;
+}
+.Try-cube-stock-dot{
+    font-size: 22px;
+
+}
+.Try-cube-cut-price{
+    font-size: 14px;
+    margin-right: 60px;
+    text-decoration: line-through;
+    color: rgba(0, 0, 0, 0.492);
+}
+
+
+.Try-hover-show-thing-box-1{
+}
+.Try-hover-show-thing-box-2{}
+.Try-cube-stock-dot{}
+.Try-cube-cut-price{}

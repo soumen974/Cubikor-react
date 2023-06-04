@@ -34,6 +34,8 @@ export default function Nav() {
     setuseMyAbotUs(true);
     setuseFullBody(false);
     setuseLoginShow(false);
+    setuseContactUs(false);
+
   }
   function ShowContactUs(){
     setuseMyAbotUs(false);
@@ -238,7 +240,7 @@ export default function Nav() {
        <Section1/>
        {/* <ATry/> */}
       <Cubes/>
-      <CubesBestseller/>
+      {/* <CubesBestseller/> */}
       <Section02/>
       <Section03/>
       <Section04/>
