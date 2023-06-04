@@ -17,6 +17,7 @@ export default function ContactUs() {
                             <input type='text/name'placeholder='Full Name'/>
                             <br/>
                             <label >Email</label>
+                            
                             <br/>
                             <input type='text/Email'placeholder='Email address'/>
                             <br/>

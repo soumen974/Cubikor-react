@@ -25,6 +25,7 @@ export default function home() {
              </div>
  
              <div className="hm-rgt">
+                
  
                  <div className="right-img">
                    <img src={ToprightImg} />

@@ -39,33 +39,32 @@ export default function LoginPage() {
 
   return (
     <>
-    <div className='log-body'>
+<div className='log-body'>
      
   
+
   <div className="login-box">
-  
-       
       <div className="header"><h2>Welcome Back</h2></div>
       <div className="login-card">
           <form >
               <div className="email-box">
-                  <input type="email" className="e-box" for="email" placeholder="Enter Your Email or Mobile Number"  id="email" name="email" required/>
+                  <input type="email" className="e-box" htmlFor="email" placeholder="Enter Your Email or Mobile Number"  id="email" name="email" required/>
                   <label className="email-lb">Email /Mobile Number</label>
               </div>
               <div className="password-box">
-                  <input type="password" className="p-box"for="password" placeholder="Enter your password" id="password" name="password" required/>
+                  <input type="password" className="p-box"htmlFor="password" placeholder="Enter your password" id="password" name="password" required/>
                   <label className="password-lb">Password</label>     
               </div>
               <input type="submit" value="Log in" onClick={validateForm}/>
               <div className="new-user-box">
-                  <a href="#" > <h4>New user?</h4></a>
+                  <a href="signup_page.html" target="_blank"> <h4>New user?</h4></a>
                   <h5>Forget your password</h5>
               </div>
           </form>
           
       </div>
-     
   </div>
+
 </div>
     </>
   );

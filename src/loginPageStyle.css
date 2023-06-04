@@ -1,44 +1,33 @@
-
 .log-body{
-    
-    /* background-image: url(images-app/login-back.jpg); */
-  
-    /* display: none; */
-    overflow:visible;
-position: -webkit-sticky;
-position: sticky;
-z-index: 9999;
-top: 22%;
-margin-top: 9%;
+    /* background-color: rgba(0, 0, 0, 0.539); */
+    /* height: 100vh; */
+    /* width: 100%; */
+    /* margin-bottom: -4%; */
+    /* position: fixed; */
+    /* padding: 100px; */
 }
 
+
+
+img.whole-back{
+    position: absolute;
+    background-size: 80%;
+    left: 0px;
+    top: 0px;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    -webkit-filter: blur(5px);
+}
 .login-box{
     border: 2px solid rgba(0, 0, 0, 0);
-    margin: -5px 540px -40.88% 550px;
+    margin: 100px 540px 0px 550px;
     padding: 18px; 
-    padding-bottom: 5px; 
+    padding-bottom: 55px; 
     border-radius: 10px;
     position: relative;
-    backdrop-filter: blur(8px) brightness(92%) ;
-    
+    backdrop-filter: blur(2px) brightness(92%) ;
 
-}
-.cut-show svg{
-    height: 33px;
-    width: 33px;
-    /* display: none; */
-    margin-left: 49%;
-    margin-top: 42%;
-    cursor: pointer;
-    position: fixed;
-}
-.cut-show svg:hover{
-    height: 33px;
-    width: 33px;
-    /* display: none; */
-    fill: red;
-    filter:drop-shadow(0 0 12px red);
-    /* margin-left: 45%; */
 }
                                                   /* header */
 .header{
@@ -148,7 +137,7 @@ input[type= email]{
     transition: top 250ms ease-in, left 250ms ease-in, 
     font-size 250ms ease-in ;    
 }
-input[type= password]{
+ input[type= password]{
     margin-top: 5%;
 
     position: relative;
@@ -218,7 +207,7 @@ input[type= password]{
 
 
                                               /* button box css*/
-input[type=submit]{
+ input[type=submit]{
     margin-top: 30px;
     height: 40px;
     padding: 9px;
@@ -232,7 +221,7 @@ input[type=submit]{
     color: white;
     cursor: pointer;
 }
-input[type=submit]:hover{
+ input[type=submit]:hover{
     background-color: blue;
 }
 
@@ -243,23 +232,29 @@ input[type=submit]:hover{
     justify-content: space-between;
 
 }
-h4{
+.log-body h4{
     color: #3164F4;
     text-decoration: none;
 }
-h4:hover{
+.log-body h4:hover{
     cursor: pointer;
     color: blue;
 }
-h5{
+v.log-body h5{
     margin-top: 28px;
     color: #272530;
     font-size: 16px;
 
 }
-h5:hover{
+.log-body h5:hover{
     cursor: pointer;
     color: rgb(62, 58, 58);
     text-decoration: underline;
 }
-
+.cut-show{
+    margin-top: -7rem;
+    position: static;
+}
+.cut-show:hover{
+    filter: drop-shadow(0 0 52rem red);
+}

@@ -38,6 +38,7 @@ export default function CubeBestSell() {
                     <div className="cube-rating">
                         <svg   
                        
+                       
                         viewBox="0 0 24 24"
                          stroke="currentColor"
                           strokeLinecap="round"
