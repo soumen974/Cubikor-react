@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import logoCube from './images-app/page-logo.jpg';
 import Section1 from "./home";
@@ -26,9 +26,20 @@ export default function Nav() {
 
 
 
-  function MyAccountSVG() {
-    setUseMyaccnt(true);
-  }
+
+  useEffect(() => {
+    function handleMyAccountClick() {
+      setUseMyaccnt(true);
+    }
+
+    const myAccountElement = document.querySelector('.my-account');
+    myAccountElement.addEventListener('click', handleMyAccountClick);
+
+    return () => {
+      myAccountElement.removeEventListener('click', handleMyAccountClick);
+    };
+  }, []);
+  
 
   function ShowAbotUs(){
     setuseMyAbotUs(true);
@@ -67,6 +78,8 @@ export default function Nav() {
       setuseLoginShow(false);
 
   }
+
+ 
 
   return (
     <div>
@@ -136,7 +149,7 @@ export default function Nav() {
               </div>
             </a>
 
-            <div className="my-account" onClick={MyAccountSVG}>
+            <div className="my-account">
               <Helmet>
                 <script src="https://cdn.lordicon.com/ritcuqlt.js" />
               </Helmet>
@@ -146,11 +159,9 @@ export default function Nav() {
                 state="hover"
               />
             </div>
-            
-
-            
           </div>
         </div>
+        
         <div className="link-bar">
           <div className="links-2">
             <ul>
@@ -240,7 +251,7 @@ export default function Nav() {
        <Section1/>
        {/* <ATry/> */}
       <Cubes/>
-      {/* <CubesBestseller/> */}
+      <CubesBestseller/>
       <Section02/>
       <Section03/>
       <Section04/>

@@ -27,6 +27,7 @@
     width: 610px;
     margin-top: -25%;
     margin-bottom: -1%;
+    filter:drop-shadow(-1.2rem -0.3rem  0.5rem rgba(0, 0, 0, 0.411) );
 }
 .contactingUs-details {
     margin-left: 5%;
@@ -89,5 +90,9 @@
     margin-top: 5%;
     /* margin-bottom: 10%; */
     font-size: 16px;
+
+}
+.contactingUs-details button:hover{
+    background-color: #04f06ad9;
 
 }

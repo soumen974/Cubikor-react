@@ -46,7 +46,7 @@ export default function CubeNew() {
 
                         </div>
                         
-                         <div className="Try-cube-img"><img src={img12} alt="Try-cube"/></div>
+                         <div className="Try-cube-img"><img src={img1} alt="Try-cube"/></div>
                     </div>
 
                     <div className='Try-hover-show-thing'>
@@ -141,7 +141,7 @@ export default function CubeNew() {
 
                         </div>
                         
-                         <div className="Try-cube-img"><img src={img1} alt="Try-cube"/></div>
+                         <div className="Try-cube-img"><img src={img2} alt="Try-cube"/></div>
                     </div>
 
                     <div className='Try-hover-show-thing'>
@@ -235,7 +235,7 @@ export default function CubeNew() {
 
                         </div>
                         
-                         <div className="Try-cube-img"><img src={img1} alt="Try-cube"/></div>
+                         <div className="Try-cube-img"><img src={img3} alt="Try-cube"/></div>
                     </div>
                     <div className='Try-hover-show-thing'>
                         
@@ -328,7 +328,7 @@ export default function CubeNew() {
 
                         </div>
                         
-                         <div className="Try-cube-img"><img src={img1} alt="Try-cube"/></div>
+                         <div className="Try-cube-img"><img src={img4} alt="Try-cube"/></div>
                     </div>
                     
                     <div className='Try-hover-show-thing'>
@@ -423,7 +423,7 @@ export default function CubeNew() {
 
                         </div>
                         
-                         <div className="Try-cube-img"><img src={img1} alt="Try-cube"/></div>
+                         <div className="Try-cube-img"><img src={img5} alt="Try-cube"/></div>
                     </div>
                     <div className='Try-hover-show-thing'>
                         
@@ -517,7 +517,7 @@ export default function CubeNew() {
 
                         </div>
                         
-                         <div className="Try-cube-img"><img src={img1} alt="Try-cube"/></div>
+                         <div className="Try-cube-img"><img src={img6} alt="Try-cube"/></div>
                     </div>
                     <div className='Try-hover-show-thing'>
                         
@@ -591,6 +591,10 @@ export default function CubeNew() {
                 </div>  
            </div>
 
+           <br/>
+          
+           
+
            <div className="sales-tag">
                 
                 <div className="Try-cube-box">
@@ -614,7 +618,7 @@ export default function CubeNew() {
     
                             </div>
                             
-                             <div className="Try-cube-img"><img src={img1} alt="Try-cube"/></div>
+                             <div className="Try-cube-img"><img src={img7} alt="Try-cube"/></div>
                         </div>
                         <div className='Try-hover-show-thing'>
                         
@@ -713,7 +717,7 @@ export default function CubeNew() {
     
                             </div>
                             
-                             <div className="Try-cube-img"><img src={img1} alt="Try-cube"/></div>
+                             <div className="Try-cube-img"><img src={img8} alt="Try-cube"/></div>
                         </div>
                         <div className='Try-hover-show-thing'>
                         
@@ -811,7 +815,7 @@ export default function CubeNew() {
     
                             </div>
                             
-                             <div className="Try-cube-img"><img src={img1} alt="Try-cube"/></div>
+                             <div className="Try-cube-img"><img src={img9} alt="Try-cube"/></div>
                         </div>
                         <div className='Try-hover-show-thing'>
                         
@@ -910,7 +914,7 @@ export default function CubeNew() {
     
                             </div>
                             
-                             <div className="Try-cube-img"><img src={img1} alt="Try-cube"/></div>
+                             <div className="Try-cube-img"><img src={img10} alt="Try-cube"/></div>
                         </div>
                         <div className='Try-hover-show-thing'>
                         
@@ -1009,7 +1013,7 @@ export default function CubeNew() {
     
                             </div>
                             
-                             <div className="Try-cube-img"><img src={img1} alt="Try-cube"/></div>
+                             <div className="Try-cube-img"><img src={img11} alt="Try-cube"/></div>
                         </div>
 
                         <div className='Try-hover-show-thing'>
@@ -1109,7 +1113,7 @@ export default function CubeNew() {
     
                             </div>
                             
-                             <div className="Try-cube-img"><img src={img2} alt="Try-cube"/></div>
+                             <div className="Try-cube-img"><img src={img12} alt="Try-cube"/></div>
                         </div>
                         <div className='Try-hover-show-thing'>
                         

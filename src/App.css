@@ -85,7 +85,6 @@ html{
     font-size: 22px;
     border: 1px solid rgba(0, 0, 0, 0);
     background-color: #04F06A;
-    /* border-radius: 8px; */
     text-align: left;
     padding: 12px 158px 2px 162px ;
     transform: rotate(270deg);
@@ -93,6 +92,11 @@ html{
     color: black;
     margin-top:10% ;
     margin-bottom:10% ;
+
+    /* margin-top: 0;
+    margin-bottom: 0;
+    height: min-content;
+    transform: rotate(270deg); */
 
 
 }
@@ -673,11 +677,17 @@ margin-top:-5%;
 .cube-tag-02{
     background-color: #FF4B3E;
     color: white;
-    max-width: 109px;
-    padding-left: 7px;
-    margin-top: 5%;
+    position: static;
+    max-width: 100px;
+    padding-left: 8px; 
+    padding-right: 8px;
+    font-weight: lighter;
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: -15px;
+    margin-left: 0.01rem;
+    transition: transform 0.3s ease;
 }
-
 .section-2{
     background-color: #EDEDED;
     /* margin-top: -5%; */
@@ -1305,7 +1315,10 @@ margin-left: 20%;
          border-radius: 10px;
     }
 
- /* ----------------------------------------- */
+ /* ---------------------- this is the cube  section's updated code------------------- */
+
+
+
 .try-body{
     display: inline-flex;
     margin-left: 30rem;
@@ -1329,8 +1342,13 @@ margin-left: 20%;
 
 }
 .Try-cube-box:hover  .Try-cube-love svg{
-    display: none;
-    
+    /* display: block; */
+    position: relative;
+    fill: red;
+    margin-top: 1.2rem;
+    height: 1.7rem;
+    width: 1.7rem;
+    padding: 1px;
 
 }
 .Try-cube-box:hover{
@@ -1354,10 +1372,6 @@ margin-left: 20%;
 
 .Try-cube-love svg{
     display: none;
-
-    height: 1rem;
-    width: 1rem;
-
 }
 .Try-hover-show-thing-box-1{
     position:static;
@@ -1373,6 +1387,14 @@ margin-left: 20%;
     transition: transform 0.3s ease;
 
 
+}
+
+.Try-hover-show-thing-box-1:hover{
+    box-shadow: 0 0.2rem 0rem #1876f295;
+    transition: ease-in-out 0.1s;
+}
+.Try-hover-show-thing-box-1:active{
+    box-shadow: 0 0rem 0rem rgba(0, 0, 0, 0.332);
 }
 .Try-cube-box:hover  .Try-hover-show-thing-box-1{
     transform: translateY(0%);
@@ -1391,6 +1413,14 @@ margin-left: 20%;
     cursor: pointer;
     transform: translateY(55%);
     transition: transform 0.1s ease;
+}
+
+.Try-hover-show-thing-box-2:hover{
+    box-shadow: 0 0rem 0.6em #fd040495;
+    transition: ease-in-out 0.1s;
+}
+.Try-hover-show-thing-box-2:active{
+    box-shadow: 0 0rem 0rem #FD0404;
 }
 
 .Try-cube-box:hover  .Try-hover-show-thing-box-2{
@@ -1418,12 +1448,20 @@ margin-left: 20%;
 .Try-cube-box:hover .Try-cube-box-down{
     margin-top: 0.25rem;
 }
-.Try-cube-box-header{}
-.Try-cube-tag{
+.Try-cube-box-header{
+    display: flex;
+    /* margin-bottom: -1rem; */
+    justify-content: space-between;
     position: relative;
+}
+.Try-cube-tag  {
+
+    position: static;
     background-color: #04F06A;
     max-width: 60px;
-    /* padding-left: 12px; */
+    padding: 3px;
+    font-weight: lighter;
+    font-size: 1rem;
     text-align: center;
     margin-bottom: -15px;
     margin-left: 0.01rem;
