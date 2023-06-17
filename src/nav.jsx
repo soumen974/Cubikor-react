@@ -206,9 +206,7 @@ export default function Nav() {
 
        
       </nav>
-
-     
-
+      
         {/* this is for login page showing  */}
 
         {
