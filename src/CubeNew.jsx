@@ -32,6 +32,7 @@ export default function CubeNew() {
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
             CubeDiscount='save 13%'
+            StockUpdate='In stock'
           />
 
           <CubeBox imgSrc={img2} 
@@ -40,6 +41,7 @@ export default function CubeNew() {
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
             CubeDiscount='save 13%'
+            StockUpdate='In stock'
           />
 
           <CubeBox imgSrc={img3} 
@@ -48,6 +50,7 @@ export default function CubeNew() {
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
             CubeDiscount='save 13%'
+            StockUpdate='In stock'
           />
 
           <CubeBox imgSrc={img4} 
@@ -56,6 +59,7 @@ export default function CubeNew() {
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
             CubeDiscount='save 13%'
+            StockUpdate='In stock'
           />
 
           <CubeBox imgSrc={img5 } 
@@ -64,6 +68,7 @@ export default function CubeNew() {
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
             CubeDiscount='save 13%'
+            StockUpdate='In stock'
           />
 
          <CubeBox imgSrc={img6} 
@@ -72,17 +77,14 @@ export default function CubeNew() {
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
             CubeDiscount='save 13%'
+            StockUpdate='In stock'
           />
-
-
-
              
            </div>
 
            <br/>
           
-           
-
+          
            <div className="sales-tag">
                 
            <CubeBox imgSrc={img7} 
@@ -91,6 +93,7 @@ export default function CubeNew() {
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
             CubeDiscount='save 13%'
+            StockUpdate='In stock'
           />
           
           <CubeBox imgSrc={img8} 
@@ -99,6 +102,7 @@ export default function CubeNew() {
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
             CubeDiscount='save 13%'
+            StockUpdate='In stock'
           />
           
           <CubeBox imgSrc={img9} 
@@ -107,6 +111,7 @@ export default function CubeNew() {
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
             CubeDiscount='save 13%'
+            StockUpdate='In stock'
           />
 
           <CubeBox imgSrc={img10} 
@@ -115,6 +120,7 @@ export default function CubeNew() {
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
             CubeDiscount='save 13%'
+            StockUpdate='In stock'
           />
 
           <CubeBox imgSrc={img11} 
@@ -123,6 +129,7 @@ export default function CubeNew() {
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
             CubeDiscount='save 13%'
+            StockUpdate='In stock'
           />
 
           <CubeBox imgSrc={img12} 
@@ -131,6 +138,7 @@ export default function CubeNew() {
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
             CubeDiscount='save 13%'
+            StockUpdate='In stock'
           />
 
           </div>

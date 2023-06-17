@@ -31,6 +31,7 @@ export default function CubeBestSell() {
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
             CubeDiscount='save 13%'
+            StockUpdate='In stock'
           />
 
           <CubeBoxBestsell imgSrc={img2} 
@@ -39,6 +40,7 @@ export default function CubeBestSell() {
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
             CubeDiscount='save 13%'
+            StockUpdate='In stock'
           />
 
           <CubeBoxBestsell imgSrc={img3} 
@@ -47,6 +49,7 @@ export default function CubeBestSell() {
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
             CubeDiscount='save 13%'
+            StockUpdate='In stock'
           />
 
           <CubeBoxBestsell imgSrc={img4} 
@@ -55,6 +58,7 @@ export default function CubeBestSell() {
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
             CubeDiscount='save 13%'
+            StockUpdate='In stock'
           />
 
           <CubeBoxBestsell imgSrc={img5 } 
@@ -63,6 +67,7 @@ export default function CubeBestSell() {
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
             CubeDiscount='save 13%'
+            StockUpdate='In stock'
           />
 
          <CubeBoxBestsell imgSrc={img6} 
@@ -71,6 +76,7 @@ export default function CubeBestSell() {
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
             CubeDiscount='save 13%'
+            StockUpdate='In stock'
           />
 
 
@@ -90,6 +96,7 @@ export default function CubeBestSell() {
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
             CubeDiscount='save 13%'
+            StockUpdate='In stock'
           />
           
           <CubeBoxBestsell imgSrc={img8} 
@@ -98,6 +105,7 @@ export default function CubeBestSell() {
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
             CubeDiscount='save 13%'
+            StockUpdate='In stock'
           />
           
           <CubeBoxBestsell imgSrc={img9} 
@@ -106,6 +114,7 @@ export default function CubeBestSell() {
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
             CubeDiscount='save 13%'
+            StockUpdate='In stock'
           />
 
           <CubeBoxBestsell imgSrc={img10} 
@@ -114,6 +123,7 @@ export default function CubeBestSell() {
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
             CubeDiscount='save 13%'
+            StockUpdate='In stock'
           />
 
           <CubeBoxBestsell imgSrc={img11} 
@@ -122,6 +132,7 @@ export default function CubeBestSell() {
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
             CubeDiscount='save 13%'
+            StockUpdate='In stock'
           />
 
           <CubeBoxBestsell imgSrc={img12} 
@@ -130,6 +141,8 @@ export default function CubeBestSell() {
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
             CubeDiscount='save 13%'
+            StockUpdate='In stock'
+            
           />
 
           </div>

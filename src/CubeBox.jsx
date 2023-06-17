@@ -49,7 +49,7 @@ export default function CubeBox(props) {
                              <div className="Try-cube-discount">{props.CubeDiscount}</div>
                         </div>
                        <Star/>
-                    <div className="Try-cube-stock"><span className="Try-cube-stock-dot" >&#8226;</span>In stock</div>
+                    <div className="Try-cube-stock"><span className="Try-cube-stock-dot" >&#8226;</span>{props.StockUpdate}</div>
                     
     
     
