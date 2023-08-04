@@ -4,8 +4,11 @@
     font-family: 'Poppins';
     transition: ease-in-out;
     scroll-behavior: smooth;
+    /* cursor: url("src/favi-icon-logo.png"),auto; */
     
 }
+
+
 *::selection{
     color: #0044ff;
     
@@ -186,6 +189,8 @@ margin-left: -0.55%;
     font-size: 18px;
     color: #000000;
 }
+
+
 
 .op-love svg{
     margin-top: 8px;
@@ -509,7 +514,7 @@ margin-top:-5%;
 }
 .cube-box:hover .cube-love svg{
     display: block;
-    height: 25px;
+    height: 25px;    
     width: 25px;
     fill: none;
      stroke:#FD0404; 
@@ -1437,7 +1442,7 @@ margin-left: 20%;
 .Try-cube-box-up{
     width: 100%;
     /* height: 100%; */
-    transition: transform 0.3s ease;
+    transition: transform 0.6s ease;
     padding: 10px;
     margin-bottom: .1rem;
 }
@@ -1471,7 +1476,7 @@ margin-left: 20%;
     text-align: center;
     margin-bottom: -15px;
     margin-left: 0.01rem;
-    transition: transform 0.3s ease;
+    transition: transform 0.6s ease;
 
 }
 
@@ -1483,7 +1488,7 @@ margin-left: 20%;
     margin-top: -6%;
     margin-bottom: -8%;
     /* border: 1px solid; */
-    transition: transform 0.3s ease;
+    transition: transform 0.6s ease;
 
 }
 .Try-cube-caption{

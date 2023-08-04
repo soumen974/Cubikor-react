@@ -31,7 +31,7 @@ export default function CubeNew() {
             CubeCaption='Drift 3M PLUS 3x3 (Magnetic)'
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
-            CubeDiscount='save 13%'
+            CubeDiscount='save  25%'
             StockUpdate='In stock'
           />
 
@@ -40,7 +40,7 @@ export default function CubeNew() {
             CubeCaption='Drift 3M PLUS 3x3 (Magnetic)'
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
-            CubeDiscount='save 13%'
+            CubeDiscount='save 25%'
             StockUpdate='In stock'
           />
 
@@ -49,7 +49,7 @@ export default function CubeNew() {
             CubeCaption='Drift 3M PLUS 3x3 (Magnetic)'
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
-            CubeDiscount='save 13%'
+            CubeDiscount='save 25%'
             StockUpdate='In stock'
           />
 
@@ -58,7 +58,7 @@ export default function CubeNew() {
             CubeCaption='Drift 3M PLUS 3x3 (Magnetic)'
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
-            CubeDiscount='save 13%'
+            CubeDiscount='save 25%'
             StockUpdate='In stock'
           />
 
@@ -67,7 +67,7 @@ export default function CubeNew() {
             CubeCaption='Drift 3M PLUS 3x3 (Magnetic)'
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
-            CubeDiscount='save 13%'
+            CubeDiscount='save 25%'
             StockUpdate='In stock'
           />
 
@@ -76,7 +76,7 @@ export default function CubeNew() {
             CubeCaption='Drift 3M PLUS 3x3 (Magnetic)'
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
-            CubeDiscount='save 13%'
+            CubeDiscount='save 25%'
             StockUpdate='In stock'
           />
              
@@ -92,7 +92,7 @@ export default function CubeNew() {
             CubeCaption='Drift 3M PLUS 3x3 (Magnetic)'
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
-            CubeDiscount='save 13%'
+            CubeDiscount='save 25%'
             StockUpdate='In stock'
           />
           
@@ -101,7 +101,7 @@ export default function CubeNew() {
             CubeCaption='Drift 3M PLUS 3x3 (Magnetic)'
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
-            CubeDiscount='save 13%'
+            CubeDiscount='save 25%'
             StockUpdate='In stock'
           />
           
@@ -110,7 +110,7 @@ export default function CubeNew() {
             CubeCaption='Drift 3M PLUS 3x3 (Magnetic)'
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
-            CubeDiscount='save 13%'
+            CubeDiscount='save 25%'
             StockUpdate='In stock'
           />
 
@@ -119,7 +119,7 @@ export default function CubeNew() {
             CubeCaption='Drift 3M PLUS 3x3 (Magnetic)'
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
-            CubeDiscount='save 13%'
+            CubeDiscount='save 25%'
             StockUpdate='In stock'
           />
 
@@ -128,7 +128,7 @@ export default function CubeNew() {
             CubeCaption='Drift 3M PLUS 3x3 (Magnetic)'
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
-            CubeDiscount='save 13%'
+            CubeDiscount='save 25%'
             StockUpdate='In stock'
           />
 
@@ -137,7 +137,7 @@ export default function CubeNew() {
             CubeCaption='Drift 3M PLUS 3x3 (Magnetic)'
             CubePrice='$ 149'
             CubeCutPrice='$ 199'
-            CubeDiscount='save 13%'
+            CubeDiscount='save 25%'
             StockUpdate='In stock'
           />
 
