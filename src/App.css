@@ -179,11 +179,11 @@ margin-left: -0.55%;
     margin-right: 55px;
     color: black;
     padding: 2px;
-    font-size: 19px;
+    font-size: 18px;
+    border: solid 2px #00000000;
 
 }
 .op:hover{
-    border: solid 2px #00000000;
     background-color: #ffffff;
     /* border-radius: 4px; */
     font-size: 18px;

@@ -26,6 +26,11 @@ export default function Nav() {
 
   const [selectedOption, setSelectedOption] = useState(null);
 
+  const [buttonColorHome, setButtonColorHome] = useState("white");
+  const [buttonColorCubes, setbuttonColorCubes] = useState("");
+  const [buttonColorAbout, setbuttonColorAbout] = useState("");
+  const [buttonColorComu, setbuttonColorComu] = useState("");
+  const [buttonColorContacts, setbuttonColorContacts] = useState("");
 
 
   useEffect(() => {
@@ -43,6 +48,13 @@ export default function Nav() {
   
 
   function ShowAbotUs(){
+    // nav bar button color change 
+    setbuttonColorAbout("white");
+    setButtonColorHome("");
+    setbuttonColorCubes("");
+    setbuttonColorComu("");
+    setbuttonColorContacts("");
+    
     setuseMyAbotUs(true);
     setuseFullBody(false);
     setuseLoginShow(false);
@@ -50,6 +62,13 @@ export default function Nav() {
 
   }
   function ShowContactUs(){
+
+    setbuttonColorAbout("");
+    setButtonColorHome("");
+    setbuttonColorCubes("");
+    setbuttonColorComu("");
+    setbuttonColorContacts("white");
+
     setuseMyAbotUs(false);
     setuseContactUs(true);
     setuseFullBody(false);
@@ -60,12 +79,19 @@ export default function Nav() {
     setuseLoginShow(true);
   }
   function SignUpShow(){
+    
     setuseLoginShow(false);
     setuseSignUpShow(true);
   }
 
   
   function handleOutsideClick(event) {
+    setbuttonColorAbout("");
+    setButtonColorHome("white");
+    setbuttonColorCubes("");
+    setbuttonColorComu("");
+    setbuttonColorContacts("");
+    
     if (event.target.classList.contains('clk-on')) {
       setuseMyAbotUs(false);
       setuseFullBody(true);
@@ -167,18 +193,18 @@ export default function Nav() {
           <div className="links-2">
             <ul>
               <a href="#" className="op">
-                <li className='clk-on' onClick={handleOutsideClick}>Home</li>
+                <li className='clk-on' style={{ backgroundColor: buttonColorHome }} onClick={handleOutsideClick}>Home</li>
               </a>
               <a href="#Cubes-new" className="op">
-                <li className='clk-on' onClick={handleOutsideClick}>Cubes</li>
+                <li className='clk-on' style={{ backgroundColor: buttonColorCubes }} onClick={handleOutsideClick}>Cubes</li>
               </a>
-              <a href="#" className="op" onClick={ShowAbotUs}>
+              <a href="#" className="op" style={{ backgroundColor: buttonColorAbout }}  onClick={ShowAbotUs}>
                 <li>About us</li>
               </a>
               <a href="#comunity" className="op">
-                <li className='clk-on' onClick={handleOutsideClick}>Community</li>
+                <li className='clk-on'  style={{ backgroundColor: buttonColorComu }} onClick={handleOutsideClick}>Community</li>
               </a>
-              <a href="#" className="op" onClick={ShowContactUs}>
+              <a href="#" className="op" style={{ backgroundColor: buttonColorContacts }}  onClick={ShowContactUs}>
                 <li >Contact Us</li>
               </a>
             </ul>
