@@ -85,8 +85,7 @@ Contributions are welcome and appreciated! If you want to contribute to this pro
 5. Create a pull request describing your changes.
 
 ## License
-
-This project is licensed under the [MIT License](LICENSE).
+Cubikor copywright @2023 
 
 ---
 
