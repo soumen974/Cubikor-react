@@ -7,7 +7,7 @@ export default function CubeBox(props) {
   return (
     <>
 
-<div className="Try-cube-box">
+      <div className="Try-cube-box">
                    <div className='Try-cube-box-up'>
                        <div className='Try-cube-box-header'>
                           <div className="Try-cube-tag" >{props.cubeTage}</div>
@@ -54,7 +54,7 @@ export default function CubeBox(props) {
     
     
                     </div>
-                </div> 
+      </div> 
     
     </>
   )
