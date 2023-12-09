@@ -8,6 +8,7 @@ import { Route,Switch } from 'react-router-dom';
 
 import Navbar from "./nav";
 import LoginPage from './LoginPage';
+import Headder from './components/Headder';
 
 export default function App() {
 
