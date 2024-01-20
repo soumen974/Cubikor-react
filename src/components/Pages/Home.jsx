@@ -10,7 +10,7 @@ export default function Home() {
     <Section1/>
     <Newarrical/>
     <BestSeller/>
-    {/* <Sec3BigWhiteBox/> */}
+    <Sec3BigWhiteBox/>
     </>
   )
 }
