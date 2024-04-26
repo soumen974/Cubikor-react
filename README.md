@@ -2,6 +2,11 @@
 
 Welcome to the Cube E-Commerce Frontend repository! This project showcases the frontend implementation of an e-commerce platform using the Cube UI framework.
 
+##Landing page
+
+![Uploading image.png…]()
+
+
 ## Table of Contents
 
 - [Project Overview](#project-overview)
