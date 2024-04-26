@@ -1,34 +1,27 @@
 import React, { useState } from 'react';
-import './App.css';
-import './AboutUs.css'
-import './ContactUs.css'
-import './ResponApp.css'
-import './loginPageStyle.css'
-import { Route,Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Layout from "./Customer/Component/Layout";
+import Home from "./Customer/Pages/Home";
+import NotFound from './Customer/Component/NotFound';
 
-import Navbar from "./nav";
-import LoginPage from './LoginPage';
-import Headder from './components/Headder';
 
 export default function App() {
 
  
   return (
     <>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="*" element={<NotFound/>} />
+        </Route>
+        
 
+      </Routes>
+    </Router>
+      
     
-    <div className='body'>
-
-      <Navbar/>
-      
-      
-    </div>
-
-              {/* <Switch>
-                
-                <Route path="/loginPage" component={LoginPage} />
-               
-            </Switch> */}
     </>
   );
 }

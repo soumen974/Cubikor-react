@@ -4,16 +4,3 @@
 
 
 
-*{
-    text-decoration: none;
-    box-sizing: border-box;
-    font-family: 'Poppins';
-    transition: ease-in-out;
-    scroll-behavior: smooth;
-    /* cursor: url("src/favi-icon-logo.png"),auto; */
-    
-}
-body{
-    background-color:  #EDEDED;
-
-}
