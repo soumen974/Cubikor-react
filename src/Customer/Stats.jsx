@@ -6,7 +6,7 @@ const stats = [
   
   export default function Stats() {
     return (
-      <div className="bg-white pb-24 sm:pb-3">
+      <div className="bg-white pb-2 sm:pb-0">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <dl className="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
             {stats.map((stat) => (

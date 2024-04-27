@@ -4,6 +4,7 @@ import Layout from "./Customer/Component/Layout";
 import Home from "./Customer/Pages/Home";
 import NotFound from './Customer/Component/NotFound';
 import NewProduct from './Product/NewProduct';
+import SIgnIn from './Customer/Component/SignIn';
 
 
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
     <>
     <Router>
       <Routes>
+        <Route path="/SignIn" element={<SIgnIn/>}/>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/new" element={<NewProduct/>} />
