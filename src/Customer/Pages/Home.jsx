@@ -18,7 +18,7 @@ export default function Home() {
           <CompanyWhoGet/>
         ].map((item,index)=>
           (
-          <div key={index} className={` mt-32 ${index===2&& "h-screen"}`}>{item}</div>
+          <div key={index} className={` mt-32 ${index===2&& "h-"}`}>{item}</div>
           ))
         }
 

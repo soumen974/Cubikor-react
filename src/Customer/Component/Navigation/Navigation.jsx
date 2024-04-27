@@ -18,6 +18,8 @@ import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@her
 import CloseIcon from '@mui/icons-material/Close';
 import pagelogo from "../../../images-app/page-logo.jpg";
 import SearchBox from '../../SearchBox';
+import SHoppingCart from "../SHoppingCart";
+import { Hidden } from '@mui/material';
 
 
 const navigation = {
@@ -137,7 +139,7 @@ const navigation = {
     },
   ],
   pages: [
-    { name: 'New', href: '#' },
+    { name: 'New', href: '/new' },
     { name: 'Learn', href: '#' },
   ]
 }
@@ -150,14 +152,16 @@ export default function Navigation() {
   const [open, setOpen] = useState(false)
   const [Ad, setAd] = useState(true);
   const[SearchBar,SetSearchBar]=useState(false);
+  const [setshoppingCart, setsetshoppingCart] = useState(false);
 
   return (
     <>
     <SearchBox open={SearchBar} setOpen={SetSearchBar}/>
+    <SHoppingCart open={setshoppingCart} setOpen={setsetshoppingCart}/>
       <div className="bg-white fixed w-full z-[999]">
         {/* Mobile menu */}
         <Transition.Root show={open} as={Fragment}>
-          <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
+          <Dialog as="div" className="relative z-40 lg:hidden " onClose={setOpen}>
             <Transition.Child
               as={Fragment}
               enter="transition-opacity ease-linear duration-300"
@@ -170,7 +174,7 @@ export default function Navigation() {
               <div className="fixed inset-0 bg-black bg-opacity-25" />
             </Transition.Child>
 
-            <div className="fixed inset-0 z-40 flex">
+            <div className="fixed inset-0 z-40 flex ">
               <Transition.Child
                 as={Fragment}
                 enter="transition ease-in-out duration-300 transform"
@@ -180,18 +184,8 @@ export default function Navigation() {
                 leaveFrom="translate-x-0"
                 leaveTo="-translate-x-full"
               >
-                <Dialog.Panel className="relative flex w-full max-w-xs flex-col overflow-y-auto bg-white pb-12 shadow-xl">
-                  <div className="flex px-4 pb-2 pt-5">
-                    <button
-                      type="button"
-                      className="relative -m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400"
-                      onClick={() => setOpen(false)}
-                    >
-                      <span className="absolute -inset-0.5" />
-                      <span className="sr-only">Close menu</span>
-                      <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-                    </button>
-                  </div>
+                <Dialog.Panel className="relative flex w-full max-w-xs flex-col overflow-y-auto bg-white pt-[6rem] pb-12 shadow-xl" style={{ '&::WebkitScrollbar': { width: 0, height: 0, display: "hidden" } }}>
+                 
 
                   {/* Links */}
                   <Tab.Group as="div" className="mt-2">
@@ -296,8 +290,8 @@ export default function Navigation() {
           </Dialog>
         </Transition.Root>
 
-        <header className="relative bg-white">
-      <p className={`${Ad? "h-10": "h-0 hidden" } transform-h flex relative  items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8`}>
+        <header className="relative bg-white text-indigo-600" >
+       <p className={`${Ad? "h-10": "h-0 hidden" } transform-h flex relative  items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8`}>
             <h1>Get 20% Discount on orders over ₹ 599/-</h1> 
             <div className="item-right absolute right-10 w-0 md:right-40 md:w-10 cursor-pointer " onClick={()=>setAd(false)}>
             <CloseIcon/>
@@ -310,7 +304,7 @@ export default function Navigation() {
                 <button
                   type="button"
                   className="relative rounded-md bg-white p-2 text-gray-400 lg:hidden"
-                  onClick={() => setOpen(true)}
+                  onClick={() => setOpen(!open)}
                 >
                   <span className="absolute -inset-0.5" />
                   <span className="sr-only">Open menu</span>
@@ -319,7 +313,7 @@ export default function Navigation() {
 
                 {/* Logo */}
                 <div className="ml-4 flex lg:ml-0">
-                  <a href="/home" className='flex justify-center items-center gap-3 '>
+                  <a href="/" className='flex justify-center items-center gap-3 '>
                     <span className="sr-only">Your Company</span>
                     <img
                       className="h-8 w-auto rounded-full"
@@ -464,7 +458,7 @@ export default function Navigation() {
                   </div>
 
                   {/* Cart */}
-                  <div className="ml-4 flow-root lg:ml-6">
+                  <div className="ml-4 flow-root lg:ml-6" onClick={()=>(setsetshoppingCart(true))}>
                     <a href="#" className="group -m-2 flex items-center p-2">
                       <ShoppingBagIcon
                         className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
