@@ -20,129 +20,10 @@ import pagelogo from "../../../images-app/page-logo.jpg";
 import SearchBox from '../../SearchBox';
 import SHoppingCart from "../SHoppingCart";
 import { Hidden } from '@mui/material';
+import SIgnIn from '../SignIn';
 
+import navigation from "../Data/navigation.json";
 
-const navigation = {
-  categories: [
-    {
-      id: 'Shop',
-      name: 'Shop',
-      featured: [
-        {
-          name: 'GAN Cubes',
-          href: '#',
-          imageSrc: 'https://cdn.thewirecutter.com/wp-content/media/2023/01/rubikscube-2048px-08468-2x1-1.jpg?auto=webp&quality=75&crop=2:1&width=980&dpr=2',
-          imageAlt: 'Best on Market.',
-        },
-        {
-          name: 'Basic Tees',
-          href: '#',
-          imageSrc: 'https://dropinblog.net/34242096/files/featured/best-speed-cube-article.jpg',
-          imageAlt: 'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
-        },
-      ],
-      sections: [
-        {
-          id: 'Puzzles',
-          name: 'Puzzles',
-          items: [
-            { name: '2x2', href: '#' },
-            { name: '3x3', href: '#' },
-            { name: '4x4', href: '#' },
-            { name: 'Pyraminx', href: '#' },
-            { name: 'Big Cubes', href: '#' },
-            { name: 'Other Puzzles', href: '#' },
-            { name: 'Shape Shifting Puzzles', href: '#' },
-            { name: 'Kreativity Boosters', href: '#' },
-            { name: 'Browse All', href: '#' },
-          ],
-        },
-        {
-          id: 'accessories',
-          name: 'Accessories',
-          items: [
-            { name: 'Timers & Mats', href: '#' },
-            { name: ' Cube Lubricants', href: '#' },
-            { name: 'Other Accessories', href: '#' }
-            
-          ],
-        },
-        {
-          id: 'brands',
-          name: 'Brands',
-          items: [
-            { name: 'Cubelelo', href: '#' },
-            { name: 'GANCube', href: '#' },
-            { name: 'GoCube', href: '#' },
-            { name: 'MoYu', href: '#' },
-          ],
-        },
-      ],
-    },
-    {
-      id: 'Gift Ideas',
-      name: 'Gift Ideas',
-      featured: [
-        {
-          name: 'For Gift Combos',
-          href: '#',
-          imageSrc: 'https://www.cubelelo.com/cdn/shop/products/CLB01483_600x.png?v=1680084154',
-          imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
-        },
-        {
-          name: 'Artwork Tees',
-          href: '#',
-          imageSrc: 'https://www.cubelelo.com/cdn/shop/files/3_5eae5eb8-5de7-4deb-8033-f739ca5367ad_600x.png?v=1703326213',
-          imageAlt:
-            'Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.',
-        },
-      ],
-      sections: [
-        {
-          id: 'Ideas',
-          name: 'Ideas',
-          items: [
-            { name: 'Gift Boxes', href: '#' },
-            { name: 'Build Your Own Bundle', href: '#' },
-            { name: 'Curated Combo', href: '#' },
-
-          ],
-        }
-      ],
-      
-    },
-    {
-      id: 'Shop by Age',
-      name: 'Shop by Age',
-      featured: [
-        {
-          name: 'Childs Enjoying with our cubes',
-          href: '#',
-          imageSrc: 'https://minalsclass.com/upload/book-img.png',
-          imageAlt: 'Drawstring top with elastic loop closure and textured interior padding.',
-        }
-      ],
-      sections: [
-        {
-          id: 'Ages',
-          name: 'Ages',
-          items: [
-            { name: '2-5 Years', href: '#' },
-            { name: '5-8 Years', href: '#' },
-            { name: '8-12 Years', href: '#' },
-            { name: '12+ Years', href: '#' },
-            
-          ],
-        }
-      ],
-      
-    },
-  ],
-  pages: [
-    { name: 'New', href: '/new' },
-    { name: 'Learn', href: '#' },
-  ]
-}
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -152,12 +33,14 @@ export default function Navigation() {
   const [open, setOpen] = useState(false)
   const [Ad, setAd] = useState(true);
   const[SearchBar,SetSearchBar]=useState(false);
-  const [setshoppingCart, setsetshoppingCart] = useState(false);
+  const [shoppingCart, setshoppingCart] = useState(false);
+  const [signin, setsignin] = useState(false)
 
   return (
     <>
     <SearchBox open={SearchBar} setOpen={SetSearchBar}/>
-    <SHoppingCart open={setshoppingCart} setOpen={setsetshoppingCart}/>
+    <SHoppingCart open={shoppingCart} setOpen={setshoppingCart}/>
+    <SIgnIn open={signin} setOpen={setsignin}/>
       <div className="bg-white fixed w-full z-[999]">
         {/* Mobile menu */}
         <Transition.Root show={open} as={Fragment}>
@@ -261,14 +144,14 @@ export default function Navigation() {
                   </div>
 
                   <div className="space-y-6 border-t border-gray-200 px-4 py-6">
-                    <div className="flow-root">
-                      <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
-                        Sign in
+                    <div onClick={()=>{setsignin(true);setOpen(!open);}}   className=" flow-root">
+                      <a href="#" className=" -m-2 flex justify-center border-[2px] border-indigo-500 hover:bg-indigo-500 hover:text-white p-2 font-medium text-indigo-500">
+                        Sign in 
                       </a>
                     </div>
-                    <div className="flow-root">
-                      <a href="#" className="-m-2 block p-2 font-medium text-gray-900">
-                        Create account
+                    <div className="flow-root justify-center item-center">
+                      <a href="#" className="-m-2 flex justify-center p-2 font-medium bg-yellow-400 hover:bg-yellow-300 text-gray-900">
+                        Create account 
                       </a>
                     </div>
                   </div>
@@ -427,8 +310,8 @@ export default function Navigation() {
                 </Popover.Group>
 
                 <div className="ml-auto flex items-center">
-                  <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                    <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                  <div  className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                    <a onClick={()=>setsignin(true)} href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                       Sign in
                     </a>
                     <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
@@ -458,7 +341,7 @@ export default function Navigation() {
                   </div>
 
                   {/* Cart */}
-                  <div className="ml-4 flow-root lg:ml-6" onClick={()=>(setsetshoppingCart(true))}>
+                  <div className="ml-4 flow-root lg:ml-6" onClick={()=>(setshoppingCart(true))}>
                     <a href="#" className="group -m-2 flex items-center p-2">
                       <ShoppingBagIcon
                         className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
