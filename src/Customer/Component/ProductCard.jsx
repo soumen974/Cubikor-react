@@ -14,7 +14,7 @@ import QuickPreview from "./Product/QuickPreview";
   
           <div onClick={()=>setOpen(true)} className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
             {products.map((product) => (
-              <div key={product.id} onClick={()=>setGetId(product.id)}  className="group  bg-gray-100 px-2 py-2 rounded-md relative">
+              <div key={product.id} onClick={()=>setGetId(product.id)}  className="group cursor-pointer bg-gray-100 hover:bg-indigo-500 transform-bg duration-500 group  px-2 py-2 rounded-lg relative">
                 <div className="aspect-h-1 aspect-w-1 w-full  overflow-hidden rounded-md bg-gray-200 lg:aspect-none  lg:h-80">
                   <img
                     src={product.imageSrc}
@@ -24,13 +24,13 @@ import QuickPreview from "./Product/QuickPreview";
                 </div>
                 <div className="mt-4  justify-between">
                   <div>
-                    <h3 className="text-sm text-gray-700">
+                    <h3 className="text-sm group-hover:text-white transform-text duration-500 text-gray-700">
                       <div >
-                        <span aria-hidden="true" className="absolute inset-0" />
+                        <span aria-hidden="true" className="absolute inset-0 group-hover:text-white transform-text duration-500 text-gray-900" />
                         {product.name}
                       </div>
                     </h3>
-                    <p className="mt-1 py-1 text-sm text-gray-500">{product.color}</p>
+                    <p className="mt-1 py-1 text-sm group-hover:text-yellow-300 transform-text duration-500 text-gray-500">{product.color}</p>
                   </div>
                   <p className="text-sm w-fit px-4 py-2 font-medium bg-yellow-400  rounded-md  text-gray-900">{product.price}</p>
                 </div>
