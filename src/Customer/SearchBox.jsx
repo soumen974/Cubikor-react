@@ -45,7 +45,7 @@ export default function SearchBox(Props) {
                         <input
                         type="search"
                         id="default-search"
-                        className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                        className="block w-full p-4 ps-10 text-sm text-gray-900 border  rounded-lg bg-gray-50 focus:outline-none  focus:ring-yellow-500 "
                         placeholder="Search 3x3 cubes"
                         required
                         />
