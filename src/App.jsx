@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Layout from "./Customer/Component/Layout";
 import Home from "./Customer/Pages/Home";
 import NotFound from './Customer/Component/NotFound';
-import NewProduct from './Product/NewProduct';
+import NewProduct from './Customer/Component/Product/NewProduct';
 import SIgnIn from './Customer/Component/SignIn';
 
 
@@ -18,6 +18,7 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/new" element={<NewProduct/>} />
+        
 
           <Route path="*" element={<NotFound/>} />
         </Route>

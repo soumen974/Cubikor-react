@@ -1,12 +1,14 @@
-import React from 'react'
-import Hero from '../Component/Hero'
-import ProductCard from '../Component/ProductCard'
+import React, { useState } from 'react'
+import Hero from '../Component/Hero';
 import Promotion from "../Component/Promotion";
 import Stats from '../Stats';
 import CompanyWhoGet from '../Component/CompanyWhoGet';
 import Collection from '../Component/Collection';
+import NewProduct from '../Component/Product/NewProduct';
 
 export default function Home() {
+  const [page, setpage] = useState(false);
+
   return (
     <>
     
@@ -14,7 +16,7 @@ export default function Home() {
         
         {[
           <Hero/>,
-          <ProductCard/>,
+          <NewProduct page={true}/>,
           <Promotion/>,
           <Stats/>,
           <Collection/>,
