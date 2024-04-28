@@ -1,39 +1,79 @@
 [
     {
       "id": 1,
-      "name": "3*3 speed cube | rubics cube",
-      "href": "#",
-      "imageSrc": "https://images.unsplash.com/photo-1539627831859-a911cf04d3cd?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "name": "Drift 2x2 Speed Cube for Beginners",
+      "href": "/",
+      "imageSrc": "https://www.cubelelo.com/cdn/shop/files/1020300_2_1_600x.jpg?v=1701855429",
       "imageAlt": "3*3 speed cube | rubics cube.",
-      "price": "$35",
-      "color": "Black"
+      "price":"₹ 209",
+      "color": "Black",
+      "rating": 3.9,
+      "reviewCount": 12,
+      "colors": [
+        { "name": "White", "class": "bg-white", "selectedClass": "ring-gray-400" },
+        { "name": "Black", "class": "bg-gray-900", "selectedClass": "ring-gray-900" }
+      ],
+      "Stock": [
+        { "name": "Instock", "inStock": true }
+        
+      ]
     },
     {
       "id": 2,
-      "name": "3*3 speed cube | rubics cube",
-      "href": "#",
-      "imageSrc": "https://images.unsplash.com/photo-1539627831859-a911cf04d3cd?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "name": "GAN 356 M E 3x3 (Magnetic) Speedcube",
+      "href": "/",
+      "imageSrc": "https://www.cubelelo.com/cdn/shop/files/1_76e161a2-4788-4b5e-b8a2-37dc4fcb4484_600x.png?v=1713506405",
       "imageAlt": "3*3 speed cube | rubics cube.",
-      "price": "$35",
-      "color": "Black"
+      "price": "₹ 2,999",
+      "color": "Black",
+      "rating": 3,
+      "reviewCount": 1,
+      "colors": [
+        { "name": "White", "class": "bg-white", "selectedClass": "ring-gray-400" },
+        { "name": "Black", "class": "bg-gray-900", "selectedClass": "ring-gray-900" }
+      ],
+      "Stock": [
+        { "name": "Instock", "inStock": true }
+        
+      ]
     },
     {
       "id": 3,
-      "name": "3*3 speed cube | rubics cube",
-      "href": "#",
-      "imageSrc": "https://images.unsplash.com/photo-1539627831859-a911cf04d3cd?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "name": "Drift 6x6 Speed Cube | rubics cube",
+      "href": "/",
+      "imageSrc": "https://www.cubelelo.com/cdn/shop/products/1dADGp3425WCIlstkFIHS2yJSlEavFAV7_600x.jpg?v=1673417591",
       "imageAlt": "3*3 speed cube | rubics cube.",
-      "price": "$35",
-      "color": "Black"
+      "price": "₹ 1,099",
+      "color": "Black",
+      "rating": 3,
+      "reviewCount": 1,
+      "colors": [
+        { "name": "White", "class": "bg-white", "selectedClass": "ring-gray-400" },
+        { "name": "Black", "class": "bg-gray-900", "selectedClass": "ring-gray-900" }
+      ],
+      "Stock": [
+        { "name": "Instock", "inStock": true }
+        
+      ]
     },
     {
       "id": 4,
-      "name": "3*3 speed cube | rubics cube",
-      "href": "#",
-      "imageSrc": "https://images.unsplash.com/photo-1539627831859-a911cf04d3cd?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "name": "QiYi QiMing Pyraminx Plus (27.5 cms)",
+      "href": "/",
+      "imageSrc": "https://www.cubelelo.com/cdn/shop/files/1_36dd8724-241a-4ebc-8a04-cc7819e49a40_600x.png?v=1710159108",
       "imageAlt": "3*3 speed cube | rubics cube.",
-      "price": "$35",
-      "color": "Black"
+      "price": "₹ 2,999",
+      "color": "Black",
+      "rating": 3,
+      "reviewCount": 1,
+      "colors": [
+        { "name": "White", "class": "bg-white", "selectedClass": "ring-gray-400" },
+        { "name": "Black", "class": "bg-gray-900", "selectedClass": "ring-gray-900" }
+      ],
+      "Stock": [
+        { "name": "Instock", "inStock": true }
+        
+      ]
     }
   ]
   
