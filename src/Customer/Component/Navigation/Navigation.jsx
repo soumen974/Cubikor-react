@@ -1,28 +1,16 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/aspect-ratio'),
-    ],
-  }
-  ```
-*/
+
 import { Fragment, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import CloseIcon from '@mui/icons-material/Close';
-import pagelogo from "../../../images-app/page-logo.jpg";
+import pagelogo from "../Data/images-app/page-logo.jpg";
 import SearchBox from '../../SearchBox';
 import SHoppingCart from "../SHoppingCart";
 import { Hidden } from '@mui/material';
 import SIgnIn from '../SignIn';
 
 import navigation from "../Data/navigation.json";
+import SIgnUp from '../SignUp';
 
 
 function classNames(...classes) {
@@ -34,13 +22,15 @@ export default function Navigation() {
   const [Ad, setAd] = useState(true);
   const[SearchBar,SetSearchBar]=useState(false);
   const [shoppingCart, setshoppingCart] = useState(false);
-  const [signin, setsignin] = useState(false)
+  const [signin, setsignin] = useState(false);
+  const [signinUp, setsignUp] = useState(false);
 
   return (
     <>
     <SearchBox open={SearchBar} setOpen={SetSearchBar}/>
     <SHoppingCart open={shoppingCart} setOpen={setshoppingCart}/>
     <SIgnIn open={signin} setOpen={setsignin}/>
+    <SIgnUp open={signinUp} setOpen={setsignUp}/>
       <div className="bg-white fixed w-full z-[999]">
         {/* Mobile menu */}
         <Transition.Root show={open} as={Fragment}>
@@ -149,7 +139,7 @@ export default function Navigation() {
                         Sign in 
                       </a>
                     </div>
-                    <div className="flow-root justify-center item-center">
+                    <div onClick={()=>setsignUp(true)} className="flow-root justify-center item-center">
                       <a href="#" className="-m-2 flex justify-center p-2 font-medium bg-yellow-400 hover:bg-yellow-300 text-gray-900">
                         Create account 
                       </a>
@@ -315,7 +305,7 @@ export default function Navigation() {
                       Sign in
                     </a>
                     <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                    <a href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                    <a onClick={()=>setsignUp(true)} href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
                       Create account
                     </a>
                   </div>

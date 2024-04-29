@@ -1,7 +1,7 @@
 
 import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import pagelogo from "../../images-app/page-logo.jpg";
+import pagelogo from "./Data/images-app/page-logo.jpg";
 
 export default function SIgnIn(Props) {
   const cancelButtonRef = useRef(null)
@@ -39,7 +39,7 @@ export default function SIgnIn(Props) {
               src={pagelogo}
               alt="Your Company"
             />
-            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            <h2 className="mt-10 capitalize text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
               Sign in to your account
             </h2>
              </div>

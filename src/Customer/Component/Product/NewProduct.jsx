@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ProductCard from '../ProductCard';
+import ProductListing from './ProductListing';
 
 export default function NewProduct(Props) {
     const [selectedProductId, setSelectedProductId] = useState(null);
@@ -12,7 +13,6 @@ export default function NewProduct(Props) {
         name: '3x3 cubes',
         breadcrumbs: [
           { id: 1, name: 'Home', href: '/' },
-          { id: 2, name: 'New', href: '/new' },
         ]};
   return (
     <div className=''>
@@ -42,10 +42,11 @@ export default function NewProduct(Props) {
               </li>
             ))}
             <li className="text-sm">
-              <a href={product.href} aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
-                {product.name}
-              </a>
-            </li>
+                  <a href="/new" aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
+                  New
+                  </a>
+                </li>
+            
           </ol>
         </nav>
            
@@ -56,6 +57,7 @@ export default function NewProduct(Props) {
             
     </div> : null}
     <ProductCard/>
+    <ProductListing/>
     
     </div>
   )

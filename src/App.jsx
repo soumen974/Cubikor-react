@@ -6,6 +6,7 @@ import NotFound from './Customer/Component/NotFound';
 import NewProduct from './Customer/Component/Product/NewProduct';
 import SIgnIn from './Customer/Component/SignIn';
 import ProductOverview from './Customer/Component/Product/ProductOverviews';
+import CategoryProduct from './Customer/Component/Product/CategoryProduct';
 
 
 export default function App() {
@@ -19,9 +20,10 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/new" element={<NewProduct/>}/ >
-          <Route path="/productview/:productId" element={<ProductOverview/>}/ >
+          <Route path="/productview/:CategoryId/:CubeId" element={<ProductOverview/>}/ >
           <Route path="/productview/" element={<ProductOverview/>}/ >
-
+          <Route path="/products" element={<CategoryProduct/>}/ >
+          <Route path="/products/:CategoryPageID" element={<CategoryProduct/>}/ >
 
           <Route path="*" element={<NotFound/>} />
         </Route>

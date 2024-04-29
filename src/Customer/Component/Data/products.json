@@ -29,7 +29,85 @@
                   "Ultra-soft 100% cotton"
               ],
               "details": "The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming 'Charcoal Gray' limited release."
-          }
+          },
+          {
+            "id": 2,
+            "name": "Drift 2M 2x2 (Magnetic) Speed Cube",
+            "href": "/",
+            "imageSrc": "https://www.cubelelo.com/cdn/shop/products/1020600_1_600x.jpg?v=1700808830",
+            "imageAlt": "3*3 speed cube | rubics cube.",
+            "price": "₹ 599",
+            "color": "Black",
+            "rating": 3.9,
+            "reviewCount": 12,
+            "colors": [
+                {"name": "White", "class": "bg-white", "selectedClass": "ring-gray-400"},
+                {"name": "Black", "class": "bg-gray-900", "selectedClass": "ring-gray-900"}
+            ],
+            "Stock": [
+                {"name": "Instock", "inStock": true}
+            ],
+            "description": "Cubelelo Drift 2M 2x2 Magnetic Stickerless is one of Cubelelo's most affordable magnetic cube offerings. This budget magnetic 2x2 is crispier and more stable thanks to the 48 magnets installed with compact size, lightweight, and a stickerless-matte surface finish design, this cube is the perfect choice for all skill levels. It offers great performance and a medium/light magnetic feel.A tactile and very stable feel with clean, clicky feedback regardless of piece orientation is achieved due to this magnetization effect. The magnetic attraction between the pieces results in increased efficiency while minimizing overshooting and undesirable lockups.",
+            "highlights": [
+                "Brand : Cubelelo",
+                "Generic Name of Product : Plastic Puzzle",
+                "Dimensions (mm) : 50x50x50",
+                "Package Weight : 72grams"
+            ],
+            "details": "Bestselling Budget Lightweight Puzzle with 48 NDM Magnets for Smooth and Fast Turning | For Kids & Adults"
+        },
+        {
+          "id": 3,
+          "name": "YJ MGC 2x2 Magnetic Speedcube",
+          "href": "/",
+          "imageSrc": "https://www.cubelelo.com/cdn/shop/products/03_3_66f1599e-ac9f-4a20-82fb-1c4373a9504a_600x.jpg?v=1647949949",
+          "imageAlt": "YJ MGC 2x2 Magnetic Speedcube",
+          "price": "₹ 1,049",
+          "color": "Black",
+          "rating": 3.9,
+          "reviewCount": 12,
+          "colors": [
+              {"name": "White", "class": "bg-white", "selectedClass": "ring-gray-400"},
+              {"name": "Black", "class": "bg-gray-900", "selectedClass": "ring-gray-900"}
+          ],
+          "Stock": [
+              {"name": "Instock", "inStock": true}
+          ],
+          "description": "Embrace the YJ MGC 2x2, a distinguished addition as the second gem in the revered MGC line and join the legacy of excellence 💎. Similar to its MGC counterparts, this edition surpasses expectations, delivering an unexpectedly elevated standard of quality and performance that is sure to delight.",
+          "highlights": [
+              "Brand : Cubelelo",
+              "Generic Name of Product : Plastic Puzzle",
+              "Dimensions (mm) : 50x50x50",
+              "Package Weight : 72grams"
+          ],
+          "details": "High Performance & Exceptional Value Puzzle Cube with Smooth, Light Turning and Stable Mechanism"
+        },
+        {
+          "id": 4,
+          "name": "GAN 251 M PRO 2x2 (Magnetic)",
+          "href": "/",
+          "imageSrc": "https://www.cubelelo.com/cdn/shop/products/1t7aRu9htvayoZGWPw0oHxqPOwBxu2kV1_600x.jpg?v=1656926893",
+          "imageAlt": "YJ MGC 2x2 Magnetic Speedcube",
+          "price": "₹ 3,399",
+          "color": "Black",
+          "rating": 3.9,
+          "reviewCount": 12,
+          "colors": [
+              {"name": "White", "class": "bg-white", "selectedClass": "ring-gray-400"},
+              {"name": "Black", "class": "bg-gray-900", "selectedClass": "ring-gray-900"}
+          ],
+          "Stock": [
+              {"name": "Instock", "inStock": true}
+          ],
+          "description": "Embrace the YJ MGC 2x2, a distinguished addition as the second gem in the revered MGC line and join the legacy of excellence 💎. Similar to its MGC counterparts, this edition surpasses expectations, delivering an unexpectedly elevated standard of quality and performance that is sure to delight.",
+          "highlights": [
+              "Brand : Cubelelo",
+              "Generic Name of Product : Plastic Puzzle",
+              "Dimensions (mm) : 50x50x50",
+              "Package Weight : 72grams"
+          ],
+          "details": "High Performance & Exceptional Value Puzzle Cube with Smooth, Light Turning and Stable Mechanism"
+       }
       ]
   },
   {
@@ -62,7 +140,34 @@
                   "Ultra-soft 100% cotton"
               ],
               "details": "The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming 'Charcoal Gray' limited release."
-          }
+          },
+          {
+            "id": 2,
+            "name": "QiYi X-Man Tornado v3 3x3",
+            "href": "/",
+            "imageSrc": "https://www.cubelelo.com/cdn/shop/files/41JmOabTyeL_1_500x.jpg?v=1711091131",
+            "imageAlt": "3*3 speed cube | rubics cube.",
+            "price": "₹ 2,999",
+            "color": "Black",
+            "rating": 3,
+            "reviewCount": 1,
+            "colors": [
+                {"name": "White", "class": "bg-white", "selectedClass": "ring-gray-400"},
+                {"name": "Black", "class": "bg-gray-900", "selectedClass": "ring-gray-900"}
+            ],
+            "Stock": [
+                {"name": "Instock", "inStock": true}
+            ],
+            "description": "Introducing the X-Man Tornado V3, the pinnacle of 3x3 speed cubes from QiYi, now available at Cubelelo! 🌪️ Renowned for its breathtaking turning, this flagship cube combines an easy-to-learn, in-depth customization system with a famous tactile magnetic feel.",
+            "highlights": [
+                "Upgraded Brilliance",
+                "Affordable Excellence",
+                "Competitive Edge",
+                "Corner/Core Magnets",
+                "Pioneer's MagLev System"
+            ],
+            "details": "Unleash Your Inner Champion with Max Park's World Record-Breaking Cube! (Record: 3.13 Seconds; June 2023)"
+        }
       ]
   },
   {
@@ -100,7 +205,7 @@
   },
   {
       "id": 4,
-      "name": "6x6",
+      "name": "Pyraminx ",
       "href": "#",
       "data": [
           {
