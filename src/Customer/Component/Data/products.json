@@ -1,120 +1,134 @@
 [
-    {
+  {
       "id": 1,
-      "name": "Drift 2x2 Speed Cube for Beginners",
-      "href": "/",
-      "imageSrc": "https://www.cubelelo.com/cdn/shop/files/1020300_2_1_600x.jpg?v=1701855429",
-      "imageAlt": "3*3 speed cube | rubics cube.",
-      "price":"₹ 209",
-      "color": "Black",
-      "rating": 3.9,
-      "reviewCount": 12,
-      "colors": [
-        { "name": "White", "class": "bg-white", "selectedClass": "ring-gray-400" },
-        { "name": "Black", "class": "bg-gray-900", "selectedClass": "ring-gray-900" }
-      ],
-      "Stock": [
-        { "name": "Instock", "inStock": true }
-        
-      ],
-      "description":
-    "The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: 'Black'. Need to add an extra pop of color to your outfit? Our white tee has you covered.", 
-    "highlights": [
-    "Hand cut and sewn locally",
-    "Dyed with our proprietary colors",
-    "Pre-washed & pre-shrunk",
-    "Ultra-soft 100% cotton"
-  ],
-  "details":
-    "The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming 'Charcoal Gray' limited release."
-    },
-    {
-      "id": 2,
-      "name": "GAN 356 M E 3x3 (Magnetic) Speed cube",
-      "href": "/",
-      "imageSrc": "https://www.cubelelo.com/cdn/shop/files/1_76e161a2-4788-4b5e-b8a2-37dc4fcb4484_600x.png?v=1713506405",
-      "imageAlt": "3*3 speed cube | rubics cube.",
-      "price": "₹ 2,999",
-      "color": "Black",
-      "rating": 3,
-      "reviewCount": 1,
-      "colors": [
-        { "name": "White", "class": "bg-white", "selectedClass": "ring-gray-400" },
-        { "name": "Black", "class": "bg-gray-900", "selectedClass": "ring-gray-900" }
-      ],
-      "Stock": [
-        { "name": "Instock", "inStock": true }
-        
-      ],
-        "description":
-      "The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: 'Black'. Need to add an extra pop of color to your outfit? Our white tee has you covered.", 
-      "highlights": [
-      "Hand cut and sewn locally",
-      "Dyed with our proprietary colors",
-      "Pre-washed & pre-shrunk",
-      "Ultra-soft 100% cotton"
-    ],
-    "details":
-      "The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming 'Charcoal Gray' limited release."
-    },
-    {
-      "id": 3,
-      "name": "Drift 6x6 Speed Cube | rubics cube",
-      "href": "/",
-      "imageSrc": "https://www.cubelelo.com/cdn/shop/products/1dADGp3425WCIlstkFIHS2yJSlEavFAV7_600x.jpg?v=1673417591",
-      "imageAlt": "3*3 speed cube | rubics cube.",
-      "price": "₹ 1,099",
-      "color": "Black",
-      "rating": 3,
-      "reviewCount": 1,
-      "colors": [
-        { "name": "White", "class": "bg-white", "selectedClass": "ring-gray-400" },
-        { "name": "Black", "class": "bg-gray-900", "selectedClass": "ring-gray-900" }
-      ],
-      "Stock": [
-        { "name": "Instock", "inStock": true }
-        
-      ],
-        "description":
-      "The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: 'Black'. Need to add an extra pop of color to your outfit? Our white tee has you covered.", 
-      "highlights": [
-      "Hand cut and sewn locally",
-      "Dyed with our proprietary colors",
-      "Pre-washed & pre-shrunk",
-      "Ultra-soft 100% cotton"
-    ],
-    "details":
-      "The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming 'Charcoal Gray' limited release."
-    },
-    {
-      "id": 4,
-      "name": "QiYi QiMing Pyraminx Plus (27.5 cms)",
-      "href": "/",
-      "imageSrc": "https://www.cubelelo.com/cdn/shop/files/1_36dd8724-241a-4ebc-8a04-cc7819e49a40_600x.png?v=1710159108",
-      "imageAlt": "3*3 speed cube | rubics cube.",
-      "price": "₹ 2,999",
-      "color": "Black",
-      "rating": 3,
-      "reviewCount": 1,
-      "colors": [
-        { "name": "White", "class": "bg-white", "selectedClass": "ring-gray-400" },
-        { "name": "Black", "class": "bg-gray-900", "selectedClass": "ring-gray-900" }
-      ],
-      "Stock": [
-        { "name": "Instock", "inStock": true }
-        
+      "name": "2x2",
+      "href": "#",
+      "data": [
+          {
+              "id": 1,
+              "name": "Drift 2x2 Speed Cube for Beginners",
+              "href": "/",
+              "imageSrc": "https://www.cubelelo.com/cdn/shop/files/1020300_2_1_600x.jpg?v=1701855429",
+              "imageAlt": "3*3 speed cube | rubics cube.",
+              "price": "₹ 209",
+              "color": "Black",
+              "rating": 3.9,
+              "reviewCount": 12,
+              "colors": [
+                  {"name": "White", "class": "bg-white", "selectedClass": "ring-gray-400"},
+                  {"name": "Black", "class": "bg-gray-900", "selectedClass": "ring-gray-900"}
+              ],
+              "Stock": [
+                  {"name": "Instock", "inStock": true}
+              ],
+              "description": "The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: 'Black'. Need to add an extra pop of color to your outfit? Our white tee has you covered.",
+              "highlights": [
+                  "Hand cut and sewn locally",
+                  "Dyed with our proprietary colors",
+                  "Pre-washed & pre-shrunk",
+                  "Ultra-soft 100% cotton"
+              ],
+              "details": "The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming 'Charcoal Gray' limited release."
+          }
       ]
-      ,
-        "description":
-        "The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: 'Black'. Need to add an extra pop of color to your outfit? Our white tee has you covered.", 
-        "highlights": [
-        "Hand cut and sewn locally",
-        "Dyed with our proprietary colors",
-        "Pre-washed & pre-shrunk",
-        "Ultra-soft 100% cotton"
-      ],
-      "details":
-        "The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming 'Charcoal Gray' limited release."
-    }
-  ]
-  
+  },
+  {
+      "id": 2,
+      "name": "3x3",
+      "href": "#",
+      "data": [
+          {
+              "id": 1,
+              "name": "GAN 356 M E 3x3 (Magnetic) Speed cube",
+              "href": "/",
+              "imageSrc": "https://www.cubelelo.com/cdn/shop/files/1_76e161a2-4788-4b5e-b8a2-37dc4fcb4484_600x.png?v=1713506405",
+              "imageAlt": "3*3 speed cube | rubics cube.",
+              "price": "₹ 2,999",
+              "color": "Black",
+              "rating": 3,
+              "reviewCount": 1,
+              "colors": [
+                  {"name": "White", "class": "bg-white", "selectedClass": "ring-gray-400"},
+                  {"name": "Black", "class": "bg-gray-900", "selectedClass": "ring-gray-900"}
+              ],
+              "Stock": [
+                  {"name": "Instock", "inStock": true}
+              ],
+              "description": "The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: 'Black'. Need to add an extra pop of color to your outfit? Our white tee has you covered.",
+              "highlights": [
+                  "Hand cut and sewn locally",
+                  "Dyed with our proprietary colors",
+                  "Pre-washed & pre-shrunk",
+                  "Ultra-soft 100% cotton"
+              ],
+              "details": "The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming 'Charcoal Gray' limited release."
+          }
+      ]
+  },
+  {
+      "id": 3,
+      "name": "6x6",
+      "href": "#",
+      "data": [
+          {
+              "id": 1,
+              "name": "Drift 6x6 Speed Cube | rubics cube",
+              "href": "/",
+              "imageSrc": "https://www.cubelelo.com/cdn/shop/products/1dADGp3425WCIlstkFIHS2yJSlEavFAV7_600x.jpg?v=1673417591",
+              "imageAlt": "3*3 speed cube | rubics cube.",
+              "price": "₹ 1,099",
+              "color": "Black",
+              "rating": 3,
+              "reviewCount": 1,
+              "colors": [
+                  {"name": "White", "class": "bg-white", "selectedClass": "ring-gray-400"},
+                  {"name": "Black", "class": "bg-gray-900", "selectedClass": "ring-gray-900"}
+              ],
+              "Stock": [
+                  {"name": "Instock", "inStock": true}
+              ],
+              "description": "The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: 'Black'. Need to add an extra pop of color to your outfit? Our white tee has you covered.",
+              "highlights": [
+                  "Hand cut and sewn locally",
+                  "Dyed with our proprietary colors",
+                  "Pre-washed & pre-shrunk",
+                  "Ultra-soft 100% cotton"
+              ],
+              "details": "The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming 'Charcoal Gray' limited release."
+          }
+      ]
+  },
+  {
+      "id": 4,
+      "name": "6x6",
+      "href": "#",
+      "data": [
+          {
+              "id": 1,
+              "name": "QiYi QiMing Pyraminx Plus (27.5 cms)",
+              "href": "/",
+              "imageSrc": "https://www.cubelelo.com/cdn/shop/files/1_36dd8724-241a-4ebc-8a04-cc7819e49a40_600x.png?v=1710159108",
+              "imageAlt": "3*3 speed cube | rubics cube.",
+              "price": "₹ 2,999",
+              "color": "Black",
+              "rating": 3,
+              "reviewCount": 1,
+              "colors": [
+                  {"name": "White", "class": "bg-white", "selectedClass": "ring-gray-400"},
+                  {"name": "Black", "class": "bg-gray-900", "selectedClass": "ring-gray-900"}
+              ],
+              "Stock": [
+                  {"name": "Instock", "inStock": true}
+              ],
+              "description": "The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: 'Black'. Need to add an extra pop of color to your outfit? Our white tee has you covered.",
+              "highlights": [
+                  "Hand cut and sewn locally",
+                  "Dyed with our proprietary colors",
+                  "Pre-washed & pre-shrunk",
+                  "Ultra-soft 100% cotton"
+              ],
+              "details": "The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming 'Charcoal Gray' limited release."
+          }
+      ]
+  }
+]
