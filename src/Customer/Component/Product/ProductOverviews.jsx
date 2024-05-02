@@ -26,10 +26,7 @@ const selectedItem = selectedProduct ? selectedProduct.data.find(item => item.id
 if (!selectedProduct || !selectedItem) {
   return <NotFound />;
 }
-  else{
-    document.title = `Cubikor | ${selectedProduct.name}- ${selectedProduct.price} `;
-
-  }
+  
 
   const pagenation = {
     name: '3x3 cubes',
@@ -79,7 +76,8 @@ if (!selectedProduct || !selectedItem) {
 
         {filteredProduct.data.filter(dataItem => dataItem.id === cubeId).map(dataItem => (
                 <div key={dataItem.id}  className="pt-20">
-                     
+                     <div className="hidden">{ document.title = `Cubikor- ${filteredProduct.name} | ${dataItem.name}`}</div>
+
                     
                     <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:-mt-5 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
                         <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">

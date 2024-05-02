@@ -7,10 +7,10 @@ import pagelogo from "../Data/images-app/page-logo.jpg";
 import SearchBox from '../../SearchBox';
 import SHoppingCart from "../SHoppingCart";
 import { Hidden } from '@mui/material';
-import SIgnIn from '../SignIn';
-
 import navigation from "../Data/navigation.json";
-import SIgnUp from '../SignUp';
+import UserEntry from '../../../Auth/UserEntry';
+import userDAta from "../Data/user.json";
+import { Block } from '@mui/icons-material';
 
 
 function classNames(...classes) {
@@ -25,12 +25,13 @@ export default function Navigation() {
   const [signin, setsignin] = useState(false);
   const [signinUp, setsignUp] = useState(false);
 
+  const Authenticated = userDAta.Auth;
+
   return (
     <>
     <SearchBox open={SearchBar} setOpen={SetSearchBar}/>
     <SHoppingCart open={shoppingCart} setOpen={setshoppingCart}/>
-    <SIgnIn open={signin} setOpen={setsignin}/>
-    <SIgnUp open={signinUp} setOpen={setsignUp}/>
+    <UserEntry SignInopen={signin} setOpenSignIn={setsignin} open={signinUp} setOpen={setsignUp}/>
       <div className="bg-white fixed w-full z-[999]">
         {/* Mobile menu */}
         <Transition.Root show={open} as={Fragment}>
@@ -133,7 +134,7 @@ export default function Navigation() {
                     ))}
                   </div>
 
-                  <div className="space-y-6 border-t border-gray-200 px-4 py-6">
+                  <div className={` space-y-6 border-t border-gray-200 px-4 py-6`}>
                     <div onClick={()=>{setsignin(true);setOpen(!open);}}   className=" flow-root">
                       <a href="#" className=" -m-2 flex justify-center border-[2px] border-indigo-500 hover:bg-indigo-500 hover:text-white p-2 font-medium text-indigo-500">
                         Sign in 
@@ -300,14 +301,16 @@ export default function Navigation() {
                 </Popover.Group>
 
                 <div className="ml-auto flex items-center">
-                  <div  className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                    <a onClick={()=>setsignin(true)} href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                  <div  className={` place-content-center hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6`}>
+                    
+                    <div className={`px-4 py-2 text-white rounded-full bg-yellow-400 uppercase cursor-pointer ${!Authenticated ? "hidden" : "Block"} `}>{userDAta.name.charAt(0) }</div>
+                    <div onClick={()=>setsignin(true)}  className={`${Authenticated ? "hidden" : "Block"} cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-800`}>
                       Sign in
-                    </a>
+                    </div>
                     <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                    <a onClick={()=>setsignUp(true)} href="#" className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                    <div onClick={()=>setsignUp(true)}  className={` ${Authenticated ? "hidden" : "Block"} cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-800`}>
                       Create account
-                    </a>
+                    </div>
                   </div>
 
                   <div className="hidden lg:ml-8 lg:flex">
@@ -331,7 +334,7 @@ export default function Navigation() {
                   </div>
 
                   {/* Cart */}
-                  <div className="ml-4 flow-root lg:ml-6" onClick={()=>(setshoppingCart(true))}>
+                  <div className="ml-4 flow-root lg:ml-6" onClick={Authenticated ? () => setshoppingCart(true) : () => setsignin(true)}  >
                     <a href="#" className="group -m-2 flex items-center p-2">
                       <ShoppingBagIcon
                         className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
