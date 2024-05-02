@@ -19,7 +19,7 @@ export default function QuickPreview(Props) {
    <> 
    
    <Transition.Root show={Props.open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={Props.setOpen}>
+      <Dialog as="div" className="relative z-999" onClose={Props.setOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -44,7 +44,7 @@ export default function QuickPreview(Props) {
               leaveTo="opacity-0 translate-y-4 md:translate-y-0 md:scale-95"
             >
               <Dialog.Panel className=" p-[1rem] pt-[5rem] sm:mt-0 flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl">
-                <div className=" relative flex w-full  items-center overflow-hidden bg-white px-8 pb-8 pt-0 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
+                <div className=" relative flex w-full  items-center overflow-hidden bg-white rounded-md px-8 pb-8 pt-0 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
                 <button
                     type="button"
                     className="  absolute right-9 top-10 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8"
