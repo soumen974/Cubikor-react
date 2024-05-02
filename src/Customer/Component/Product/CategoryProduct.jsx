@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import productData from "../Data/products.json";
 import QuickPreview from "./QuickPreview";
 import { useParams } from "react-router-dom";
@@ -30,6 +30,9 @@ if (!selectedProduct ) {
       { id: 1, name: 'Home', href: '/' },
     ]};
 
+
+    
+
   
   return (
     <>
@@ -57,10 +60,12 @@ if (!selectedProduct ) {
                 </div>
               </li>
             ))}
-            <li className="text-sm">
-                  <a href="/new" aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
-                  New
-                  </a>
+                <li className="text-sm">
+                    {productData .filter(product => product.id === categoryId).map(product => (
+                      <div key={productData.id} aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
+                      {product.name}
+                      </div>
+                     ))}
                 </li>
             
           </ol>
@@ -69,8 +74,8 @@ if (!selectedProduct ) {
 
         <div className="">
           {productData .filter(product => product.id === categoryId).map(product => (
-            <div key={product.id} className="">
-                <h2 className="text-2xl font-bold tracking-tight text-gray-900 py-5">Category : {product.name}</h2>
+            <div key={product.id}  className="">
+                <h2 className="text-2xl font-bold tracking-tight text-gray-900 py-5">Category : {product.name} </h2>
                 <div className="mt-6 grid grid-cols-2 gap-x-3 gap-y-3 md:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
                     { product.data.map((item) => (
                         <div key={item.id} onClick={() => { setOpen(true); setPuzzleId(product.id);setCubeId(item.id); }} className="group cursor-pointer bg-gray-100 hover:bg-indigo-500 transform-bg duration-500 group px-2 py-2 rounded-lg relative">
