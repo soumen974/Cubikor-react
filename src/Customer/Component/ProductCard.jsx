@@ -8,31 +8,8 @@ export default function ProductCard() {
   const [CubeId, setCubeId] = useState(0);
 
 
-  const items = [ 
-    { 
-      id: 1,
-      data: [
-        { id: 1, name: "Drift 2x2 Speed Cube for Beginners" },
-        { id: 2, name: "Drift 2x2 Speed Cube for Beginners" }
-      ]
-    },
-    { 
-      id: 2,
-      data: [
-        { id: 1, name: "Drift 2x2 Speed Cube for Beginners" },
-        { id: 2, name: "Drift 2x2 Speed Cube for Beginners" }
-      ]
-    },
-    { 
-      id: 3,
-      data: [
-        { id: 1, name: "Drift 2x2 Speed Cube for Beginners" },
-        { id: 2, name: "Drift 2x2 Speed Cube for Beginners" }
-      ]
-    }
-  ];
-  
-  const lastDataItems = items.map(item => {
+ 
+  const lastDataItems = products.map(item => {
     const lastDataItem = item.data[item.data.length - 1];
     return { [`id${item.id}`]: lastDataItem };
   });
