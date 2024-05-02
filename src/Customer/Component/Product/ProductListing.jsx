@@ -17,7 +17,7 @@ export default function ProductListing() {
           {products.map((product) => (
             <div key={product.id} className="">
                 <h2 className="text-2xl font-bold tracking-tight text-gray-900 py-5">Category : {product.name}</h2>
-                <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+                <div className="mt-6 grid grid-cols-2 gap-x-3 gap-y-3 md:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
                     { product.data.map((item) => (
                         <div key={item.id} onClick={() => { setOpen(true); setPuzzleId(product.id);setCubeId(item.id); }} className="group cursor-pointer bg-gray-100 hover:bg-indigo-500 transform-bg duration-500 group px-2 py-2 rounded-lg relative">
                             <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:h-80">
