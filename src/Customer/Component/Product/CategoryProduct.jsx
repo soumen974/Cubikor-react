@@ -34,7 +34,7 @@ if (!selectedProduct ) {
   return (
     <>
       <QuickPreview CategoryId={PuzzleId} CubeId={CubeId} setOpen={setOpen} open={open} />
-      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
+      <div className="mx-auto max-w-2xl px-2 py-16 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
         
         <nav aria-label="Breadcrumb" className="mt-10 md:mt-20">
           <ol role="list" className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
