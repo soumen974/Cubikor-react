@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <>
     
-    <div className=" gap-10">
+    <div className=" ">
         
         {[
           <Hero/>,
