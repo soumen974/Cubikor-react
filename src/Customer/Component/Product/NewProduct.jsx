@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import ProductCard from '../ProductCard';
-import ProductListing from './ProductListing';
 
 export default function NewProduct(Props) {
     const [selectedProductId, setSelectedProductId] = useState(null);
@@ -57,7 +56,6 @@ export default function NewProduct(Props) {
             
     </div> : null}
     <ProductCard/>
-    <ProductListing/>
     
     </div>
   )

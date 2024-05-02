@@ -20,10 +20,10 @@ export default function ProductCard() {
   return (
     <>
       <QuickPreview CategoryId={PuzzleId} CubeId={CubeId} setOpen={setOpen} open={open} />
-      <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
+      <div className="mx-auto max-w-2xl px-0 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
         <h2 className="text-2xl font-bold tracking-tight text-gray-900">New Arrival</h2>
         
-        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+        <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {products.map((product) => (
             <div key={product.id} className="">
              {product.data[product.data.length - 1] && (
@@ -34,7 +34,7 @@ export default function ProductCard() {
                     setPuzzleId(product.id);
                     setCubeId(product.data[product.data.length - 1].id);
                   }}
-                  className="group cursor-pointer bg-gray-100 hover:bg-indigo-500 transform-bg duration-500 group px-2 py-2 rounded-lg relative"
+                  className="group  cursor-pointer bg-gray-100  hover:bg-indigo-500 transform-bg duration-500 group px-2 py-2 rounded-lg relative"
                 >
                   <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:h-80">
                     <img
