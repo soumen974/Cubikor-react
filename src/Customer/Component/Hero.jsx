@@ -29,10 +29,10 @@ export default function Hero() {
           />
         </div>
         <div className="mx-auto max-w-2xl py-32 sm:py-10 lg:py-10">
-          <div className="hidden sm:mb-8 sm:flex sm:justify-center">
+          <div className=" mb-8 flex justify-center">
             <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
             ~ New month, new purchase, free delivery!{' '}
-              <a href="#" className="font-semibold text-indigo-600 capitalize">
+              <a href="#GetYours" className="font-semibold text-indigo-600 capitalize">
                 <span className="absolute inset-0 " aria-hidden="true" />
                 get yours <span aria-hidden="true">&rarr;</span>
               </a>
@@ -45,14 +45,14 @@ export default function Hero() {
             <p className="mt-6 text-lg leading-8 text-gray-600">
             A speed cube is a Rubik's Cube that has been specifically designed to be solved faster, with improved corner cutting and smoother turning.
             </p>
-            <div className="mt-10 flex items-center justify-center gap-x-6">
+            <div className="mt-10 grid gap-5 md:flex  items-center justify-center gap-x-6">
               <a
-                href="#"
-                className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                href="/products/1"
+                className="rounded-md bg-indigo-600 w-[80vw] md:w-fit px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Get your own
               </a>
-              <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+              <a href="/new" className="text-sm font-semibold leading-6 text-gray-900">
               Check out other cubes<span aria-hidden="true">→</span>
               </a>
             </div>
