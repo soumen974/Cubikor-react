@@ -1,0 +1,32 @@
+{
+    "username": "soumenbhunia",
+    "name":"Soumen Bhunia",
+    "Auth":false,
+    "email": "210301120102@cutm.ac.in",
+    "password": "soumen123",
+    "date_of_birth": "1990-01-01",
+    "country": "United States",
+    "security_question": "What is your mother's maiden name?",
+    "security_answer": "Smith",
+    "shipping_address": {
+      "street": "123 Main St",
+      "city": "Anytown",
+      "state": "CA",
+      "zipcode": "12345",
+      "country": "United States"
+    },
+    "Shopping_bag": [
+      { 
+        "id":1,
+        "Category_id": "2",
+        "product_id": "2",
+        "quantity": 1
+      },
+      {
+        "id":2,
+        "Category_id": "4",
+        "product_id": "1",
+        "quantity": 1
+    }
+    ]
+}
