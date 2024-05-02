@@ -1,35 +1,35 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState ,useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-
-const products = [
-  {
-    id: 1,
-    name: 'Throwback Hip Bag',
-    href: '#',
-    color: 'Salmon',
-    price: '$90.00',
-    quantity: 1,
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
-    imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
-  },
-  {
-    id: 2,
-    name: 'Medium Stuff Satchel',
-    href: '#',
-    color: 'Blue',
-    price: '$32.00',
-    quantity: 1,
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-    imageAlt:
-      'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
-  },
-  // More products...
-]
+import products from "./Data/products.json";
+import userData from "./Data/user.json";
 
 export default function SHoppingCart(Props) {
 //   const [open, setOpen] = useState(true)
+const { Shopping_bag } = userData;
+const [categoryIds, setCategoryIds] = useState([2,4]);
+const [productIds, setProductIds] = useState([2,1]);
 
+// Initialize arrays to hold product_ids and Category_ids
+const productIds1 = [];
+const categoryIds1 = [];
+
+// Iterate through Shopping_bag and extract product_ids and Category_ids
+userData.Shopping_bag.forEach(item => {
+  if (item && item.product_id) {
+    productIds1.push(item.product_id);
+  }
+  if (item && item.Category_id) {
+    categoryIds1.push(item.Category_id);
+  }
+});
+
+console.log("Product IDs:", productIds1);
+console.log("Category IDs:", categoryIds1);
+
+
+
+ 
   return (
     <Transition.Root show={Props.open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={Props.setOpen}>
@@ -77,43 +77,50 @@ export default function SHoppingCart(Props) {
 
                             <div className="mt-8">
                                 <div className="flow-root">
-                                <ul role="list" className="-my-6 divide-y divide-gray-200">
-                                    {products.map((product) => (
-                                    <li key={product.id} className="flex py-6">
-                                        <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                        <img
-                                            src={product.imageSrc}
-                                            alt={product.imageAlt}
-                                            className="h-full w-full object-cover object-center"
-                                        />
-                                        </div>
+                               
+                                <div  className="">
+                                    <ul role="list" className="-my-6 divide-y divide-gray-200">
+                                        {products.filter(product => [1,2].includes(product.id)).map(product => (
+                                                <div key={product.id} className="">
+                                                    {product.data .filter(item => [1,2].includes(item.id)).map(item => (
+                                                            <li key={item.id} className="flex py-6">
+                                                                <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                                                    <img
+                                                                        src={item.imageSrc}
+                                                                        alt={item.imageAlt}
+                                                                        className="h-full w-full object-cover object-center"
+                                                                    />
+                                                                </div>
 
-                                        <div className="ml-4 flex flex-1 flex-col">
-                                        <div>
-                                            <div className="flex justify-between text-base font-medium text-gray-900">
-                                            <h3>
-                                                <a href={product.href}>{product.name}</a>
-                                            </h3>
-                                            <p className="ml-4">{product.price}</p>
-                                            </div>
-                                            <p className="mt-1 text-sm text-gray-500">{product.color}</p>
-                                        </div>
-                                        <div className="flex flex-1 items-end justify-between text-sm">
-                                            <p className="text-gray-500">Qty {product.quantity}</p>
+                                                                <div className="ml-4 flex flex-1 flex-col">
+                                                                    <div className="flex justify-between text-base font-medium text-gray-900">
+                                                                        <h3>
+                                                                            <a href={item.href}>{item.name}</a>
+                                                                        </h3>
+                                                                        <p className="ml-4">{item.price}</p>
+                                                                    </div>
+                                                                    <p className="mt-1 text-sm text-gray-500">{item.color}</p>
+                                                                    
+                                                                    <div className="flex flex-1 items-end justify-between text-sm">
+                                                                        <p className="text-gray-500">Qty 1</p>
+                                                                        <div className="flex">
+                                                                            <button
+                                                                                type="button"
+                                                                                className="font-medium text-indigo-600 hover:text-indigo-500"
+                                                                            >
+                                                                                Remove
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        ))}
+                                                </div>
+                                        ))}
+                                    </ul>
+                                </div>
+                              
 
-                                            <div className="flex">
-                                            <button
-                                                type="button"
-                                                className="font-medium text-indigo-600 hover:text-indigo-500"
-                                            >
-                                                Remove
-                                            </button>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </li>
-                                    ))}
-                                </ul>
                                 </div>
                             </div>
                             </div>
