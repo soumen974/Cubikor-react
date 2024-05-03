@@ -60,7 +60,7 @@ export default function QuickPreview(Props) {
                       {product.data.filter(dataItem => dataItem.id === Props.CubeId).map(dataItem => (
                           <div key={dataItem.id} className="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8">
                             <div className="aspect-h-3 aspect-w-2 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5">
-                            <Link to={`/productview/${product.id}/${dataItem.id}`}>
+                            <Link to={`/productview/${product.id}/${dataItem.id}`} onClick={() => Props.setOpen(false)}>
                               <img src={dataItem.imageSrc} alt={dataItem.imageAlt} className="cursor-pointer object-cover object-center" />
                             </Link>
                             </div>

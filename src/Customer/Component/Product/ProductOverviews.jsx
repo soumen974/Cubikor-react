@@ -1,10 +1,11 @@
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { StarIcon } from '@heroicons/react/20/solid'
 import { RadioGroup } from '@headlessui/react'
 import { useParams } from 'react-router-dom';
 import productData from "../Data/products.json";
 import NotFound from '../NotFound';
+import SuggestedProduct from './SuggestedProduct';
 
 
 
@@ -22,11 +23,17 @@ export default function ProductOverview(Props) {
   const selectedProduct = productData.find(product => product.id === categoryId);
 const selectedItem = selectedProduct ? selectedProduct.data.find(item => item.id === cubeId) : null;
 
+useEffect(() => {
+  window.scrollTo(0, 0);
+}, []);
+
+
 
 if (!selectedProduct || !selectedItem) {
   return <NotFound />;
 }
   
+
 
   const pagenation = {
     name: '3x3 cubes',
@@ -74,7 +81,7 @@ if (!selectedProduct || !selectedItem) {
             </nav>
           </div>
 
-        {filteredProduct.data.filter(dataItem => dataItem.id === cubeId).map(dataItem => (
+           {filteredProduct.data.filter(dataItem => dataItem.id === cubeId).map(dataItem => (
                 <div key={dataItem.id}  className="pt-20">
                      <div className="hidden">{ document.title = `Cubikor- ${filteredProduct.name} | ${dataItem.name}`}</div>
 
@@ -200,7 +207,11 @@ if (!selectedProduct || !selectedItem) {
               
                   
               ))}
-            </div> 
+          
+            <div className="">
+              <SuggestedProduct categoryName={filteredProduct.name} catID={categoryId}/>
+            </div>
+          </div> 
         ))}
       </div>
   
