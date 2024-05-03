@@ -30,7 +30,7 @@ export default function Hero() {
         </div>
         <div className="mx-auto max-w-2xl py-32 sm:py-10 lg:py-10">
           <div className=" mb-8 flex justify-center">
-            <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+            <div className="relative rounded-full px-3 py-1 text-[2.8vw] sm:text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
             ~ New month, new purchase, free delivery!{' '}
               <a href="#GetYours" className="font-semibold text-indigo-600 capitalize">
                 <span className="absolute inset-0 " aria-hidden="true" />
