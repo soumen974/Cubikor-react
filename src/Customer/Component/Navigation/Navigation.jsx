@@ -32,7 +32,7 @@ export default function Navigation() {
     <SearchBox open={SearchBar} setOpen={SetSearchBar}/>
     <SHoppingCart open={shoppingCart} setOpen={setshoppingCart}/>
     <UserEntry SignInopen={signin} setOpenSignIn={setsignin} open={signinUp} setOpen={setsignUp}/>
-      <div className="bg-white fixed w-full z-[999]">
+      <div className="bg-white fixed w-full z-40">
         {/* Mobile menu */}
         <Transition.Root show={open} as={Fragment}>
           <Dialog as="div" className="relative z-40 lg:hidden " onClose={setOpen}>
@@ -62,8 +62,16 @@ export default function Navigation() {
                  
 
                   {/* Links */}
-                  <Tab.Group as="div" className="mt-2">
+                  <Tab.Group as="div" className="mt-0">
                     <div className="border-b border-gray-200">
+                    <button
+                    type="button"
+                    className="  absolute right-9 top-10 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8"
+                    onClick={() => setOpen(false)}
+                  >
+                    <span className="sr-only">Close</span>
+                    <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                  </button>
                       <Tab.List className="-mb-px flex space-x-8 px-4">
                         {navigation.categories.map((category) => (
                           <Tab
@@ -87,7 +95,7 @@ export default function Navigation() {
                             {category.featured.map((item) => (
                               <div key={item.name} className="group relative text-sm">
                                 <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-800 group-hover:opacity-75">
-                                  <img src={item.imageSrc} alt={item.imageAlt} className="object-cover w-20 object-center" />
+                                  <img src={item.imageSrc} alt={item.imageAlt} className="object-cover w-fit object-center" />
                                 </div>
                                 <a href={item.href} className="mt-6 block font-medium text-gray-900">
                                   <span className="absolute inset-0 z-10" aria-hidden="true" />
@@ -135,16 +143,22 @@ export default function Navigation() {
                   </div>
 
                   <div className={` space-y-6 border-t border-gray-200 px-4 py-6`}>
-                    <div onClick={()=>{setsignin(true);setOpen(!open);}}   className=" flow-root">
+                  {Authenticated ?
+                    <div className="flex justify-between">
+                      <div className={`px-4 py-2 text-white rounded-full bg-yellow-400 uppercase cursor-pointer w-fit ${!Authenticated ? "hidden" : "Block"} `}>{userDAta.name.charAt(0) }</div>
+                      <div  className='bg-indigo-500 rounded-md flex w-100 justify-center items-center text-white p-1 px-3' >Logout</div>
+                    </div>
+                    :(
+                   <> <div onClick={()=>{setsignin(true);setOpen(!open);}}   className={` flow-root`}>
                       <a href="#" className=" -m-2 flex justify-center border-[2px] border-indigo-500 hover:bg-indigo-500 hover:text-white p-2 font-medium text-indigo-500">
                         Sign in 
                       </a>
                     </div>
-                    <div onClick={()=>setsignUp(true)} className="flow-root justify-center item-center">
+                    <div onClick={()=>setsignUp(true)} className={` flow-root justify-center item-center`}>
                       <a href="#" className="-m-2 flex justify-center p-2 font-medium bg-yellow-400 hover:bg-yellow-300 text-gray-900">
                         Create account 
                       </a>
-                    </div>
+                    </div> </>)}
                   </div>
 
                   <div className="border-t border-gray-200 px-4 py-6">
@@ -301,17 +315,28 @@ export default function Navigation() {
                 </Popover.Group>
 
                 <div className="ml-auto flex items-center">
-                  <div  className={` place-content-center hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6`}>
-                    
-                    <div className={`px-4 py-2 text-white rounded-full bg-yellow-400 uppercase cursor-pointer ${!Authenticated ? "hidden" : "Block"} `}>{userDAta.name.charAt(0) }</div>
-                    <div onClick={()=>setsignin(true)}  className={`${Authenticated ? "hidden" : "Block"} cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-800`}>
-                      Sign in
+                  {Authenticated ? 
+
+                  (
+                    <div  className={` place-content-center hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6`}>
+                      <div className={`px-4 py-2 text-white rounded-full bg-yellow-400 uppercase cursor-pointer  `}>{userDAta.name.charAt(0) }</div>
+                      <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
                     </div>
-                    <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                    <div onClick={()=>setsignUp(true)}  className={` ${Authenticated ? "hidden" : "Block"} cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-800`}>
-                      Create account
+                  )
+                  
+                  : 
+                  
+                  (
+                    <div  className={` place-content-center hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6`}>
+                      <div onClick={()=>setsignin(true)}  className={` cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-800`}>
+                        Sign in
+                      </div>
+                      <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
+                      <div onClick={()=>setsignUp(true)}  className={` cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-800`}>
+                        Create account
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   <div className="hidden lg:ml-8 lg:flex">
                     <a href="#" className="flex items-center text-gray-700 hover:text-gray-800">
