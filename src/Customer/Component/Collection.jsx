@@ -1,17 +1,4 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/aspect-ratio'),
-    ],
-  }
-  ```
-*/
+
 const callouts = [
     {
       name: '2x2 Rubics Cube',
@@ -43,23 +30,29 @@ const callouts = [
           <div className="mx-auto max-w-2xl py-16 sm:py-2 lg:max-w-none lg:py-3">
             <h2 className="text-2xl font-bold text-gray-900">Collections</h2>
   
-            <div className=" mt-6 space-y-12   lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0 bg-gray-100 p-3 rounded-md">
+            <div className=" mt-6 space-y-12 content-box grid md:grid-cols-3  lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0 bg-gray-00 p-3 rounded-md">
               {callouts.map((callout) => (
-                <div key={callout.name} className="bg-white hover:bg-yellow-300 scale-[1] hover:scale-[1.02] group relative transform-bg duration-500  px-2 py-2 rounded-md">
-                  <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64 hover:border-[0px]  border-[px]  border-gray-400">
+                <div key={callout.name} className="bg-white content-box overflow-hidden  border-[1px] border-indigo-200 scale-[1] hover:scale-[1.02] group relative transform-bg duration-500   rounded-md">
+                  <div className="relative h-40 w-full group-hover:blur-sm  blur-none  overflow-hidden rounded-md bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-2 lg:aspect-w-1  sm:h-64 ">
                     <img
                       src={callout.imageSrc}
                       alt={callout.imageAlt}
                       className="h-full w-full object-cover object-center "
                     />
                   </div>
-                  <h3 className="mt-6 text-sm text-black w-fit  p-1 rounded-md bg-yellow-300 hover:bg-indigo-500 hover:text-white transform-bg duration-500 ">
-                    <a  href={callout.href}>
-                      <span className="absolute inset-0" />
-                      <h1 className="p-1">{callout.name}</h1>
-                    </a>
-                  </h3>
-                  <p className="text-base font-light text-gray-800 px-1 py-1">{callout.description}</p>
+
+                  <div className=" p-2 group-hover:block  hidden transform-block duration-500  absolute md:top-14 top-1  justify-center">
+                    <h3 className=" mt-6 text-sm text-black   p-1 rounded-md   transform-bg duration-500 ">
+                      <a  href={callout.href}>
+                        <span className="absolute inset-0" />
+                        <h1 className="p-1 items-center  flex justify-center ">
+                           <h1 className="bg-yellow-300 rounded-full px-5  p-3"> {callout.name}</h1>
+                        </h1>
+                      </a>
+                    </h3>
+                    <p className="text-base font-light text-gray-800 px-1 py-1">{callout.description}</p>
+                  </div>
+                  
                 </div>
               ))}
             </div>
