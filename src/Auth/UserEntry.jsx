@@ -2,10 +2,33 @@
 import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import pagelogo from "../Customer/Component/Data/images-app/page-logo.jpg";
+import userData from "../Customer/Component/Data/user.json";
+import { useNavigate } from 'react-router-dom';
 
 export default function UserEntry(Props) {
   const cancelButtonRef1 = useRef(null);
   const cancelButtonRef = useRef(null);
+  const [issignin, setsignin] = useState(Props.SignInopen)
+
+  const [signInEmail, setsignInEmail] = useState();
+  const [signPassword, setsignPassword] = useState();
+  let navigate = useNavigate();
+
+  const SignInAuthCheck = (event) => {
+    event.preventDefault();
+    if (signInEmail === userData.email && signPassword === userData.password) {
+      alert('Login successful!');
+      navigate("/");
+      setsignin(false);
+      setsignInEmail("");
+      setsignPassword("");
+
+     
+    } else {
+      alert('Invalid login ID or password!');
+    }
+  }
+  
 
 
   return (
@@ -13,7 +36,7 @@ export default function UserEntry(Props) {
 
    {/* signIn */}
    
-   <Transition.Root show={Props.SignInopen} as={Fragment}>
+   <Transition.Root show={Props.SignInopen  } as={Fragment}>
       <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef1} onClose={Props.setOpenSignIn}>
         <Transition.Child
           as={Fragment}
@@ -51,7 +74,7 @@ export default function UserEntry(Props) {
              </div>
   
           <div className=" mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form className="space-y-6" action="#" method="POST">
+            <form className="space-y-6" >
               <div>
                 <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                   Email address
@@ -60,6 +83,8 @@ export default function UserEntry(Props) {
                   <input
                     id="email"
                     name="email"
+                    value={signInEmail}
+                    onChange={(e) => setsignInEmail(e.target.value)}
                     type="email"
                     autoComplete="email"
                     required
@@ -83,6 +108,8 @@ export default function UserEntry(Props) {
                   <input
                     id="password"
                     name="password"
+                    value={signPassword}
+                    onChange={(e) => setsignPassword(e.target.value)}
                     type="password"
                     autoComplete="current-password"
                     required
@@ -93,6 +120,7 @@ export default function UserEntry(Props) {
   
               <div>
                 <button
+                  onClick={SignInAuthCheck}
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
