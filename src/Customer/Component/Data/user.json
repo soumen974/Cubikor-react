@@ -3,7 +3,7 @@
     "name":"Soumen Bhunia",
     "Auth":false,
     "email": "210301120102@cutm.ac.in",
-    "password": "soumen123",
+    "password": "123",
     "date_of_birth": "1990-01-01",
     "country": "United States",
     "security_question": "What is your mother's maiden name?",
@@ -26,7 +26,7 @@
         "id":2,
         "Category_id": "4",
         "product_id": "1",
-        "quantity": 1
+        "quantity": 2
     }
     ]
 }

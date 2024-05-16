@@ -32,7 +32,7 @@ const callouts = [
   
             <div className=" mt-6 space-y-12 content-box grid md:grid-cols-3  lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0 bg-gray-00 p-3 rounded-md">
               {callouts.map((callout) => (
-                <div key={callout.name} className="bg-white content-box overflow-hidden  border-[1px] border-indigo-200 scale-[1] hover:scale-[1.02] group relative transform-bg duration-500   rounded-md">
+                <div key={callout.name} className="bg-white content-box overflow-hidden  border-[1px] hover:border-none hover:shadow-md  border-gray-200 scale-[1] hover:scale-[1.02] group relative transform-bg duration-500   rounded-md">
                   <div className="relative h-40 w-full group-hover:blur-sm  blur-none  overflow-hidden rounded-md bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-2 lg:aspect-w-1  sm:h-64 ">
                     <img
                       src={callout.imageSrc}
@@ -41,7 +41,7 @@ const callouts = [
                     />
                   </div>
 
-                  <div className=" p-2 group-hover:block  hidden transform-block duration-500  absolute md:top-14 top-1  justify-center">
+                  <div className=" p-2 group-hover:block  hidden transform-display duration-500   absolute md:top-14 top-1  justify-center">
                     <h3 className=" mt-6 text-sm text-black   p-1 rounded-md   transform-bg duration-500 ">
                       <a  href={callout.href}>
                         <span className="absolute inset-0" />

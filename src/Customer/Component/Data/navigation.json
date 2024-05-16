@@ -110,7 +110,7 @@
     ],
     "pages": [
       { "name": "New", "href": "/new" },
-      { "name": "Learn", "href": "#" }
+      { "name": "Learn", "href": "/learn" }
     ]
   }
   

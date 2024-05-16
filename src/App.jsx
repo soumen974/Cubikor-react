@@ -7,6 +7,7 @@ import NewProduct from './Customer/Component/Product/NewProduct';
 import SIgnIn from './Customer/Component/SignIn';
 import ProductOverview from './Customer/Component/Product/ProductOverviews';
 import CategoryProduct from './Customer/Component/Product/CategoryProduct';
+import Learn from './Customer/Component/Learn';
 
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/new" element={<NewProduct/>}/ >
+          <Route path="/learn" element={<Learn/>}/ >
           <Route path="/productview/:CategoryId/:CubeId" element={<ProductOverview/>}/ >
           <Route path="/productview/" element={<ProductOverview/>}/ >
           <Route path="/products" element={<CategoryProduct/>}/ >

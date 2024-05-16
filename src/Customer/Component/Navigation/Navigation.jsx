@@ -1,5 +1,5 @@
 
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import CloseIcon from '@mui/icons-material/Close';
@@ -11,6 +11,8 @@ import navigation from "../Data/navigation.json";
 import UserEntry from '../../../Auth/UserEntry';
 import userDAta from "../Data/user.json";
 import { Block } from '@mui/icons-material';
+import Avatar from '../Avatar';
+
 
 
 function classNames(...classes) {
@@ -26,6 +28,25 @@ export default function Navigation() {
   const [signinUp, setsignUp] = useState(false);
 
   const Authenticated = userDAta.Auth;
+  let totalQuantity = 0;
+
+  // Check if userData contains the Shopping_bag array
+  if (userDAta && userDAta.Shopping_bag && Array.isArray(userDAta.Shopping_bag)) {
+      // Iterate through the Shopping_bag array and sum up the quantities
+      userDAta.Shopping_bag.forEach(item => {
+          totalQuantity += item.quantity;
+      });
+  } else {
+      console.error("userData or Shopping_bag is undefined or not an array.");
+  }
+  useEffect(() => {
+    
+    if(Authenticated){
+      setsignin(false);
+      setsignUp(false);
+    }
+  }, [setsignin,setsignUp])
+  
 
   return (
     <>
@@ -319,9 +340,12 @@ export default function Navigation() {
 
                   (
                     <div  className={` place-content-center hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6`}>
-                      <div className={`px-4 py-2 text-white rounded-full bg-yellow-400 uppercase cursor-pointer  `}>{userDAta.name.charAt(0) }</div>
+
+                      <Avatar/>
                       <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
+
                     </div>
+                    
                   )
                   
                   : 
@@ -365,7 +389,7 @@ export default function Navigation() {
                         className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                         aria-hidden="true"
                       />
-                      <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                      <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{Authenticated ? totalQuantity : null}</span>
                       <span className="sr-only">items in cart, view bag</span>
                     </a>
                   </div>
