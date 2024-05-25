@@ -2,6 +2,16 @@
     "username": "soumenbhunia",
     "name":"Soumen Bhunia",
     "Auth":false,
+    "Sessions":[
+      {
+        "id":1,
+        "Browser":"Brave web browser",
+        "System": "Linux x86_64",
+        "IP Address": "47.11.210.118",
+        "Auth":true
+      }
+
+    ],
     "email": "210301120102@cutm.ac.in",
     "password": "123",
     "date_of_birth": "1990-01-01",

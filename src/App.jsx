@@ -8,6 +8,7 @@ import SIgnIn from './Customer/Component/SignIn';
 import ProductOverview from './Customer/Component/Product/ProductOverviews';
 import CategoryProduct from './Customer/Component/Product/CategoryProduct';
 import Learn from './Customer/Component/Learn';
+import NowTry from './Customer/Component/Now Try';
 
 
 export default function App() {
@@ -25,7 +26,6 @@ export default function App() {
           <Route path="/productview/" element={<ProductOverview/>}/ >
           <Route path="/products" element={<CategoryProduct/>}/ >
           <Route path="/products/:CategoryPageID" element={<CategoryProduct/>}/ >
-
           <Route path="*" element={<NotFound/>} />
         </Route>
         

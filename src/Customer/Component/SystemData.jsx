@@ -1,41 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setBrowserName, setSystemDetails, fetchIpAddress } from '../../redux/session';
 
-const SystemDAta = () => {
-  const [browserName, setBrowserName] = useState('');
-  const [systemDetails, setSystemDetails] = useState('');
-  const [ipAddress, setIpAddress] = useState('');
+const SystemData = () => {
+  const dispatch = useDispatch();
+  const { browserName, systemDetails, ipAddress, status, error } = useSelector((state) => state.systemData);
 
   useEffect(() => {
-    // Get browser name
     const browser = detectBrowser();
-    setBrowserName(browser);
+    dispatch(setBrowserName(browser));
 
-    // Get system details
     const system = detectSystem();
-    setSystemDetails(system);
+    dispatch(setSystemDetails(system));
 
-    // Get IP address
-    fetchIpAddress();
+    dispatch(fetchIpAddress());
+  }, [dispatch]);
 
-    // You can now send these details to your server for session tracking
-    // For example, using fetch or any AJAX library
-
-  }, []); // Only run this effect once, on component mount
-
-  // Function to detect browser
   const detectBrowser = () => {
     const userAgent = navigator.userAgent;
     let browserName = 'Unknown';
     if (userAgent.indexOf('Firefox') > -1) {
       browserName = 'Firefox';
-    } else if (userAgent.indexOf('Chrome') > -1) {
-      browserName = 'Chrome';
+    } else if (userAgent.indexOf('Brave') > -1 || userAgent.indexOf('Chrome') > -1) {
+      browserName = 'Brave web browser';
     } else if (userAgent.indexOf('Safari') > -1) {
       browserName = 'Safari';
     } else if (userAgent.indexOf('MSIE') > -1 || userAgent.indexOf('Trident/') > -1) {
       browserName = 'Internet Explorer';
     }
-    // Check for mobile browsers
     if (userAgent.match(/Android/i)) {
       browserName = 'Android Browser';
     } else if (userAgent.match(/iPhone|iPad|iPod/i)) {
@@ -44,12 +36,10 @@ const SystemDAta = () => {
     return browserName;
   };
 
-  // Function to detect system details
   const detectSystem = () => {
     const platform = navigator.platform;
     const userAgent = navigator.userAgent;
     let systemDetails = `${platform}`;
-    // Check for mobile platforms
     if (userAgent.match(/Android/i)) {
       systemDetails += ' (Android)';
     } else if (userAgent.match(/iPhone|iPad|iPod/i)) {
@@ -58,24 +48,15 @@ const SystemDAta = () => {
     return systemDetails;
   };
 
-  // Function to fetch IP address
-  const fetchIpAddress = async () => {
-    try {
-      const response = await fetch('https://api.ipify.org?format=json');
-      const data = await response.json();
-      setIpAddress(data.ip);
-    } catch (error) {
-      console.error('Error fetching IP address:', error);
-    }
-  };
-
   return (
     <div>
       <p>Browser: {browserName}</p>
       <p>System: {systemDetails}</p>
       <p>IP Address: {ipAddress}</p>
+      {status === 'loading' && <p>Loading IP address...</p>}
+      {status === 'failed' && <p>Error fetching IP address: {error}</p>}
     </div>
   );
 };
 
-export default SystemDAta;
+export default SystemData;
