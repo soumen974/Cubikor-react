@@ -1,9 +1,26 @@
 import React, { useState } from 'react'
 import userDAta from "./Data/user.json";
+import { useSelector, useDispatch } from 'react-redux';
+import {logout  } from "../../redux/UserAuthSlice";
 
 export default function Avatar() {
 
     const [isOpen, setIsOpen] = useState(false);
+
+    const dispatch = useDispatch();
+
+    const { user_mail, isUserAuthenticated } = useSelector((state) => state.user_auth);
+  
+    // const Authenticated = userDAta.Auth;
+    const Authenticated = isUserAuthenticated;
+  
+    const handleLogout = () => {
+      // setIsAuthenticated(false);
+      dispatch(logout());
+      localStorage.removeItem('isUserAuthenticated');
+      localStorage.removeItem('user_mail');
+     
+    };
 
     const toggleDropdown = () => {
       setIsOpen(!isOpen);
@@ -43,8 +60,8 @@ export default function Avatar() {
             </li>
            
           </ul>
-          <div className="py-2">
-            <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ">Sign out</a>
+          <div onClick={handleLogout} className="py-2">
+            <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ">Sign out</a>
           </div>
         </div>
       )}
