@@ -172,10 +172,7 @@ export default function Navigation() {
 
                   <div className={` space-y-6 border-t border-gray-200 px-4 py-6`}>
                   {Authenticated ?
-                    <div className="flex justify-between">
-                      <div className={`px-4 py-2 text-white rounded-full bg-yellow-400 uppercase cursor-pointer w-fit ${!Authenticated ? "hidden" : "Block"} `}>{userDAta.name.charAt(0) }</div>
-                      <div  className='bg-indigo-500 rounded-md flex w-100 justify-center items-center text-white p-1 px-3' >Logout</div>
-                    </div>
+                    <Avatar/>
                     :(
                    <> <div onClick={()=>{setsignin(true);setOpen(!open);}}   className={` flow-root`}>
                       <a href="#" className=" -m-2 flex justify-center border-[2px] border-indigo-500 hover:bg-indigo-500 hover:text-white p-2 font-medium text-indigo-500">

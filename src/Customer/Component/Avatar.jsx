@@ -27,7 +27,7 @@ export default function Avatar() {
     };
   
   return (
-    <div className="relative inline-block text-left">
+    <div className="  relative inline-block text-left">
       <abbr className='no-underline  ' title={userDAta.name}> 
         <button
             id="dropdownUserAvatarButton"
@@ -42,9 +42,9 @@ export default function Avatar() {
       {isOpen && (
         <div
           id="dropdownAvatar"
-          className="z-10 absolute right-0 mt-2 w-44 bg-white divide-y divide-gray-100 rounded-lg shadow "
+          className=" z-10 md:absolute  md:right-0 md:mt-2 md:w-44 w-full  md:bg-white divide-y divide-gray-100 rounded-lg md:shadow "
         >
-          <div className="px-4 py-3 truncate text-sm text-gray-900 ">
+          <div className="md:px-4 py-3 truncate text-sm text-gray-900 ">
             <div>{userDAta.name}</div>
             <div className="font-medium truncate"><abbr className='no-underline hover:underline decoration-solid' title={userDAta.email}>{userDAta.email}</abbr></div>
           </div>
