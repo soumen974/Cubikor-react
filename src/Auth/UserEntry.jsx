@@ -1,18 +1,33 @@
 
-import { Fragment, useRef, useState } from 'react'
+import { Fragment, useRef, useState,useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import pagelogo from "../Customer/Component/Data/images-app/page-logo.jpg";
 import userData from "../Customer/Component/Data/user.json";
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { login, logout, loadStoredAuth } from "../redux/UserAuthSlice";
 
 export default function UserEntry(Props) {
   const cancelButtonRef1 = useRef(null);
   const cancelButtonRef = useRef(null);
-  const [issignin, setsignin] = useState(Props.SignInopen)
-
+  const [issignin, setsignin] = useState(Props.SignInopen);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [signInEmail, setsignInEmail] = useState();
   const [signPassword, setsignPassword] = useState();
   let navigate = useNavigate();
+
+  const { user_mail, isUserAuthenticated } = useSelector((state) => state.user_auth);
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    const storedAuth = localStorage.getItem('isUserAuthenticated') === 'true';
+    const storedUser_mail = localStorage.getItem('signInEmail');
+
+    if(storedAuth && storedUser_mail){
+      // setIsAuthenticated(true);
+      dispatch(loadStoredAuth({ user_mail: storedUser_mail, isUserAuthenticated: true }));
+    }
+  },[]);
 
   const SignInAuthCheck = (event) => {
     event.preventDefault();
@@ -22,13 +37,19 @@ export default function UserEntry(Props) {
       setsignin(false);
       setsignInEmail("");
       setsignPassword("");
+      // setIsAuthenticated(true);
+      dispatch(login(signInEmail));
+      localStorage.setItem('isUserAuthenticated', 'true');
+      localStorage.setItem('user_mail', signInEmail);
 
      
     } else {
       alert('Invalid login ID or password!');
     }
   }
-  
+ 
+
+ 
 
 
   return (
@@ -72,7 +93,7 @@ export default function UserEntry(Props) {
               Sign in to your account
             </h2>
              </div>
-  
+             
           <div className=" mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form className="space-y-6" >
               <div>
@@ -135,7 +156,9 @@ export default function UserEntry(Props) {
                 Create account
               </div>
             </p>
-          </div>
+          </div> 
+
+           
 
                 
               </Dialog.Panel>
