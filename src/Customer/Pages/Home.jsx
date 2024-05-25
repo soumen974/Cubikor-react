@@ -5,7 +5,6 @@ import Stats from '../Stats';
 import CompanyWhoGet from '../Component/CompanyWhoGet';
 import Collection from '../Component/Collection';
 import NewProduct from '../Component/Product/NewProduct';
-import SystemData from "../Component/SystemData";
 
 export default function Home() {
   const [page, setpage] = useState(false);
@@ -22,7 +21,6 @@ export default function Home() {
           <Stats/>,
           <Collection/>,
           <CompanyWhoGet/>,
-          <SystemData/>
         ].map((item,index)=>
           (
           <div key={index} className={` mt-32 ${index===2&& "h-screen"} ${index===0&& "mt-6 md:mt-32"}`}>{item}</div>
