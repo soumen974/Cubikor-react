@@ -1,55 +1,113 @@
 
-import { Fragment, useRef, useState,useEffect } from 'react'
+import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import pagelogo from "../Customer/Component/Data/images-app/page-logo.jpg";
-import userData from "../Customer/Component/Data/user.json";
-import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { login, logout, loadStoredAuth } from "../redux/UserAuthSlice";
+// import { useSelector, useDispatch } from 'react-redux';
 
 export default function UserEntry(Props) {
   const cancelButtonRef1 = useRef(null);
   const cancelButtonRef = useRef(null);
-  const [issignin, setsignin] = useState(Props.SignInopen);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [signInEmail, setsignInEmail] = useState();
-  const [signPassword, setsignPassword] = useState();
-  let navigate = useNavigate();
+  
+  // ------------------------------------registration{signUp}
 
-  const { user_mail, isUserAuthenticated } = useSelector((state) => state.user_auth);
-  const dispatch = useDispatch();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
-  useEffect(()=>{
-    const storedAuth = localStorage.getItem('isUserAuthenticated') === 'true';
-    const storedUser_mail = localStorage.getItem('signInEmail');
-
-    if(storedAuth && storedUser_mail){
-      // setIsAuthenticated(true);
-      dispatch(loadStoredAuth({ user_mail: storedUser_mail, isUserAuthenticated: true }));
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
     }
-  },[]);
-
-  const SignInAuthCheck = (event) => {
-    event.preventDefault();
-    if (signInEmail === userData.email && signPassword === userData.password) {
-      alert('Login successful!');
-      navigate("/");
-      setsignin(false);
-      setsignInEmail("");
-      setsignPassword("");
-      // setIsAuthenticated(true);
-      dispatch(login(signInEmail));
-      localStorage.setItem('isUserAuthenticated', 'true');
-      localStorage.setItem('user_mail', signInEmail);
-
-     
-    } else {
-      alert('Invalid login ID or password!');
+  
+    setError('');
+  
+    const formData = {
+      email,
+      password,
+    };
+  
+    try {
+      const response = await fetch('http://localhost:5000/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (response.ok) {
+        const responseData = await response.json();
+        setSuccess(responseData.message );
+        setTimeout(() => {
+          setSuccess(null);
+          Props.setOpenSignIn(true);
+          Props.setOpen(false);
+        }, 2000);
+        
+        // Clear the form fields
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+      } else {
+        const errorData = await response.json();
+        setError(errorData.error );
+      }
+    } catch (error) {
+      setError('An error occurred while registering');
     }
-  }
- 
+  };
+  
+  // -------------------------signIn-----------------
 
- 
+  const [SignInemail, setSignInEmail] = useState('');
+  const [SignInpassword, setSignInPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const SignInAuthCheck = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:5000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: SignInemail, password: SignInpassword }), // Corrected variable names
+      });
+  
+      if (response.ok) {
+        const responseData = await response.json(); // Move this line inside if block
+        const token = responseData.token;
+        const userId=responseData.userId;
+        // console.log(userId);
+        // console.log(token);
+        setSuccessMessage('Login successful');
+        localStorage.setItem('isUserAuthenticated', 'true');
+        localStorage.setItem('token', token);
+        localStorage.setItem('userId', userId);
+        setTimeout(() => {
+          setSuccessMessage('');
+          Props.setOpenSignIn(false);
+          setSignInEmail("");
+          setSignInPassword("");
+        }, 1000); // Remove success message after 10 seconds
+      } else {
+        const LoginerrorData = await response.json(); // Get error message from response
+        setErrorMessage(LoginerrorData.error);
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 1000);
+      }
+    } catch (error) {
+      setErrorMessage('An error occurred, please try again later');
+    }
+  };
+  
 
 
   return (
@@ -95,7 +153,9 @@ export default function UserEntry(Props) {
              </div>
              
           <div className=" mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form className="space-y-6" >
+          {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+          {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+            <form onSubmit={SignInAuthCheck} className="space-y-6" >
               <div>
                 <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                   Email address
@@ -104,8 +164,8 @@ export default function UserEntry(Props) {
                   <input
                     id="email"
                     name="email"
-                    value={signInEmail}
-                    onChange={(e) => setsignInEmail(e.target.value)}
+                    value={SignInemail}
+                    onChange={(e) => setSignInEmail(e.target.value)}
                     type="email"
                     autoComplete="email"
                     required
@@ -120,7 +180,7 @@ export default function UserEntry(Props) {
                     Password
                   </label>
                   <div className="text-sm">
-                    <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                    <a href="/" className="font-semibold text-indigo-600 hover:text-indigo-500">
                       Forgot password?
                     </a>
                   </div>
@@ -129,8 +189,8 @@ export default function UserEntry(Props) {
                   <input
                     id="password"
                     name="password"
-                    value={signPassword}
-                    onChange={(e) => setsignPassword(e.target.value)}
+                    value={SignInpassword}
+                    onChange={(e) => setSignInPassword(e.target.value)}
                     type="password"
                     autoComplete="current-password"
                     required
@@ -141,7 +201,7 @@ export default function UserEntry(Props) {
   
               <div>
                 <button
-                  onClick={SignInAuthCheck}
+                  // onClick={SignInAuthCheck}
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
@@ -208,75 +268,83 @@ export default function UserEntry(Props) {
              </div>
   
           <div className=" mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form className="space-y-6" action="#" method="POST">
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                  Email address
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    required
-                    className="block w-full rounded-md border-0 py-1.5 px-2  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                </div>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+          {success ?( <p style={{ color: 'green' }}>{success}</p>)
+          :(
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                Email address
+              </label>
+              <div className="mt-2">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  autoComplete="email"
+                  required
+                  className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
               </div>
-  
-              <div>
-                <div className="flex items-center justify-between">
-                  <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                    Password
-                  </label>
-                  
-                </div>
-                
-                
-                <div className="mt-2">
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    autoComplete="current-password"
-                    required
-                    className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                </div>
-              </div>
+            </div>
 
-              <div>
-                <div className="flex items-center justify-between">
-                  <label htmlFor="password" className="block text-sm capitalize font-medium leading-6 text-gray-900">
-                   confirm Password
-                  </label>
-                  
-                </div>
-                
-                
-                <div className="mt-2">
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    autoComplete="current-password"
-                    required
-                    className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                </div>
+            <div>
+              <div className="flex items-center justify-between">
+                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                  Password
+                </label>
               </div>
-              
-  
-              <div>
-                <button
-                  type="submit"
-                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                  Sign Up
-                </button>
+              <div className="mt-2">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  autoComplete="new-password"
+                  required
+                  className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
               </div>
-            </form>
+            </div>
+
+            <div>
+              <div className="flex items-center justify-between">
+                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                  Confirm Password
+                </label>
+              </div>
+              <div className="mt-2">
+                <input
+                  id="confirmpassword"
+                  name="confirmpassword"
+                  value={confirmPassword}
+                   onChange={(e) => setConfirmPassword(e.target.value)}
+                  type="password"
+                  autoComplete="new-password"
+                  required
+                  className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            
+
+            <div>
+              <button
+                type="submit"
+                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Sign Up
+              </button>
+            </div>
+          </form>
+          )}
+            
+          
+
   
             <p className="mt-10 text-center flex text-sm text-gray-500">
               Already a member?{' '}
