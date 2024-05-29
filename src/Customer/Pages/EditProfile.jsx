@@ -57,7 +57,7 @@ export default function EditProfile() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(`Updating ${name} to ${value}`);
+    // console.log(`Updating ${name} to ${value}`);
     setUserData(prevState => ({
       ...prevState,
       [name]: value
@@ -85,7 +85,6 @@ export default function EditProfile() {
       mobile_number: userData.mobile_number,
     };
 
-    console.log('Submitting updated data:', updatedData);
 
     axios.put(`http://localhost:5000/users/${userId}`, updatedData, {
       headers: {
@@ -301,9 +300,9 @@ export default function EditProfile() {
             </div>
 
             <div className="mt-6 flex items-center justify-end gap-x-6">
-              <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
+              <a href='/profile'  className="text-sm font-semibold leading-6 text-gray-900">
                 Cancel
-              </button>
+              </a>
               <button
                 type="submit"
                 className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
