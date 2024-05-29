@@ -16,6 +16,8 @@ export default function Profile() {
 
   const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
+  const user_type = localStorage.getItem('user_type');
+  
 
   useEffect(() => {
     const fetchUser = async () => {
