@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-
+import { fetchUser } from "../../redux/userSlice";
 export default function Avatar() {
 
     const [isOpen, setIsOpen] = useState(false);
@@ -11,14 +11,9 @@ export default function Avatar() {
       localStorage.removeItem('user_mail');
       localStorage.removeItem('token');
       localStorage.removeItem('userId');
+      localStorage.removeItem('isAdmin');
      
     };
-
-    const toggleDropdown = () => {
-      setIsOpen(!isOpen);
-    };
-
-    // ---------------------------------
 
     // const dispatch = useDispatch();
     const token = localStorage.getItem('token');
@@ -42,10 +37,14 @@ export default function Avatar() {
             setUser(userData);
           } else {
             const errorData = await response.json();
+            console.log(token);
             setErrorMessage(errorData.message || 'Error retrieving user');
           }
         } catch (error) {
           setErrorMessage('An error occurred, please try again later');
+          localStorage.removeItem('isUserAuthenticated');
+
+
         }
       };
   
@@ -59,17 +58,19 @@ export default function Avatar() {
     if (!user) {
       return <p>Loading...</p>;
     }
+
+
   
   return (
     <div className="  relative inline-block text-left">
       <abbr className='no-underline  ' title={user.name}> 
         <button
             id="dropdownUserAvatarButton"
-            onClick={toggleDropdown}
+            onClick={()=>{setIsOpen(!isOpen);}}
             className="flex text-sm  rounded-full md:me-0 "
             type="button"
         >
-            <div className={`px-4 py-2 text-black   rounded-full bg-yellow-400 uppercase cursor-pointer  `}>{user.name.charAt(0)|| user.email.charAt(0)  }</div>
+            <div className={`px-4 py-2 text-black   rounded-full bg-yellow-400 uppercase cursor-pointer  `}>{user.name.charAt(0)|| user.email.charAt(0) }</div>
         </button>
       </abbr>
 
@@ -87,7 +88,7 @@ export default function Avatar() {
               <a href="/" className="block px-4 py-2 hover:bg-gray-100 ">Favorite</a>
             </li>
             <li>
-              <a href="/" className="block px-4 py-2 hover:bg-gray-100 ">Profile</a>
+              <a href="/profile" className="block px-4 py-2 hover:bg-gray-100 ">Profile</a>
             </li>
             <li>
               <a href="/" className="block px-4 py-2 hover:bg-gray-100">Settings</a>
