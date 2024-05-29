@@ -1,5 +1,5 @@
 
-import { Fragment, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import pagelogo from "../Customer/Component/Data/images-app/page-logo.jpg";
 // import { useSelector, useDispatch } from 'react-redux';
@@ -68,6 +68,7 @@ export default function UserEntry(Props) {
   const [SignInpassword, setSignInPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [userRole, setuserRole] = useState(null);
 
   const SignInAuthCheck = async (e) => {
     e.preventDefault();
@@ -84,12 +85,22 @@ export default function UserEntry(Props) {
         const responseData = await response.json(); // Move this line inside if block
         const token = responseData.token;
         const userId=responseData.userId;
+        const user_type=responseData.user_type
+        setuserRole(user_type);
+
         // console.log(userId);
         // console.log(token);
         setSuccessMessage('Login successful');
         localStorage.setItem('isUserAuthenticated', 'true');
         localStorage.setItem('token', token);
         localStorage.setItem('userId', userId);
+        // localStorage.setItem('user_type', user_type);
+        
+        
+        
+        // console.log(user_type);
+       
+        
         setTimeout(() => {
           setSuccessMessage('');
           Props.setOpenSignIn(false);
@@ -107,6 +118,21 @@ export default function UserEntry(Props) {
       setErrorMessage('An error occurred, please try again later');
     }
   };
+
+  // console.log(userRole);
+ 
+  useEffect(() => {
+    if(userRole==="admin"){
+      localStorage.setItem('isAdmin', 'true');
+    }
+    else if(userRole===""){
+      localStorage.setItem('isAdmin', 'false');
+
+    }
+  }, [userRole])
+  
+
+ 
   
 
 
