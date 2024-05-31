@@ -14,7 +14,7 @@ export default function ProductCard() {
     return { [`id${item.id}`]: lastDataItem };
   });
   
-  console.log(lastDataItems);
+  // console.log(lastDataItems);
   
   
   return (
