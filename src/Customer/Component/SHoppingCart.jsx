@@ -24,8 +24,8 @@ userData.Shopping_bag.forEach(item => {
   }
 });
 
-console.log("Product IDs:", productIds1);
-console.log("Category IDs:", categoryIds1);
+// console.log("Product IDs:", productIds1);
+// console.log("Category IDs:", categoryIds1);
 
 
 
