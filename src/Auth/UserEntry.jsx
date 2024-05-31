@@ -62,7 +62,7 @@ export default function UserEntry(Props) {
     }
   };
   
-  // -------------------------signIn-----------------
+  // -------------------------signIn-/Login----------------
 
   const [SignInemail, setSignInEmail] = useState('');
   const [SignInpassword, setSignInPassword] = useState('');
@@ -139,7 +139,7 @@ export default function UserEntry(Props) {
   return (
    <>
 
-   {/* signIn */}
+   {/* signIn - login */}
    
    <Transition.Root show={Props.SignInopen  } as={Fragment}>
       <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef1} onClose={Props.setOpenSignIn}>
@@ -237,11 +237,14 @@ export default function UserEntry(Props) {
             </form>
   
             <p className="mt-10 text-center flex text-sm text-gray-500">
-              Not a member?{' '}
+              Not a member ?
               <div onClick={()=>{Props.setOpenSignIn(false);Props.setOpen(true);}} className="cursor-pointer font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                 Create account
               </div>
             </p>
+            <a href='/seller/Login' className="mt-2 underline hover:no-underline  text-center flex justify-end text-sm text-gray-400">
+              Seller ?
+            </a>
           </div> 
 
            
@@ -378,7 +381,11 @@ export default function UserEntry(Props) {
               <div onClick={()=>{Props.setOpenSignIn(true);Props.setOpen(false);}} className="cursor-pointer font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
               Sign in to your account
               </div>
+              
             </p>
+            <a href='/seller/SignUp' className="mt-2 underline hover:no-underline  text-center flex justify-end text-sm text-gray-400">
+              Seller ?
+              </a>
           </div>
 
                 
