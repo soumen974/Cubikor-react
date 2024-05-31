@@ -12,7 +12,6 @@ import UserEntry from '../../../Auth/UserEntry';
 import userDAta from "../Data/user.json";
 import { Block } from '@mui/icons-material';
 import Avatar from '../Avatar';
-import { useSelector, useDispatch } from 'react-redux';
 
 
 
@@ -28,12 +27,10 @@ export default function Navigation() {
   const [shoppingCart, setshoppingCart] = useState(false);
   const [signin, setsignin] = useState(false);
   const [signinUp, setsignUp] = useState(false);
-  const dispatch = useDispatch();
 
-  const { user_mail, isUserAuthenticated } = useSelector((state) => state.user_auth);
 
   // const Authenticated = userDAta.Auth;
-  const Authenticated =  localStorage.getItem('isUserAuthenticated');
+  const Authenticated = localStorage.getItem('isUserAuthenticated');
 
   let totalQuantity = 0;
 
@@ -46,13 +43,6 @@ export default function Navigation() {
   } else {
       console.error("userData or Shopping_bag is undefined or not an array.");
   }
-  useEffect(() => {
-    
-    if(isUserAuthenticated){
-      setsignin(false);
-      setsignUp(false);
-    }
-  }, [setsignin,setsignUp,isUserAuthenticated])
   
 
   return (
