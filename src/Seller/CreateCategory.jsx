@@ -4,9 +4,10 @@ import axios from 'axios';
 
 const CategoryForm = () => {
   const { register, handleSubmit, reset } = useForm();
-  const shopId=2;
+  const shopId=  localStorage.getItem('ShopId');
+
   const onSubmit = async (data) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('SellerToken');
     try {
       const response = await axios.post(`http://localhost:5000/shops/${shopId}/categories`, data, {
         headers: {
