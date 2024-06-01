@@ -15,23 +15,21 @@ export default function Profile() {
   const [errorMessage, setErrorMessage] = useState('');
 
   const token = localStorage.getItem('token');
-  const userId = localStorage.getItem('userId');
-  const user_type = localStorage.getItem('user_type');
-  
+    const userId = localStorage.getItem('userId');  
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const response = await fetch(`http://localhost:5000/users/${userId}`, {
-          method: 'GET',
+          method: 'GET', 
           headers: {
-            'Authorization': `Bearer ${token}`,
-          },
+            'Authorization': `Bearer ${token}`
+          }
         });
 
         if (response.ok) {
           const userData = await response.json();
-          localStorage.setItem('isUserAuthenticated', 'true');
+          // localStorage.setItem('isUserAuthenticated', 'true');
           setUser(userData);
         } else {
           const errorData = await response.json();
@@ -39,14 +37,14 @@ export default function Profile() {
         }
       } catch (error) {
         setErrorMessage('An error occurred, please try again later');
-        localStorage.removeItem('isUserAuthenticated');
+        
       }
     };
 
-    if (userId && token) {
+    if (userId&&token ) {
       fetchUser();
     }
-  }, [userId]);
+  }, [userId,token]);
 
   return (
     <>

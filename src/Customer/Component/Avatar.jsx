@@ -8,10 +8,8 @@ export default function Avatar() {
 
     const handleLogout = () => {
       localStorage.removeItem('isUserAuthenticated');
-      localStorage.removeItem('user_mail');
       localStorage.removeItem('token');
       localStorage.removeItem('userId');
-      localStorage.removeItem('isAdmin');
      
     };
 

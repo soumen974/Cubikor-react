@@ -112,13 +112,13 @@ const CreateProduct = () => {
     <div className="relative isolate px-6 pt-0 lg:pt-0">
       <div className="mx-auto max-w-2xl py-32 sm:py-10 lg:py-10">
       <form className='' onSubmit={handleSubmit}>
-      <div className="space-y-8 mt-20">
-           <div className="border-b border-gray-900/10 pb-7">
+        <div className="space-y-8 mt-20">
+          <div className="border-b border-gray-900/10 pb-7">
               <h2 className="text-md font-semibold leading-7 text-gray-900">Product Adding :{ShopName} </h2>
               <p className="mt-1 text-sm leading-6 text-gray-600">
                 This information will help us to send your purchase.
               </p>
-            </div>
+          </div>
             
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
@@ -285,8 +285,8 @@ const CreateProduct = () => {
               </div>
             </div>
             
-           
           </div>
+
           <div className="mt-6 flex items-center justify-end gap-x-6">
               <a href='/'  className="text-sm font-semibold leading-6 text-gray-900">
                 Cancel
@@ -297,6 +297,7 @@ const CreateProduct = () => {
               type="submit">Submit</button>
             {errors.length > 0 && (
               <div>
+
                 <ul>
                   {errors.map((error, index) => (
                     <li key={index}>{error.msg}</li>
@@ -304,7 +305,7 @@ const CreateProduct = () => {
                 </ul>
               </div>
             )}
-            </div>
+          </div>
         </div>
       </form>
       </div>

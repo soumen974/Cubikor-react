@@ -2,14 +2,7 @@ export default function NotFound() {
   document.title = "404 | Page not found"
     return (
       <>
-        {/*
-          This example requires updating your template:
-  
-          ```
-          <html class="h-full">
-          <body class="h-full">
-          ```
-        */}
+       
         <main className="grid h-[100vh] place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8">
           <div className="text-center">
             <p className="text-2xl font-semibold text-indigo-600">404</p>

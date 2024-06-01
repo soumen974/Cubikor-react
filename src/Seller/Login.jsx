@@ -1,5 +1,6 @@
 import {React,  useEffect, useState } from 'react'
 import pagelogo from "../Customer/Component/Data/images-app/page-logo.jpg";
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -9,6 +10,8 @@ export default function Login() {
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [userRole, setuserRole] = useState(null);
+
+    const navigate= useNavigate();
   
     const SignInAuthCheck = async (e) => {
       e.preventDefault();
@@ -25,6 +28,8 @@ export default function Login() {
           const responseData = await response.json(); // Move this line inside if block
           const SellerToken = responseData.token;
           const ShopId=responseData.userId;
+          navigate('/seller/categoriesadd')
+
          
           
   
@@ -139,7 +144,7 @@ export default function Login() {
         <p className="mt-10 text-center flex text-sm text-gray-500">
             Not a member ?
             <a href='/seller/Signup' className="cursor-pointer font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-            Create account
+            Create Shop
             </a>
         </p>
 

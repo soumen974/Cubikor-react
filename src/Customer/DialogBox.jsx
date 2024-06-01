@@ -1,9 +1,28 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { ExclamationTriangleIcon,CheckIcon } from '@heroicons/react/24/outline';
 
-export default function DialogBox({ open, setOpen,title,message,ActionButtonName,ActionButtonColor ,IconName}) {
+export default function DialogBox({ open,
+                                     setOpen,
+                                     title,
+                                     message,
+                                     ActionButtonName,
+                                     ActionButtonColor ,
+                                     IconName,
+                                     handleLogic,
+                                     Loading
+                                    }) {
+  
+
   return (
+   <>
+   {Loading?
+   (
+    <div className="flex justify-center items-center h-screen">
+      <div className="animate-spin rounded-full h-20 w-20 border-t-4 border-b-4 border-indigo-500"></div>
+    </div>
+  ):
+   (
     <Transition show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={() => setOpen(false)}>
         <Transition.Child
@@ -51,7 +70,7 @@ export default function DialogBox({ open, setOpen,title,message,ActionButtonName
                   <button
                     type="button"
                     className={`inline-flex w-full justify-center rounded-md ${ActionButtonColor}-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:${ActionButtonColor}-500 sm:ml-3 sm:w-auto`}
-                    onClick={() => setOpen(false)}
+                    onClick={handleLogic}
                   >
                     {ActionButtonName}
                   </button>
@@ -70,5 +89,9 @@ export default function DialogBox({ open, setOpen,title,message,ActionButtonName
         </div>
       </Dialog>
     </Transition>
+   )
+    }
+   
+   </>
   );
 }

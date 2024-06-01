@@ -1,10 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import pagelogo from "../../Customer/Component/Data/images-app/page-logo.jpg";
+import { useNavigate } from 'react-router-dom';
+import DialogBox from '../../Customer/DialogBox';
+
 export default function Head() {
+
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const [Dialogopen, setDialogopenOpen] = useState(false);
+  const [Loading, setLoader] = useState(false);
+
+
     const handleLogout = () => {
         localStorage.removeItem('SellerToken');
         localStorage.removeItem('ShopId');
         localStorage.removeItem('isAdmin');
+        navigate('/seller/categoriesadd');
+        setLoader(true);
+        setTimeout(() => {
+          navigate('/seller/Login')
+        }, 1500);
+        
+        
       };
   return (
     <>
@@ -33,9 +50,9 @@ export default function Head() {
                
 
                 <div className="ml-auto flex items-center">
-                <button
+                <button 
                 className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                onClick={handleLogout}
+                onClick={()=>{setDialogopenOpen(true)}}
                 >
                     logout
                 </button>
@@ -46,6 +63,20 @@ export default function Head() {
           </nav>
             
         </div>
+       
+
+        <DialogBox 
+         open={Dialogopen}
+         setOpen={setDialogopenOpen} 
+         title={"Session Logout"}
+         message={"Are you sure you want to Logout your account ,then you have to Login agin to access your account."}
+         ActionButtonName={"Logout"}
+         ActionButtonColor={"bg-red"}
+         IconName={false}
+         handleLogic={handleLogout}
+         Loading={Loading}
+         />
+
     </>
   )
 }

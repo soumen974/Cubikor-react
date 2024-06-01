@@ -2,10 +2,13 @@ import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid';
 import DialogBox from '../DialogBox';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function EditProfile() {
   const [Dialogopen, setDialogopenOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [Loading, setLoader] = useState(false);
+
   const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
 
@@ -64,6 +67,8 @@ export default function EditProfile() {
     }));
   };
 
+   const navigate =useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     
@@ -88,12 +93,16 @@ export default function EditProfile() {
 
     axios.put(`http://localhost:5000/users/${userId}`, updatedData, {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
+        'Authorization': `Bearer ${token}`
+    }
+     
     })
       .then(response => {
-        setDialogopenOpen(true);
         console.log('User updated successfully', response.data);
+        setTimeout(() => {
+          setDialogopenOpen(false);
+          navigate('/profile');
+        }, 1100);
       })
       .catch(error => {
         setErrorMessage('There was an error updating the user');
@@ -104,7 +113,7 @@ export default function EditProfile() {
   return (
     <div className="relative isolate px-6 pt-0 lg:pt-0">
       <div className="mx-auto max-w-2xl py-32 sm:py-10 lg:py-10">
-        <form onSubmit={handleSubmit}>
+        <form >
           {errorMessage && <p>{errorMessage}</p>}
           <div className="space-y-8 mt-20">
             <div className="border-b border-gray-900/10 pb-7">
@@ -303,12 +312,12 @@ export default function EditProfile() {
               <a href='/profile'  className="text-sm font-semibold leading-6 text-gray-900">
                 Cancel
               </a>
-              <button
-                type="submit"
-                className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              <div onClick={()=>{setDialogopenOpen(true)}}
+               
+                className="cursor-pointer rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Save
-              </button>
+              </div>
             </div>
           </div>
         </form>
@@ -321,7 +330,10 @@ export default function EditProfile() {
          ActionButtonName={"Save changes"}
          ActionButtonColor={"bg-indigo"}
          IconName={"CheckIcon"}
+         handleLogic={handleSubmit}
+         Loading={Loading}
          
-         />}    </div>
+         />}   
+    </div>
   );
 }

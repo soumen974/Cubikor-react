@@ -30,8 +30,10 @@ export default function Navigation() {
 
 
   // const Authenticated = userDAta.Auth;
-  const Authenticated = localStorage.getItem('isUserAuthenticated');
-
+  // const isAuthenticated = () => {
+  //   return document.cookie.includes('token');
+  // };
+  const isAuthenticated=  localStorage.getItem('isUserAuthenticated');
   let totalQuantity = 0;
 
   // Check if userData contains the Shopping_bag array
@@ -161,7 +163,7 @@ export default function Navigation() {
                   </div>
 
                   <div className={` space-y-6 border-t border-gray-200 px-4 py-6`}>
-                  {Authenticated ?
+                  {isAuthenticated ?
                     <Avatar/>
                     :(
                    <> <div onClick={()=>{setsignin(true);setOpen(!open);}}   className={` flow-root`}>
@@ -330,7 +332,7 @@ export default function Navigation() {
                 </Popover.Group>
 
                 <div className="ml-auto flex items-center">
-                  {Authenticated ? 
+                  {isAuthenticated ? 
 
                   (
                     <div  className={` place-content-center hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6`}>
@@ -377,13 +379,13 @@ export default function Navigation() {
                   </div>
 
                   {/* Cart */}
-                  <div className="ml-4 flow-root lg:ml-6" onClick={Authenticated ? () => setshoppingCart(true) : () => setsignin(true)}  >
+                  <div className="ml-4 flow-root lg:ml-6" onClick={isAuthenticated ? () => setshoppingCart(true) : () => setsignin(true)}  >
                     <a href="#" className="group -m-2 flex items-center p-2">
                       <ShoppingBagIcon
                         className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                         aria-hidden="true"
                       />
-                      <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{Authenticated ? totalQuantity : null}</span>
+                      <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{isAuthenticated ? totalQuantity : null}</span>
                       <span className="sr-only">items in cart, view bag</span>
                     </a>
                   </div>

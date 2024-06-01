@@ -119,17 +119,7 @@ export default function UserEntry(Props) {
     }
   };
 
-  // console.log(userRole);
  
-  useEffect(() => {
-    if(userRole==="admin"){
-      localStorage.setItem('isAdmin', 'true');
-    }
-    else if(userRole===""){
-      localStorage.setItem('isAdmin', 'false');
-
-    }
-  }, [userRole])
   
 
  
