@@ -8,9 +8,12 @@ export default function LayoutSeller() {
   return (
     <>
      <Head/>
-     <div className="mx-auto max-w-screen py-10 px-2 md:px-[12vw]   ">
-          <Outlet />
-      </div> 
+      <div class="p-4  pt-20 sm:ml-64">
+        <div class="p-0">
+        <Outlet />
+        </div>
+      </div>
+      
       
     </>
   )
