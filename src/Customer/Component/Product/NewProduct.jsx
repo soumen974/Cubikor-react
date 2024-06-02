@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 import ProductCard from '../ProductCard';
 
 export default function NewProduct(Props) {
-    const [selectedProductId, setSelectedProductId] = useState(null);
-
-    const handleProductClick = (productId) => {
-      setSelectedProductId(productId);
-    };
+    
   
     const product = {
         name: '3x3 cubes',
@@ -56,6 +52,7 @@ export default function NewProduct(Props) {
             
     </div> : null}
     <ProductCard/>
+    
     
     </div>
   )

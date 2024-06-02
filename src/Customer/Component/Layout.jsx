@@ -8,7 +8,7 @@ export default function Layout() {
   return (
     <>
      <Navigation/>
-     <div className=" mx-auto max-w-screen py-20 px-2 md:px-[12vw] m ">
+     <div className=" mx-auto max-w-screen py-20 px-2 md:px-[12vw]  ">
           <Outlet />
       </div> 
       <Footer/>

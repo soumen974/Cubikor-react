@@ -17,6 +17,7 @@ import LayoutSeller from './Seller/LayoutSeller';
 import Image from "./Seller/Image_uploder/Image";
 import ImageList from "./Seller/Image_uploder/ImageList";
 import ImageUploader from "./Seller/Image_uploder/ImageUploader";
+import DashBoard from './Seller/DashBoard';
 
 
 
@@ -57,6 +58,7 @@ export default function App() {
 
         {Seller ? (
         <Route path="/seller" element={<LayoutSeller/>}>
+          <Route path="/seller" element={<DashBoard/>} />
           <Route path="/seller/categoriesadd" element={<CreateCategory/>} />
           <Route path="/seller/productadd" element={<CreateProduct/>} />
 
@@ -67,10 +69,6 @@ export default function App() {
         <Route path="/seller/Login" element={<Login/>} />
         <Route path="/seller/SignUp" element={<SignUp/>} />
 
-        
-
-
-        
 
       </Routes>
     </Router>
