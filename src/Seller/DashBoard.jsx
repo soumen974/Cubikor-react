@@ -10,6 +10,8 @@ import {
   Transition,
 } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import Products from './Components/Products'
+import Category from './Components/Category'
 
 const user = {
   name: 'Tom Cook',
@@ -38,16 +40,21 @@ export default function DashBoard() {
   return (
     <>
      
-      <div className="min-h-full">
+      <div className=" ">
        
 
-        <header className="bg-white shadow">
-          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <header className="">
+          <div className="   ">
             <h1 className="text-3xl font-bold tracking-tight text-gray-900">Dashboard</h1>
           </div>
         </header>
-        <main>
-          <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">{/* Your content */}</div>
+        <main className='grid overflow-hidden'>
+          <div className="">
+            <Category/>
+          </div>
+          <div className="">
+          <Products/>
+          </div>
         </main>
       </div>
     </>
