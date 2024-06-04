@@ -142,7 +142,7 @@ export default function UserEntry(Props) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          <div id='Login' className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
         </Transition.Child>
 
         <div className=" fixed inset-0  w-screen overflow-y-auto z-0">
