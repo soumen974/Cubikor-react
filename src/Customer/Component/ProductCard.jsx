@@ -2,12 +2,11 @@ import { useState,useEffect } from "react";
 import products from "./Data/products.json";
 import QuickPreview from "./Product/QuickPreview";
 import axios from 'axios';
-import { Token } from "@mui/icons-material";
 
 
 export default function ProductCard() {
   const [open, setOpen] = useState(false);
-  const [PuzzleId, setPuzzleId] = useState(0);
+  const [ShopIDsend, setShopIDsend] = useState(0);
   const [CubeId, setCubeId] = useState(0);
 
 
@@ -29,6 +28,7 @@ export default function ProductCard() {
     const [shopId, setShopId] = useState([]);
     const [productdata, setProductdata] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
+    const [catId, setcatId] = useState([]);
     
     useEffect(() => {
       const fetchCategories = async () => {
@@ -95,17 +95,20 @@ export default function ProductCard() {
   
   return (
     <>
-      <QuickPreview CategoryId={PuzzleId} CubeId={CubeId} setOpen={setOpen} open={open} />
+      <QuickPreview ShopIDsend={ShopIDsend} CubeId={CubeId} catId={catId} setOpen={setOpen} open={open} />
       <div className="mx-auto max-w-2xl px-0 py- sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
         <h2 className="text-2xl font-bold tracking-tight text-gray-900">New Arrival</h2>
         
         <div className="mt-6 grid grid-cols-2 gap-x-3 gap-y-3 md:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
         {productdata.map((product) => (
-          <div key={product.id} className="">
+          <div  key={product.id} className="">
             <div
               onClick={() => {
                 setOpen(true);
-                setPuzzleId(product.id);
+                setCubeId(product.id);
+                setShopIDsend(product.shop_id);
+                setcatId(product.category_id);
+                
                 // setCubeId(product.data[product.data.length - 1].id);
               }}
               className="group cursor-pointer bg-gray-100 hover:bg-indigo-500 transition duration-500 px-2 py-2 rounded-lg relative"
@@ -116,18 +119,19 @@ export default function ProductCard() {
                   alt={product.imageAlt}
                   className="w-full h-full object-cover object-center lg:w-full lg:h-full transition-transform duration-500 group-hover:scale-105 rounded-sm"
                 />
+                
               </div>
-              <div className="mt-4 flex justify-between">
-                <div>
-                  <h3 className="text-sm group-hover:text-white text-gray-700">
-                    {product.name}
-                  </h3>
-                  <p className="mt-1 py-1 text-sm group-hover:text-yellow-300 text-gray-500">
-                    {product.color}
-                  </p>
-                </div>
-                <p className="text-sm px-4 py-2 font-medium bg-yellow-400 rounded-md text-gray-900">
-                  {product.price}
+              <div className="mt-4  justify-between">
+                  <div>
+                    <h3 className="text-sm group-hover:text-white text-gray-700">
+                      {product.name}
+                    </h3>
+                    <p className="mt-1 py-1 text-sm group-hover:text-yellow-300 text-gray-500">
+                      {product.color}
+                    </p>
+                  </div>
+                <p className="text-sm w-fit px-4 py-2 font-medium bg-yellow-400 rounded-md text-gray-900">
+                ₹{parseFloat(product.price)}
                 </p>
               </div>
             </div>
