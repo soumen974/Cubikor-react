@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DialogBox from "../Customer/DialogBox";
+import { useNavigate } from 'react-router-dom';
 
 
 const CreateProduct = () => {
   const [Dialogopen, setDialogopenOpen] = useState(false);
 
   // post--method
+  const navigate=useNavigate();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -66,6 +68,7 @@ const CreateProduct = () => {
         categoryId: ''
       });
       setDialogopenOpen(false);
+      navigate("/seller");
     } catch (error) {
       setDialogopenOpen(true);
       if (error.response && error.response.data.errors) {
@@ -156,15 +159,48 @@ const [errorMessage, setErrorMessage] = useState('');
   }, [shopId, token]);
 
 
+  // ---pagination
+  const product = {
+    name: '3x3 cubes',
+    breadcrumbs: [
+      { id: 1, name: 'Dashboard', href: '/seller' },
+      { id: 2, name: 'Add Product', href: '/seller/productadd' },
+    ]};
+
+
+
   return (
     <div className="relative isolate px-6 pt-0 lg:pt-0">
-       <div className="border-b border-gray-900/10 pb-7">
+      <header className="pb-6">
+          <ol role="list" className="mx-auto flex   ">
+          {product.breadcrumbs.map((breadcrumb) => (
+            <li key={breadcrumb.id}>
+              <div className="flex items-center">
+                <a href={breadcrumb.href} className="mr-2 text-sm font-medium text-gray-900">
+                  {breadcrumb.name}
+                </a>
+                <svg
+                  width={16}
+                  height={20}
+                  viewBox="0 0 16 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                  className="h-5 w-4 text-gray-300"
+                >
+                  <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+                </svg>
+              </div>
+            </li>
+          ))}
+          </ol>
+        </header>
+       <div className="border-b border-gray-900/10 pb-4">
               <h2 className="text-md font-semibold leading-7 text-gray-900">Product Adding : {shopName} </h2>
               <p className="mt-1 text-sm leading-6 text-gray-600">
                 This information will help us to send your purchase.
               </p>
-            </div>
-      <div className="mx-auto max-w-2xl py-32 sm:py-10 lg:py-10">
+        </div>
+      <div className="mx-auto max-w-2xl sm:py-10 lg:py-10">
         
         <form className='' onSubmit={(e) => { e.preventDefault(); setDialogopenOpen(true); }}>
           <div className="space-y-8 mt-20">
@@ -336,7 +372,7 @@ const [errorMessage, setErrorMessage] = useState('');
             </div>
 
             <div className="mt-6 flex items-center justify-end gap-x-6">
-              <a href="/" className="text-sm font-semibold leading-6 text-gray-900">
+              <a href="/seller" className="text-sm font-semibold leading-6 text-gray-900">
                 Cancel
               </a>
 
@@ -359,13 +395,7 @@ const [errorMessage, setErrorMessage] = useState('');
           </div>
         </form>
       </div>
-      <div className="grid gap-8">
-           {productdata.map(product => (
-                  <div  className='flex justify-center bg-yellow-300 px-2'  key={product.id} value={product.id}>
-                    {product.name}
-                  </div>
-                ))}
-           </div>
+      
       <DialogBox
         open={Dialogopen}
         setOpen={setDialogopenOpen}
