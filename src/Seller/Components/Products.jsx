@@ -1,48 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { PlusIcon} from '@heroicons/react/24/outline';
 
-const users = [
-  {
-    id: 1,
-    name: 'Neil Sims',
-    email: 'neil.sims@flowbite.com',
-    position: 'React Developer',
-    status: 'Online',
-    imageUrl: '/docs/images/people/profile-picture-1.jpg',
-  },
-  {
-    id: 2,
-    name: 'Bonnie Green',
-    email: 'bonnie@flowbite.com',
-    position: 'Designer',
-    status: 'Online',
-    imageUrl: '/docs/images/people/profile-picture-3.jpg',
-  },
-  {
-    id: 3,
-    name: 'Jese Leos',
-    email: 'jese@flowbite.com',
-    position: 'Vue JS Developer',
-    status: 'Online',
-    imageUrl: '/docs/images/people/profile-picture-2.jpg',
-  },
-  {
-    id: 4,
-    name: 'Thomas Lean',
-    email: 'thomes@flowbite.com',
-    position: 'UI/UX Engineer',
-    status: 'Online',
-    imageUrl: '/docs/images/people/profile-picture-5.jpg',
-  },
-  {
-    id: 5,
-    name: 'Leslie Livingston',
-    email: 'leslie@flowbite.com',
-    position: 'SEO Specialist',
-    status: 'Offline',
-    imageUrl: '/docs/images/people/profile-picture-4.jpg',
-  },
-];
+
+
 
 const Products = () => {
     const [productdata, setProductdata] = useState([]);
@@ -61,6 +23,7 @@ const Products = () => {
               id: product.id,
               name: product.name,
                 imageSrc: product.imageSrc,
+                price: product.price,
             }));
             setProductdata(categoriesData);
           } catch (error) {
@@ -70,12 +33,21 @@ const Products = () => {
     
         fetchCategories();
       }, [shopId, token]);
-    
+      const navigate=useNavigate();
 
   return (
-    <div className="relative overflow-hidden shadow-md sm:rounded-lg pt-10">
-            <h1 className="text-xl  tracking-tight text-gray-900">Products</h1>
-      <div className="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white ">
+    <>
+        <div  className="relative mt-6 mx-auto max-w-2xl px-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
+            <h2 className="text-2xl tracking-tight text-gray-900 flex item-center gap-3 pb-2 ">Products
+              <button
+              onClick={() => navigate('/seller/productadd')}
+              className={`inline-block text-gray-500 hover:bg-indigo-100 bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg text-sm p-1.5`}
+          >
+              <PlusIcon className="h-6 w-6 text-indigo-700"/>
+          </button>
+            </h2>
+
+      <div className="mt-6 flex items-center justify-start gap-3 flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white ">
        
         <label htmlFor="table-search" className="sr-only">
           Search
@@ -107,14 +79,17 @@ const Products = () => {
         </div>
       </div>
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
+        <thead className={`text-xs text-gray-700 uppercase bg-gray-50 ${productdata.length === 0 ? "hidden":""}`}>
           <tr>
             
             <th scope="col" className="px-6 py-3">
               Name
             </th>
             <th scope="col" className="px-6 py-3">
-              Position
+            Price
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Category
             </th>
             <th scope="col" className="px-6 py-3">
               Status
@@ -125,39 +100,71 @@ const Products = () => {
           </tr>
         </thead>
         <tbody>
-          {productdata.map((product) => (
-            <tr
-              key={product.id}
-              className="bg-white border-b"
-            >
+
+        {productdata.length === 0 ? (
+                  <div className="w-full m-2">
+                      <div className="sm:w-full w-[33vw] max-w-sm bg-white border border-gray-200 rounded-lg shadow">
+                          <div className="relative flex justify-center px-4 pt-4">
+                              <button
+                                  onClick={() => navigate('/seller/productadd')}
+                                  className={`inline-block text-gray-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg text-sm p-1.5`}
+                              >
+                                  <PlusIcon className="h-6 w-6 text-indigo-700"/>
+                              </button>
+                              
+                          </div>
+                          <div className="flex flex-col items-center pb-10">
+                              <h5 className="mb-1 text-xl font-medium text-gray-900">No Product Available</h5>
+                              <span className="text-sm text-gray-500">Please add a Product</span>
+                          </div>
+                      </div>
+                  </div>
+               ) : (
+
+                productdata.map((product) => (
+                  <tr
+                    key={product.id}
+                    className="bg-white border-b "
+                  >
+                    
+                    <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap ">
+                      <img className="w-10 h-10 rounded-full" src={product.imageSrc} alt={`${product.name} image`} />
+                      <div className="ps-3 truncate">
+                        <div className="text-base font-semibold truncate">{product.name}</div>
+                        <div className="font-normal text-gray-500">{product.price}</div>
+                      </div>
+                    </th>
+                    <td className="px-6 py-4">{product.price}</td>
+                    <td className="px-6 py-4 truncate">{product.name}</td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center truncate">
+                        <div
+                          className={`h-2.5 w-2.5 rounded-full truncate ${product.name === 'Online' ? 'bg-green-500' : 'bg-red-500'} me-2`}
+                        ></div>{' '}
+                        <h1 className='truncate'>{product.name}</h1>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <a href="#" className="font-medium text-blue-600 hover:underline">
+                        Edit user
+                      </a>
+                    </td>
+                  </tr>
+                ))
               
-              <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap ">
-                <img className="w-10 h-10 rounded-full" src={product.imageSrc} alt={`${product.name} image`} />
-                <div className="ps-3">
-                  <div className="text-base font-semibold">{product.name}</div>
-                  <div className="font-normal text-gray-500">{product.price}</div>
-                </div>
-              </th>
-              <td className="px-6 py-4">{product.name}</td>
-              <td className="px-6 py-4">
-                <div className="flex items-center">
-                  <div
-                    className={`h-2.5 w-2.5 rounded-full ${product.name === 'Online' ? 'bg-green-500' : 'bg-red-500'} me-2`}
-                  ></div>{' '}
-                  {product.name}
-                </div>
-              </td>
-              <td className="px-6 py-4">
-                <a href="#" className="font-medium text-blue-600 hover:underline">
-                  Edit user
-                </a>
-              </td>
-            </tr>
-          ))}
+              )
+            }
+
+
+
+          
         </tbody>
       </table>
       
     </div>
+    </>
+    
+    
   );
 };
 

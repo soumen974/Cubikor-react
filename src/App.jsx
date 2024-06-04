@@ -66,9 +66,11 @@ export default function App() {
         ):
         <Route path="/seller/Login" element={<Login/>} />
         }
+        {!Seller ? (
+        <>
         <Route path="/seller/Login" element={<Login/>} />
         <Route path="/seller/SignUp" element={<SignUp/>} />
-
+        </>):null}
 
       </Routes>
     </Router>
