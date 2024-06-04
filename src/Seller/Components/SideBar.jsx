@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DialogBox from '../../Customer/DialogBox';
 import { useNavigate } from 'react-router-dom';
+import { PencilSquareIcon,BeakerIcon,PlusIcon} from '@heroicons/react/24/outline';
+
 
 const SideBar = (Props) => {
   const isSidebarOpen=Props.isSidebarOpen
@@ -15,6 +17,7 @@ const SideBar = (Props) => {
    localStorage.removeItem('SellerToken');
    localStorage.removeItem('ShopId');
    localStorage.removeItem('isAdmin');
+   localStorage.removeItem('note');
    navigate('/seller/categoriesadd');
    setLoader(true);
    setTimeout(() => {
@@ -24,12 +27,38 @@ const SideBar = (Props) => {
    
  };
 
+//  ---node--
+const [NoteDot, setNoteDot] = useState(false);
+const [NoteAdd, setNoteAdd] = useState(true);
+
+
+const [note, setNote] = useState('');
+
+  useEffect(() => {
+    const storedNote = localStorage.getItem('note');
+    if (storedNote) {
+      setNote(storedNote);
+    }
+  }, []);
+
+  const handleInputChange = (e) => {
+    setNote(e.target.value);
+  };
+
+  const saveNote = () => {
+    localStorage.setItem('note', note);
+  };
+
+  const clearNote = () => {
+    setNote('');
+    localStorage.removeItem('note');
+  };
   return (
     <>
     
 
 
-<aside id="cta-button-sidebar" className={`fixed top-0 left-0 sm:z-40 z-50 w-64 h-screen transition-transform ${!isSidebarOpen? "translate-x-0  sm:translate-x-0": " -translate-x-full  sm:translate-x-0  "} `} aria-label="Sidebar">
+<aside  id="cta-button-sidebar" className={`fixed top-0 left-0 sm:z-40 z-50 w-64 h-screen transition-transform ${!isSidebarOpen? "translate-x-0  sm:translate-x-0": " -translate-x-full  sm:translate-x-0  "} `} aria-label="Sidebar">
    <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
       <div className="flex justify-start pb-5 sm:hidden">
          <button  onClick={()=>{setIsSidebarOpen(!isSidebarOpen)}} className=" flex justify-end  p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg  hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
@@ -102,24 +131,61 @@ const SideBar = (Props) => {
             </a>
          </li>
       </ul>
-      <div id="dropdown-cta" className="p-4 mt-6 rounded-lg bg-blue-50 dark:bg-blue-900" role="alert">
-         <div className="flex items-center mb-3">
+      <div  id="dropdown-cta" className="relative  p-4 mt-6 rounded-lg bg-blue-50 dark:bg-blue-900" role="alert">
+         <div className="flex group items-center mb-3">
             <span className="bg-orange-100 text-orange-800 text-sm font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-orange-200 dark:text-orange-900">Note</span>
-            <button type="button" className="ms-auto -mx-1.5 -my-1.5 bg-blue-50 inline-flex justify-center items-center w-6 h-6 text-blue-900 rounded-lg focus:ring-2 focus:ring-blue-400 p-1 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-400 dark:hover:bg-blue-800" data-dismiss-target="#dropdown-cta" aria-label="Close">
-               <span className="sr-only">Close</span>
-               <svg className="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-               </svg>
+            <button  type="button" className="z-50 ms-auto -mx-1.5 -my-1.5 bg-blue-50 inline-flex justify-center items-center w-8 h-8 text-blue-900 rounded-lg focus:ring-2 focus:ring-blue-400 p-1  hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-400 dark:hover:bg-blue-800" data-dismiss-target="#dropdown-cta" aria-label="Close">
+               <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
+                  <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
+                </svg>
             </button>
+            
+            <div className={`z-50 hidden group-hover:block absolute -right-1 top-10 text-base list-none   divide-y divide-gray-100  w-14`}>
+               <ul className="py-2" >
+                  <li onClick={()=>{setNoteAdd(!NoteAdd)}} >
+                        <h1 className="cursor-pointer block px-4 py-2 text-sm text-Orange-700  text-indigo-400       rounded-lg focus:ring-2 focus:ring-blue-400    dark:hover:bg-blue-800">
+                         <abbr title="Write note">  <PencilSquareIcon className="h-6 w-6 mr-2"/></abbr>
+                        </h1>
+                  </li>
+               
+                  <li onClick={clearNote} >
+                        <h1  className="cursor-pointer block px-4 py-2 text-sm text-orange-500 ">
+                          <abbr title="Delete current "> <BeakerIcon className="h-6 w-6 mr-2"/></abbr>
+                        </h1>
+                  </li>
+               </ul>
+            </div>
          </div>
+
+         
+         {NoteAdd? 
+         (<>
          <p className="mb-3 text-sm text-blue-800 dark:text-blue-400">
-            Preview the new Flowbite dashboard navigation! You can turn the new navigation off for a limited time in your profile.
+           {note?(
+            note
+           ):(
+           <p> Preview the new Premium features ! You can pay back the new cost if you don't liked , limited time in your profile.</p>)}
          </p>
-         <a className="text-sm text-blue-800 underline font-medium hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300" href="#">Turn new navigation off</a>
+         <a className="text-sm text-blue-800 underline font-medium hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300" href="#">Turn our Premium</a>
+         </>):(
+            <div className="mb-3 text-sm text-blue-800 dark:text-blue-400">
+               <textarea
+               value={note}
+               onChange={handleInputChange}
+               placeholder="Enter your note here..."
+               className='h-24 w-fit outline-none bg-blue-900'
+               />
+      
+             <button className=' z-50 ms-auto -mx-1.5 -my-1.5 bg-blue-50 inline-flex justify-center items-center w-8 h-8 text-blue-900 rounded-lg focus:ring-2 focus:ring-blue-400 p-1  hover:bg-blue-200 dark:hover:bg-blue-900 dark:text-blue-400 dark:bg-blue-800'
+              onClick={() => { saveNote(); setNoteAdd(!NoteAdd); }}>
+               <PlusIcon className="h-6 w-6 "/>
+             </button>
+            </div>
+         )}
       </div>
    </div>
 </aside>
-<span onClick={() => { setIsSidebarOpen(!isSidebarOpen) }} className={`fixed w-full z-44 h-screen flex ${!isSidebarOpen ? 'display' : 'hidden'}`}></span>
+<span onClick={() => { setIsSidebarOpen(!isSidebarOpen); }} className={`fixed w-full z-44 h-screen flex ${!isSidebarOpen ? 'display' : 'hidden'}`}></span>
       <DialogBox 
          open={Dialogopen}
          setOpen={setDialogopenOpen} 
