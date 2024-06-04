@@ -2,6 +2,7 @@ import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { ExclamationTriangleIcon,CheckIcon } from '@heroicons/react/24/outline';
 
+
 export default function DialogBox({ open,
                                      setOpen,
                                      title,
@@ -24,7 +25,7 @@ export default function DialogBox({ open,
   ):
    (
     <Transition show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={() => setOpen(false)}>
+      <Dialog as="div" className="relative z-50" onClose={() => setOpen(false)}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
