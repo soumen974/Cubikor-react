@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import DialogBox from "../Customer/DialogBox";
+import { useNavigate } from 'react-router-dom';
 
 const CategoryForm = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -20,6 +21,7 @@ const CategoryForm = () => {
       });
       // console.log('Category created:', response.data);
       setDialogopenOpen(false);
+      navigate('/seller');
       reset();
     } catch (error) {
       console.error('Error creating category:', error);
@@ -30,48 +32,55 @@ const CategoryForm = () => {
     setDialogopenOpen(false);
   };
 
+  const navigate=useNavigate();
   const handleDialogConfirm = () => {
     handleSubmit(onSubmit)();
+    
+    
   };
 
-  // -------------
+  // -------------pagination----------------
+  const product = {
+    name: '3x3 cubes',
+    breadcrumbs: [
+      { id: 1, name: 'Dashboard', href: '/seller' },
+      { id: 2, name: 'Add Category', href: '/seller/categoriesadd' },
+    ]};
 
 
-  // ----------------shops-all
-  const [categories, setCategories] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
-  
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await axios.get(`http://localhost:5000/shops/${shopId}/categories`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
-        });
-        const categoriesData = response.data.map(category => ({
-          id: category.id,
-          name: category.name
-        }));
-        setCategories(categoriesData);
-      } catch (error) {
-        console.error('Error fetching categories:', error);
-      }
-    };
-
-    fetchCategories();
-  }, [shopId, token]);
   
   return (
     <div className="relative isolate px-6 pt-0 lg:pt-0">
+      <header className="pb-6">
+          <ol role="list" className="mx-auto flex   ">
+          {product.breadcrumbs.map((breadcrumb) => (
+            <li key={breadcrumb.id}>
+              <div className="flex items-center">
+                <a href={breadcrumb.href} className="mr-2 text-sm font-medium text-gray-900">
+                  {breadcrumb.name}
+                </a>
+                <svg
+                  width={16}
+                  height={20}
+                  viewBox="0 0 16 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                  className="h-5 w-4 text-gray-300"
+                >
+                  <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+                </svg>
+              </div>
+            </li>
+          ))}
+          </ol>
+        </header>
        <div className="border-b border-gray-900/10 pb-7">
               <h2 className="text-md font-semibold leading-7 text-gray-900">Product Adding : </h2>
               <p className="mt-1 text-sm leading-6 text-gray-600">
                 This information will help us to send your purchase.
               </p>
             </div>
-      <div className="mx-auto max-w-2xl py-32 sm:py-10 lg:py-10">
+      <div className="mx-auto max-w-2xl py-10 sm:py-10 lg:py-10">
         
             
         <form className='' onSubmit={(e) => { e.preventDefault(); setDialogopenOpen(true); }} >
@@ -112,13 +121,7 @@ const CategoryForm = () => {
           </div>
         </form>
       </div>
-           <div className="flex gap-8">
-           {categories.map(category => (
-                  <div  className='flex justify-center bg-yellow-300 px-2'  key={category.id} value={category.id}>
-                    {category.name}
-                  </div>
-                ))}
-           </div>
+         
       <DialogBox
         open={Dialogopen}
         setOpen={setDialogopenOpen}
