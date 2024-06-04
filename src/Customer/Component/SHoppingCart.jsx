@@ -18,7 +18,7 @@ export default function ShoppingCart(Props) {
     const navigate = useNavigate();
 
     const fetchCartItems = async () => {
-      if (Authenticated) {
+      
         try {
           const response = await axios.get(
             `http://localhost:5000/users/${userId}/shopping_cart`,
@@ -47,9 +47,7 @@ export default function ShoppingCart(Props) {
             setMessage(`Error: ${error.message}`);
           }
         }
-      } else {
-        navigate('/seller/Login');
-      }
+      
     };
   
     useEffect(() => {
