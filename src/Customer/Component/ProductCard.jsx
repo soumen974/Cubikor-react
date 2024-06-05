@@ -66,6 +66,7 @@ export default function ProductCard() {
                 'Authorization': `Bearer ${token}`
               }
             });
+            
     
             if (response.ok) {
               const userData = await response.json();
@@ -76,6 +77,7 @@ export default function ProductCard() {
               setErrorMessage(errorData.message || 'Error retrieving products');
             }
           }));
+          
         } catch (error) {
           setErrorMessage('An error occurred, please try again later');
         }
