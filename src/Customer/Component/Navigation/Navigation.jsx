@@ -12,6 +12,8 @@ import UserEntry from '../../../Auth/UserEntry';
 import userDAta from "../Data/user.json";
 import { Block } from '@mui/icons-material';
 import Avatar from '../Avatar';
+import axios from 'axios';
+
 
 
 
@@ -34,6 +36,8 @@ export default function Navigation() {
   //   return document.cookie.includes('token');
   // };
   const isAuthenticated=  localStorage.getItem('isUserAuthenticated');
+  const token = localStorage.getItem('token');
+  const userId = localStorage.getItem('userId');
   let totalQuantity = 0;
 
   // Check if userData contains the Shopping_bag array
@@ -45,6 +49,46 @@ export default function Navigation() {
   } else {
       console.error("userData or Shopping_bag is undefined or not an array.");
   }
+
+  // ----shopping-cart-item-count-
+  const [cartItems, setCartItems] = useState([]);
+  const [message, setMessage] = useState('');
+  const [errors, setErrors] = useState([]);
+  const [itemCount, setItemCount] = useState(0);
+  
+  const fetchCartItems = async () => {
+    try {
+        const response = await axios.get(
+            `http://localhost:5000/users/${userId}/shopping_cart`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+        const cartItemsData = response.data.map((cart) => ({
+            id: cart.id,
+            productId: cart.productId,
+            shopId: cart.shopId,
+        }));
+        setItemCount(cartItemsData.length); 
+        setMessage('Cart items fetched successfully');
+        setErrors([]);
+    } catch (error) {
+        console.error('Error fetching cart items:', error);
+        if (error.response && error.response.data.errors) {
+            setErrors(error.response.data.errors);
+        } else {
+            setMessage(`Error: ${error.message}`);
+        }
+    }
+};
+
+useEffect(() => {
+    fetchCartItems();
+}, [userId]);
+
   
 
   return (
@@ -385,7 +429,7 @@ export default function Navigation() {
                         className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                         aria-hidden="true"
                       />
-                      <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{isAuthenticated ? totalQuantity : null}</span>
+                      <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{isAuthenticated ? itemCount : null}</span>
                       <span className="sr-only">items in cart, view bag</span>
                     </a>
                   </div>
