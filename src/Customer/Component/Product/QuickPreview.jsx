@@ -77,6 +77,7 @@ const navigate =useNavigate();
           }
         );
         setMessage(`Item added to cart with ID: ${response.data.id}`);
+        navigate("/")
         setOpen(false)
         setErrors([]);
       } catch (error) {
