@@ -16,107 +16,119 @@ export default function ShoppingCart(Props) {
     const [message, setMessage] = useState('');
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
+    const [prdcArray, setprdcArray] = useState([])
+    const [ShopsArray, setShopsArray] = useState([])
+
+
+    const RemoveFromMyCart = async (productId) => {
+        // Find the cart item based on the productId
+        const cartItem = cartItems.find(cart => cart.productId === productId);
+        if (!cartItem) {
+            console.error('Cart item not found for productId:', productId);
+            return;
+        }
+    
+        const cartId = cartItem.id;
+    
+        try {
+            // Make the DELETE request
+            await axios.delete(`http://localhost:5000/users/${userId}/shopping_cart/${cartId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+    
+            // Update the state to remove the deleted item
+            setProductdata(prevProductData => prevProductData.filter(product => product.id !== productId));            
+            console.log('Cart item removed:', cartItem);
+    
+        } catch (error) {
+            console.error('Error removing cart item:', error);
+        }
+    };
+    
 
     const fetchCartItems = async () => {
-      
         try {
-          const response = await axios.get(
-            `http://localhost:5000/users/${userId}/shopping_cart`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json',
-              },
-            }
-          );
-          
-          const cartItemsData = response.data.map((cart) => ({
-            id: cart.id,
-            productId: cart.productID,
-            shopId: cart.ShopID,
-            
-        }));
-        setCartItems(cartItemsData);
-          setMessage('Cart items fetched successfully');
-          setErrors([]);
+            const response = await axios.get(
+                `http://localhost:5000/users/${userId}/shopping_cart`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+            const cartItemsData = response.data.map((cart) => ({
+                id: cart.id,
+                productId: cart.productId,
+                shopId: cart.shopId,
+            }));
+            setCartItems(cartItemsData);
+            setMessage('Cart items fetched successfully');
+            setErrors([]);
         } catch (error) {
-          console.error('Error fetching cart items:', error);
-          if (error.response && error.response.data.errors) {
-            setErrors(error.response.data.errors);
-          } else {
-            setMessage(`Error: ${error.message}`);
-          }
+            console.error('Error fetching cart items:', error);
+            if (error.response && error.response.data.errors) {
+                setErrors(error.response.data.errors);
+            } else {
+                setMessage(`Error: ${error.message}`);
+            }
         }
-      
     };
-  
+    
     useEffect(() => {
-      fetchCartItems();
-    }, []); // Fetch items when component mounts
-  
-   
+        fetchCartItems();
+    }, [userId,Props.open]);
+    
+     // Fetch items when component mounts
+     
 
     // fetching from product
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/shops/8/products`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                    },
-                });
-                const categoriesData = response.data.map((product) => ({
-                    id: product.id,
-                    name: product.name,
-                    imageSrc: product.imageSrc,
-                    price: parseFloat(product.price),
-                }));
-
-                setProductdata(categoriesData);
-                const total = categoriesData.reduce((sum, product) => sum + product.price, 0);
-                setCheckoutPrice(total.toFixed(2));
+                if (Array.isArray(cartItems) && cartItems.length > 0) {
+                    const responses = await Promise.all(cartItems.map(product => 
+                        fetch(`http://localhost:5000/products/${product.productId}`, {
+                            method: 'GET',
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        })
+                    ));
+    
+                    const productsDataArray = await Promise.all(responses.map(async (response) => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            const errorData = await response.json();
+                            console.error("Error retrieving product:", errorData);
+                            return null;
+                        }
+                    }));
+    
+                    const validData = productsDataArray.filter(data => data !== null);
+    
+                    // Calculate the total price
+                    const totalPrice = validData.reduce((total, product) => total + parseFloat(product.price), 0);
+                    setCheckoutPrice(totalPrice.toFixed(2));
+    
+                    setProductdata(validData);
+                }
             } catch (error) {
-                console.error('Error fetching categories:', error);
+                console.error('An error occurred, please try again later:', error);
             }
         };
-
+    
         fetchCategories();
-    }, [token]);
-
-    // const [errorMessage, setErrorMessage] = useState('');
-    // useEffect(() => {
-    //   const fetchProducts = async () => {
-    //     try {
-    //       // Iterate over each shop and fetch products
-    //       await Promise.all(shopId.map(async (shop) => {
-    //         const response = await fetch(`http://localhost:5000/shops/${shop.id}/products`, {
-    //           method: 'GET', 
-    //           headers: {
-    //             'Authorization': `Bearer ${token}`
-    //           }
-    //         });
+    }, [cartItems, token]);
     
-    //         if (response.ok) {
-    //           const userData = await response.json();
-    //           // Append the products to the existing productdata
-    //           setProductdata(prevData => [...prevData, ...userData]);
-    //         } else {
-    //           const errorData = await response.json();
-    //           setErrorMessage(errorData.message || 'Error retrieving products');
-    //         }
-    //       }));
-    //     } catch (error) {
-    //       setErrorMessage('An error occurred, please try again later');
-    //     }
-    //   };
     
-    //   // Fetch products when shopId or token changes
-    //   if (shopId.length > 0 && token) {
-    //     fetchProducts();
-    //   }
-    // }, [shopId, token]);
 
+   
+    
 
     return (
        
@@ -167,38 +179,41 @@ export default function ShoppingCart(Props) {
                                             <div className="mt-8">
                                                 <div className="flow-root">
                                                     <ul role="list" className="-my-6 divide-y divide-gray-200">
-                                                        {productdata.map((product) => (
-                                                            <li key={product.id} className="flex py-6">
-                                                                <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                                                    <img
-                                                                        src={product.imageSrc}
-                                                                        alt={product.name}
-                                                                        className="h-full w-full object-cover object-center"
-                                                                    />
-                                                                </div>
+                                                       
 
-                                                                <div className="ml-4 flex flex-1 flex-col">
-                                                                    <div className="flex justify-between text-base font-medium text-gray-900">
-                                                                        <h3>
-                                                                            <a href="#">{product.name}</a>
-                                                                        </h3>
-                                                                        <p className="ml-4">₹{product.price}</p>
-                                                                    </div>
-                                                                    <p className="mt-1 text-sm text-gray-500">color</p>
-                                                                    <div className="flex flex-1 items-end justify-between text-sm">
-                                                                        <p className="text-gray-500">Qty 1</p>
-                                                                        <div className="flex">
-                                                                            <button
-                                                                                type="button"
-                                                                                className="font-medium text-indigo-600 hover:text-indigo-500"
-                                                                            >
-                                                                                Remove
-                                                                            </button>
-                                                                        </div>
+                                                    {productdata.map((product) => (
+                                                        <li key={product.id} className="flex py-6">
+                                                            <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                                                <img
+                                                                    src={product.imageSrc}
+                                                                    alt={product.name}
+                                                                    className="h-full w-full object-cover object-center"
+                                                                />
+                                                            </div>
+
+                                                            <div className="ml-4 flex flex-1 flex-col">
+                                                                <div className="flex justify-between text-base font-medium text-gray-900">
+                                                                    <h3>
+                                                                        <a href="#">{product.name}</a>
+                                                                    </h3>
+                                                                    <p   className="ml-4">₹{product.price}</p>
+                                                                </div>
+                                                                <p className="mt-1 text-sm text-gray-500">color</p>
+                                                                <div className="flex flex-1 items-end justify-between text-sm">
+                                                                    <p className="text-gray-500">Qty 1</p>
+                                                                    <div className="flex">
+                                                                        <button
+                                                                        onClick={()=>{RemoveFromMyCart(product.id)}}
+                                                                            type="button"
+                                                                            className="font-medium text-indigo-600 hover:text-indigo-500"
+                                                                        >
+                                                                            Remove
+                                                                        </button>
                                                                     </div>
                                                                 </div>
-                                                            </li>
-                                                        ))}
+                                                            </div>
+                                                        </li>
+                                                    ))}
                                                     </ul>
                                                 </div>
                                             </div>
