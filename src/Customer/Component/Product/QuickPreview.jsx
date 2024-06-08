@@ -3,7 +3,8 @@ import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart, clearErrors, clearMessage } from '../../../redux/cartSlice';
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
@@ -18,7 +19,9 @@ export default function QuickPreview({ open, setOpen, ShopIDsend, CubeId, catId 
   const [productData, setProductData] = useState(null);
   const [categoryData, setCategoryData] = useState(null);
   const [errors, setErrors] = useState([]);
-  const [message, setMessage] = useState('');
+  // const [message, setMessage] = useState('');
+  const navigate =useNavigate();
+
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -55,7 +58,7 @@ export default function QuickPreview({ open, setOpen, ShopIDsend, CubeId, catId 
 
     fetchCategory();
   }, [ShopID, token, catId]);
-const navigate =useNavigate();
+
   
   const AddingToBag = async (e) => {
     e.preventDefault();
@@ -76,16 +79,15 @@ const navigate =useNavigate();
             }
           }
         );
-        setMessage(`Item added to cart with ID: ${response.data.id}`);
         navigate("/")
         setOpen(false)
-        setErrors([]);
       } catch (error) {
         console.error('Error adding item to cart:', error);
         if (error.response && error.response.data.errors) {
           setErrors(error.response.data.errors);
+          
         } else {
-          setMessage(`Error: ${error.message}`);
+          console.log(`Error: ${error.message}`);
         }
       }
     }else{
@@ -93,6 +95,28 @@ const navigate =useNavigate();
     }
    
   };
+
+  // updated add to cart from redux
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+  const { status, error, message } = cart;
+
+  const handleAddToCart = async (e) => {
+    e.preventDefault();
+    if (Authenticated) {
+      dispatch(addToCart({ userId, catId, productID, ShopID, token }));
+      if (message) {
+        navigate('/');
+        
+      }
+      else{
+        setOpen(false)
+      }
+    } else {
+      navigate('/seller/Login');
+    }
+  };
+
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -134,7 +158,7 @@ const navigate =useNavigate();
                     <div>
                       <div className="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8">
                         <div className="aspect-h-3 aspect-w-2 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5">
-                          <Link to={`/productview/${ShopID}/${productID}`} onClick={() => setOpen(false)}>
+                          <Link to={`/productview/${productData.id}`} onClick={() => setOpen(false)}>
                             <img src={productData.imageSrc} alt={productData.name} className="cursor-pointer object-cover object-center" />
                           </Link>
                         </div>
@@ -152,7 +176,12 @@ const navigate =useNavigate();
                                 type="submit"
                                 className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                               >
-                                Add to bag
+                               {errors?  "Add to bag":"alredy added "}
+                                
+                                      {errors.map((error, index) => (
+                                        <li key={index}>{error.msg}</li>
+                                      ))}
+                                    
                               </button>
                             </form>
                           </section>
