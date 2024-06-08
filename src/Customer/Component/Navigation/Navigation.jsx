@@ -72,6 +72,7 @@ export default function Navigation() {
             productId: cart.productId,
             shopId: cart.shopId,
         }));
+        
         setItemCount(cartItemsData.length); 
         setMessage('Cart items fetched successfully');
         setErrors([]);
@@ -88,6 +89,8 @@ export default function Navigation() {
 useEffect(() => {
     fetchCartItems();
 }, [userId]);
+
+
 
   
 
