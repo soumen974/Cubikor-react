@@ -44,7 +44,7 @@ export default function App() {
           
           <Route path="/new" element={<NewProduct/>}/ >
           <Route path="/learn" element={<Learn/>}/ >
-          <Route path="/productview/:CategoryId/:CubeId" element={<ProductOverview/>}/ >
+          <Route path="/productview/:CubeId" element={<ProductOverview/>}/ >
           <Route path="/productview/" element={<ProductOverview/>}/ >
           <Route path="/products" element={<CategoryProduct/>}/ >
           <Route path="/products/:CategoryPageID" element={<CategoryProduct/>}/ >
