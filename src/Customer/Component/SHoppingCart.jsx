@@ -2,52 +2,54 @@ import { Fragment, useState, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function ShoppingCart(Props) {
     const [productdata, setProductdata] = useState([]);
     const [checkoutPrice, setCheckoutPrice] = useState(0);
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
-  const Authenticated =  localStorage.getItem('isUserAuthenticated');
+    const Authenticated = localStorage.getItem('isUserAuthenticated');
 
-    // fetching data from student cart
     const [cartItems, setCartItems] = useState([]);
     const [message, setMessage] = useState('');
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
-    const [prdcArray, setprdcArray] = useState([])
-    const [ShopsArray, setShopsArray] = useState([])
-
+    const [prdcArray, setprdcArray] = useState([]);
+    const [ShopsArray, setShopsArray] = useState([]);
 
     const RemoveFromMyCart = async (productId) => {
-        // Find the cart item based on the productId
         const cartItem = cartItems.find(cart => cart.productId === productId);
         if (!cartItem) {
             console.error('Cart item not found for productId:', productId);
             return;
         }
-    
+
         const cartId = cartItem.id;
-    
+
         try {
-            // Make the DELETE request
             await axios.delete(`http://localhost:5000/users/${userId}/shopping_cart/${cartId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 }
             });
-    
-            // Update the state to remove the deleted item
-            setProductdata(prevProductData => prevProductData.filter(product => product.id !== productId));            
+
+            setProductdata(prevProductData => {
+                const updatedProductData = prevProductData.filter(product => product.id !== productId);
+                const totalPrice = updatedProductData.reduce((total, product) => total + parseFloat(product.price), 0);
+                setCheckoutPrice(totalPrice.toFixed(2));
+                return updatedProductData;
+            });
+
+            setCartItems(prevCartItems => prevCartItems.filter(cart => cart.productId !== productId));
+
             console.log('Cart item removed:', cartItem);
-    
+
         } catch (error) {
             console.error('Error removing cart item:', error);
         }
     };
-    
 
     const fetchCartItems = async () => {
         try {
@@ -77,15 +79,11 @@ export default function ShoppingCart(Props) {
             }
         }
     };
-    
+
     useEffect(() => {
         fetchCartItems();
-    }, [userId,Props.open]);
-    
-     // Fetch items when component mounts
-     
+    }, [userId, Props.open]);
 
-    // fetching from product
     useEffect(() => {
         const fetchCategories = async () => {
             try {
@@ -111,7 +109,6 @@ export default function ShoppingCart(Props) {
     
                     const validData = productsDataArray.filter(data => data !== null);
     
-                    // Calculate the total price
                     const totalPrice = validData.reduce((total, product) => total + parseFloat(product.price), 0);
                     setCheckoutPrice(totalPrice.toFixed(2));
     
@@ -124,7 +121,6 @@ export default function ShoppingCart(Props) {
     
         fetchCategories();
     }, [cartItems, token]);
-    
     
 
    
@@ -184,11 +180,12 @@ export default function ShoppingCart(Props) {
                                                     {productdata.map((product) => (
                                                         <li key={product.id} className="flex py-6">
                                                             <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                                                <img
+                                                               <Link to={`/productview/${product.id}`} onClick={() => Props.setOpen(false)} > <img
                                                                     src={product.imageSrc}
                                                                     alt={product.name}
                                                                     className="h-full w-full object-cover object-center"
                                                                 />
+                                                                </Link>
                                                             </div>
 
                                                             <div className="ml-4 flex flex-1 flex-col">
