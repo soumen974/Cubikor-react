@@ -2,6 +2,8 @@ import { useState,useEffect } from "react";
 import products from "./Data/products.json";
 import QuickPreview from "./Product/QuickPreview";
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+
 
 
 export default function ProductCard() {
@@ -33,12 +35,7 @@ export default function ProductCard() {
     useEffect(() => {
       const fetchCategories = async () => {
         try {
-          const response = await axios.get(`http://localhost:5000/shops`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              'Content-Type': 'application/json'
-            }
-          });
+          const response = await axios.get(`http://localhost:5000/shops`);
           
           const showOwners = response.data.map(shop => ({
             id: shop.id,
@@ -84,10 +81,10 @@ export default function ProductCard() {
       };
     
       // Fetch products when shopId or token changes
-      if (shopId.length > 0 && token) {
+      if (shopId.length > 0 ) {
         fetchProducts();
       }
-    }, [shopId, token]);
+    }, [shopId]);
     
     
     // Render your UI using productdata and errorMessage
@@ -116,11 +113,13 @@ export default function ProductCard() {
               className="group cursor-pointer bg-gray-100 hover:bg-indigo-500 transition duration-500 px-2 py-2 rounded-lg relative"
             >
               <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:h-80">
+                 <Link to={`/productview/${product.id}`}>
                 <img
                   src={product.imageSrc}
                   alt={product.imageAlt}
                   className="w-full h-full object-cover object-center lg:w-full lg:h-full transition-transform duration-500 group-hover:scale-105 rounded-sm"
                 />
+                </Link>
                 
               </div>
               <div className="mt-4  justify-between">
