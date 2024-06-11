@@ -18,7 +18,7 @@ import Image from "./Seller/Image_uploder/Image";
 import ImageList from "./Seller/Image_uploder/ImageList";
 import ImageUploader from "./Seller/Image_uploder/ImageUploader";
 import DashBoard from './Seller/DashBoard';
-import CheckoutForm from './Customer/Pages/CheckoutForm ';
+import CheckoutForm from './Customer/Pages/CheckoutForm';
 
 
 
