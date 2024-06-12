@@ -66,6 +66,7 @@ export default function ShoppingCart(Props) {
                 id: cart.id,
                 productId: cart.productId,
                 shopId: cart.shopId,
+                quantity:cart.quantity,
             }));
             setCartItems(cartItemsData);
             setMessage('Cart items fetched successfully');
@@ -121,6 +122,51 @@ export default function ShoppingCart(Props) {
     
         fetchCategories();
     }, [cartItems, token]);
+
+
+    // quantity update
+
+    const [quantities, setQuantities] = useState({});
+
+   
+    const increment = (id) => {
+      setQuantities((prevQuantities) => ({
+        ...prevQuantities,
+        [id]: (prevQuantities[id] || 1) + 1,
+      }));
+    };
+  
+    const decrement = (id) => {
+      setQuantities((prevQuantities) => ({
+        ...prevQuantities,
+        [id]: Math.max((prevQuantities[id] || 1) - 1, 1),
+      }));
+    };
+  
+    const quanttityUpdate = async (id) => {
+    //    quantity: quantities[product.id] || 1
+  
+       const cartItemQnty = cartItemQnty.find(cart => cart.productId === productId);
+       if (!cartItemQnty) {
+           console.error('Cart item not found for productId:', productId);
+           return;
+       }
+
+       const cartId = cartItemQnty.id;
+
+       try {
+           await axios.put(`http://localhost:5000/users/${userId}/shopping_cart/${cartId}`, {
+               headers: {
+                   Authorization: `Bearer ${token}`,
+                   'Content-Type': 'application/json'
+               }
+           });
+
+
+       } catch (error) {
+           console.error('Error updating cart item quantity:', error);
+       }
+    };
     
 
    
@@ -175,8 +221,6 @@ export default function ShoppingCart(Props) {
                                             <div className="mt-8">
                                                 <div className="flow-root">
                                                     <ul role="list" className="-my-6 divide-y divide-gray-200">
-                                                       
-
                                                     {productdata.map((product) => (
                                                         <li key={product.id} className="flex py-6">
                                                             <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
@@ -197,7 +241,39 @@ export default function ShoppingCart(Props) {
                                                                 </div>
                                                                 <p className="mt-1 text-sm text-gray-500">color</p>
                                                                 <div className="flex flex-1 items-end justify-between text-sm">
-                                                                    <p className="text-gray-500">Qty 1</p>
+                                                                    <p className="text-gray-500 "> 
+                                                                        <form className="max-w-xs pt-2 mx-auto flex gap-5">
+                                                                            <label htmlFor="">Qty :</label>
+                                                                            <div className="relative flex items-center">
+                                                                                <button
+                                                                                type="button"
+                                                                                onClick={() => decrement(product.id)}
+                                                                                className="flex-shrink-0 bg-gray-100 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 focus:ring-2 focus:outline-none"
+                                                                                >
+                                                                                <svg className="w-2.5 h-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                                                                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h16"/>
+                                                                                </svg>
+                                                                                </button>
+                                                                                <input
+                                                                                type="text"
+                                                                                id="counter-input"
+                                                                                className="flex-shrink-0 text-gray-900 border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 max-w-[2.5rem] text-center"
+                                                                                placeholder=""
+                                                                                value={quantities[product.id] || 1}
+                                                                                readOnly
+                                                                                />
+                                                                                <button
+                                                                                type="button"
+                                                                                onClick={() => increment(product.id)}
+                                                                                className="flex-shrink-0 bg-gray-100 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 focus:ring-2 focus:outline-none"
+                                                                                >
+                                                                                <svg className="w-2.5 h-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                                                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 1v16M1 9h16"/>
+                                                                                </svg>
+                                                                                </button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </p>
                                                                     <div className="flex">
                                                                         <button
                                                                         onClick={()=>{RemoveFromMyCart(product.id)}}
@@ -223,12 +299,11 @@ export default function ShoppingCart(Props) {
                                             </div>
                                             <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                                             <div className="mt-6">
-                                                <a
-                                                    href="#"
-                                                    className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                                                <Link to={"/checkout"}  
+                                                 onClick={() => Props.setOpen(false)}                                                  className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                                                 >
                                                     Checkout
-                                                </a>
+                                                </Link>
                                             </div>
                                             <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                                                 <p>
