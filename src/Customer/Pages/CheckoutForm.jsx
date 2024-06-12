@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate ,Link} from 'react-router-dom';
 
 const CheckoutForm = () => {
 
@@ -20,6 +20,8 @@ const CheckoutForm = () => {
 
   const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
+
+  // user address put 
 
   const [userData, setUserData] = useState({
     username: '',
@@ -76,7 +78,6 @@ const CheckoutForm = () => {
     }));
   };
 
-   const navigate =useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -110,7 +111,7 @@ const CheckoutForm = () => {
         console.log('User updated successfully', response.data);
         setTimeout(() => {
           setDialogopenOpen(false);
-          navigate('/profile');
+          navigate('/');
         }, 1100);
       })
       .catch(error => {
@@ -119,49 +120,252 @@ const CheckoutForm = () => {
       });
   };
 
+  // shopping cart mirror 
+
+  const [productdata, setProductdata] = useState([]);
+    const [checkoutPrice, setCheckoutPrice] = useState(0);
+
+    const [cartItems, setCartItems] = useState([]);
+    const [message, setMessage] = useState('');
+    const [errors, setErrors] = useState([]);
+    const navigate = useNavigate();
+    const [prdcArray, setprdcArray] = useState([]);
+    const [ShopsArray, setShopsArray] = useState([]);
+
+    const RemoveFromMyCart = async (productId) => {
+        const cartItem = cartItems.find(cart => cart.productId === productId);
+        if (!cartItem) {
+            console.error('Cart item not found for productId:', productId);
+            return;
+        }
+
+        const cartId = cartItem.id;
+
+        try {
+            await axios.delete(`http://localhost:5000/users/${userId}/shopping_cart/${cartId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            setProductdata(prevProductData => {
+                const updatedProductData = prevProductData.filter(product => product.id !== productId);
+                const totalPrice = updatedProductData.reduce((total, product) => total + parseFloat(product.price), 0);
+                setCheckoutPrice(totalPrice.toFixed(2));
+                return updatedProductData;
+            });
+
+            setCartItems(prevCartItems => prevCartItems.filter(cart => cart.productId !== productId));
+
+            console.log('Cart item removed:', cartItem);
+
+        } catch (error) {
+            console.error('Error removing cart item:', error);
+        }
+    };
+
+    const fetchCartItems = async () => {
+        try {
+            const response = await axios.get(
+                `http://localhost:5000/users/${userId}/shopping_cart`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+            const cartItemsData = response.data.map((cart) => ({
+                id: cart.id,
+                productId: cart.productId,
+                shopId: cart.shopId,
+            }));
+            setCartItems(cartItemsData);
+            setMessage('Cart items fetched successfully');
+            setErrors([]);
+        } catch (error) {
+            console.error('Error fetching cart items:', error);
+            if (error.response && error.response.data.errors) {
+                setErrors(error.response.data.errors);
+            } else {
+                setMessage(`Error: ${error.message}`);
+            }
+        }
+    };
+
+    useEffect(() => {
+        fetchCartItems();
+    }, [userId, token]);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                if (Array.isArray(cartItems) && cartItems.length > 0) {
+                    const responses = await Promise.all(cartItems.map(product => 
+                        fetch(`http://localhost:5000/products/${product.productId}`, {
+                            method: 'GET',
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
+                        })
+                    ));
+    
+                    const productsDataArray = await Promise.all(responses.map(async (response) => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            const errorData = await response.json();
+                            console.error("Error retrieving product:", errorData);
+                            return null;
+                        }
+                    }));
+    
+                    const validData = productsDataArray.filter(data => data !== null);
+    
+                    const totalPrice = validData.reduce((total, product) => total + parseFloat(product.price), 0);
+                    setCheckoutPrice(totalPrice.toFixed(2));
+    
+                    setProductdata(validData);
+                }
+            } catch (error) {
+                console.error('An error occurred, please try again later:', error);
+            }
+        };
+    
+        fetchCategories();
+    }, [cartItems, token]);
+
+
+    // quantity chceck for products
+    
+    const [quantities, setQuantities] = useState({});
+
+   
+    const increment = (id) => {
+      setQuantities((prevQuantities) => ({
+        ...prevQuantities,
+        [id]: (prevQuantities[id] || 1) + 1,
+      }));
+    };
+  
+    const decrement = (id) => {
+      setQuantities((prevQuantities) => ({
+        ...prevQuantities,
+        [id]: Math.max((prevQuantities[id] || 1) - 1, 1),
+      }));
+    };
+  
+    const quanttityUpdate = async (e) => {
+      e.preventDefault();
+  
+      try {
+        const response = await axios.put(`/users/${userId}/shopping_cart/${productId}`, {
+          quantity: quantities[product.id] || 1,
+          shopId,
+        });
+        setMessage(response.data);
+      } catch (error) {
+        if (error.response) {
+          setMessage(error.response.data.errors ? error.response.data.errors.map(err => err.msg).join(', ') : error.response.data);
+        } else {
+          setMessage('Error updating item in shopping cart');
+        }
+      }
+    };
   return (
     <section className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8 mt-20">
       <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        <div className="lg:col-span-2">
-            <div className="space-y-4 border p-2 bg-gray-300">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 space-y-4">
+        <div className="lg:col-span-2 space-y-4">
+            <div className="space-y-4 px-4 py-5">
               <div className="flow-root">
                   <ul role="list" className="-my-6 divide-y divide-gray-200">
-                      
+                    
+                    {productdata.length === 0 ? (
+                       <div className="sm:col-span-2 mb-5">
+                        <Link
+                        to={"/"}
+                            
+                            className="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100"
+                        >
+                            <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h14m-7 7V5" />
+                            </svg>
+                            Add Product
+                        </Link>
+                        </div>
 
-                  
-                      <li  className="flex py-6">
+                    ):(
+                      productdata.map((product) => (
+                        <li key={product.id} className="flex py-6">
                           <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                <img
-                                  src={"product.imageSrc"}
-                                  alt={"product.name"}
-                                  className="h-full w-full object-cover object-center"
+                            <Link to={`/productview/${product.id}`}>
+                              <img
+                                src={product.imageSrc}
+                                alt={product.name}
+                                className="h-full w-full object-cover object-center"
                               />
-                              
+                            </Link>
                           </div>
-
                           <div className="ml-4 flex flex-1 flex-col">
-                              <div className="flex justify-between text-base font-medium text-gray-900">
-                                  <h3>
-                                      <a href="#">{"product.name"}</a>
-                                  </h3>
-                                  <p   className="ml-4">₹{"product.price"}</p>
-                              </div>
-                              <p className="mt-1 text-sm text-gray-500">color</p>
-                              <div className="flex flex-1 items-end justify-between text-sm">
-                                  <p className="text-gray-500">Qty 1</p>
-                                  <div className="flex">
-                                      <button
-                                      
-                                          type="button"
-                                          className="font-medium text-indigo-600 hover:text-indigo-500"
-                                      >
-                                          Remove
-                                      </button>
+                            <div className="flex justify-between text-base font-medium text-gray-900">
+                              <h3>
+                                <a href="#">{product.name}</a>
+                              </h3>
+                              <p className="ml-4">₹{product.price}</p>
+                            </div>
+                            <p className="mt-1 text-sm text-gray-500">color</p>
+                            <div className="flex flex-1 items-end justify-between text-sm">
+                              <p className="text-gray-500">
+                                Qty{quantities[product.id]|| 1}
+                                <form className="max-w-xs pt-2 mx-auto">
+                                  <div className="relative flex items-center">
+                                    <button
+                                      type="button"
+                                      onClick={() => decrement(product.id)}
+                                      className="flex-shrink-0 bg-gray-100 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 focus:ring-2 focus:outline-none"
+                                    >
+                                      <svg className="w-2.5 h-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h16"/>
+                                      </svg>
+                                    </button>
+                                    <input
+                                      type="text"
+                                      id="counter-input"
+                                      className="flex-shrink-0 text-gray-900 border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 max-w-[2.5rem] text-center"
+                                      placeholder=""
+                                      value={quantities[product.id] || 1}
+                                      readOnly
+                                    />
+                                    <button
+                                      type="button"
+                                      onClick={() => increment(product.id)}
+                                      className="flex-shrink-0 bg-gray-100 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 focus:ring-2 focus:outline-none"
+                                    >
+                                      <svg className="w-2.5 h-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 1v16M1 9h16"/>
+                                      </svg>
+                                    </button>
                                   </div>
+                                </form>
+                              </p>
+                              <div className="flex">
+                                <button
+                                  onClick={() => RemoveFromMyCart(product.id)}
+                                  type="button"
+                                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                                >
+                                  Remove
+                                </button>
                               </div>
+                            </div>
                           </div>
-                      </li>
+                        </li>
+                      ))
+
+                    ) }
+                    
                   </ul>
               </div>
             </div>
@@ -295,30 +499,98 @@ const CheckoutForm = () => {
                
               </div>
 
-                <div className="sm:col-span-2">
-                <button
-                    type="submit"
-                    className="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100"
-                >
-                    <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h14m-7 7V5" />
-                    </svg>
-                    Add new address
-                </button>
-                </div>
+               
+            </div>
+
+            <div className="space-y-4">
+            <h3 className="text-xl font-semibold text-gray-900">Delivery Methods</h3>
+
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                
+                <label htmlFor="dhl"  className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4">
+                  <div  className="flex items-start">
+                      <div className="flex h-5 items-center">
+                      <input
+                          id="dhl"
+                          aria-describedby="dhl-text"
+                          type="radio"
+                          name="delivery-method"
+                          value=""
+                          className="h-4 w-4 border-gray-300 bg-white text-indigo-600  "
+                          checked
+                      />
+                      </div>
+
+                      <div  className="ms-4 text-sm">
+                      <div  className="font-medium leading-none text-gray-900">
+                          Cash on  Delivery
+                      </div>
+                      <p id="dhl-text" className="mt-1 text-xs font-normal text-gray-500">
+                          Get it by Tomorrow
+                      </p>
+                      </div>
+                  </div>
+                </label>
+
+                <label  htmlFor="fedex" className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4">
+                  <div className="flex items-start">
+                      <div className="flex h-5 items-center">
+                      <input
+                          id="fedex"
+                          aria-describedby="fedex-text"
+                          type="radio"
+                          name="delivery-method"
+                          value=""
+                          className="h-4 w-4 border-gray-300 bg-white text-primary-600 "
+                      />
+                      </div>
+
+                      <div className="ms-4 text-sm">
+                      <div className="font-medium leading-none text-gray-900">
+                          UPI payment
+                      </div>
+                      <p id="fedex-text" className="mt-1 text-xs font-normal text-gray-500">
+                          Get it by Friday, 13 Dec 2023
+                      </p>
+                      </div>
+                  </div>
+                </label>
+
+                <label htmlFor="express"  className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4">
+                  <div className="flex items-start">
+                      <div className="flex h-5 items-center">
+                      <input
+                          id="express"
+                          aria-describedby="express-text"
+                          type="radio"
+                          name="delivery-method"
+                          value=""
+                          className="h-4 w-4 border-gray-300 bg-white text-primary-600 "
+                      />
+                      </div>
+
+                      <div className="ms-4 text-sm">
+                      <div className="font-medium leading-none text-gray-900">
+                          Card Payment
+                      </div>
+                      <p id="express-text" className="mt-1 text-xs font-normal text-gray-500">
+                          Get it today
+                      </p>
+                      </div>
+                  </div>
+                </label>
+            </div>
             </div>
 
             <div className="space-y-4">
                 <h3 className="text-xl font-semibold text-gray-900">Payment</h3>
 
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                {/* Payment method radio buttons */}
+                Voucher code
                 </div>
 
                 <div>
-                <label htmlFor="voucher" className="mb-2 block text-sm font-medium text-gray-900">
-                    Voucher code
-                </label>
+                
                 <div className="flex">
                     <div className="relative w-full">
                     <input
@@ -332,7 +604,7 @@ const CheckoutForm = () => {
                     </div>
                     <button
                     type="button"
-                    className="rounded-e-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100"
+                    className="rounded-e-lg border border-indigo-700 bg-indigo-700 px-5 py-2.5 text-sm font-medium text-gray-100 hover:bg-indigo-600  focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100"
                     >
                     Apply
                     </button>
@@ -340,121 +612,6 @@ const CheckoutForm = () => {
                 </div>
             </div>
 
-            <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-gray-900">Delivery method</h3>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                {/* Delivery method radio buttons */}
-                </div>
-            </div>
-
-            <div className="sm:col-span-2">
-                <button
-                type="submit"
-                className="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-primary-300"
-                >
-                Complete Purchase
-                </button>
-            </div>
-
-            <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-gray-900">Delivery Methods</h3>
-
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4">
-                <div className="flex items-start">
-                    <div className="flex h-5 items-center">
-                    <input
-                        id="dhl"
-                        aria-describedby="dhl-text"
-                        type="radio"
-                        name="delivery-method"
-                        value=""
-                        className="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600"
-                        checked
-                    />
-                    </div>
-
-                    <div className="ms-4 text-sm">
-                    <label htmlFor="dhl" className="font-medium leading-none text-gray-900">
-                        $15 - DHL Fast Delivery
-                    </label>
-                    <p id="dhl-text" className="mt-1 text-xs font-normal text-gray-500">
-                        Get it by Tomorrow
-                    </p>
-                    </div>
-                </div>
-                </div>
-
-                <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4">
-                <div className="flex items-start">
-                    <div className="flex h-5 items-center">
-                    <input
-                        id="fedex"
-                        aria-describedby="fedex-text"
-                        type="radio"
-                        name="delivery-method"
-                        value=""
-                        className="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600"
-                    />
-                    </div>
-
-                    <div className="ms-4 text-sm">
-                    <label htmlFor="fedex" className="font-medium leading-none text-gray-900">
-                        Free Delivery - FedEx
-                    </label>
-                    <p id="fedex-text" className="mt-1 text-xs font-normal text-gray-500">
-                        Get it by Friday, 13 Dec 2023
-                    </p>
-                    </div>
-                </div>
-                </div>
-
-                <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4">
-                <div className="flex items-start">
-                    <div className="flex h-5 items-center">
-                    <input
-                        id="express"
-                        aria-describedby="express-text"
-                        type="radio"
-                        name="delivery-method"
-                        value=""
-                        className="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600"
-                    />
-                    </div>
-
-                    <div className="ms-4 text-sm">
-                    <label htmlFor="express" className="font-medium leading-none text-gray-900">
-                        $49 - Express Delivery
-                    </label>
-                    <p id="express-text" className="mt-1 text-xs font-normal text-gray-500">
-                        Get it today
-                    </p>
-                    </div>
-                </div>
-                </div>
-            </div>
-            </div>
-
-            <div>
-                <label htmlFor="voucher" className="mb-2 block text-sm font-medium text-gray-900">
-                    Enter a gift card, voucher or promotional code
-                </label>
-                <div className="flex max-w-md items-center gap-4">
-                    <input
-                    type="text"
-                    id="voucher"
-                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
-                    placeholder=""
-                    required
-                    />
-                    <button
-                    type="button"
-                    className="flex items-center justify-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300"
-                    >
-                    Apply
-                    </button>
-                </div>
-            </div>
         </div>
 
           <div>
@@ -463,27 +620,27 @@ const CheckoutForm = () => {
                 <div className="-my-3 divide-y divide-gray-200">
                 <dl className="flex items-center justify-between gap-4 py-3">
                     <dt className="text-base font-normal text-gray-500">Subtotal</dt>
-                    <dd className="text-base font-medium text-gray-900">$8,094.00</dd>
+                    <dd className="text-base font-medium text-gray-900">₹{checkoutPrice}</dd>
                 </dl>
 
                 <dl className="flex items-center justify-between gap-4 py-3">
                     <dt className="text-base font-normal text-gray-500">Savings</dt>
-                    <dd className="text-base font-medium text-green-500">0</dd>
+                    <dd className="text-base font-medium text-green-500">₹0</dd>
                 </dl>
 
                 <dl className="flex items-center justify-between gap-4 py-3">
                     <dt className="text-base font-normal text-gray-500">Store Pickup</dt>
-                    <dd className="text-base font-medium text-gray-900">$99</dd>
+                    <dd className="text-base font-medium text-gray-900">₹0</dd>
                 </dl>
 
                 <dl className="flex items-center justify-between gap-4 py-3">
                     <dt className="text-base font-normal text-gray-500">Tax</dt>
-                    <dd className="text-base font-medium text-gray-900">$199</dd>
+                    <dd className="text-base font-medium text-gray-900">₹0</dd>
                 </dl>
 
                 <dl className="flex items-center justify-between gap-4 py-3">
                     <dt className="text-base font-bold text-gray-900">Total</dt>
-                    <dd className="text-base font-bold text-gray-900">$8,392.00</dd>
+                    <dd className="text-base font-bold text-gray-900">₹{checkoutPrice}</dd>
                 </dl>
                 </div>
             </div>
