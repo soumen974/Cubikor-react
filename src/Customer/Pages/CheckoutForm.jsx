@@ -262,23 +262,7 @@ const CheckoutForm = () => {
       }));
     };
   
-    const quanttityUpdate = async (e) => {
-      e.preventDefault();
-  
-      try {
-        const response = await axios.put(`/users/${userId}/shopping_cart/${productId}`, {
-          quantity: quantities[product.id] || 1,
-          shopId,
-        });
-        setMessage(response.data);
-      } catch (error) {
-        if (error.response) {
-          setMessage(error.response.data.errors ? error.response.data.errors.map(err => err.msg).join(', ') : error.response.data);
-        } else {
-          setMessage('Error updating item in shopping cart');
-        }
-      }
-    };
+   
   return (
     <section className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8 mt-20">
       <form onSubmit={handleSubmit}>

@@ -149,30 +149,7 @@ export default function ShoppingCart(Props) {
 
     };
   
-    const quanttityUpdate = async (id) => {
-    //    quantity: quantities[product.id] || 1
-  
-       const cartItemQnty = cartItemQnty.find(cart => cart.productId === productId);
-       if (!cartItemQnty) {
-           console.error('Cart item not found for productId:', productId);
-           return;
-       }
-
-       const cartId = cartItemQnty.id;
-
-       try {
-           await axios.put(`http://localhost:5000/users/${userId}/shopping_cart/${cartId}`, {
-               headers: {
-                   Authorization: `Bearer ${token}`,
-                   'Content-Type': 'application/json'
-               }
-           });
-
-
-       } catch (error) {
-           console.error('Error updating cart item quantity:', error);
-       }
-    };
+   
     
     
    
