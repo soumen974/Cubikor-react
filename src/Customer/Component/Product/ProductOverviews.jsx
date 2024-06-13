@@ -43,7 +43,7 @@ export default function ProductOverview() {
   }, [cubeId, token]);
 
   const userId = localStorage.getItem('userId');
-  const Authenticated = localStorage.getItem('isUserAuthenticated');
+  const Authenticated = token;
   const CategoryId = productdata?.category_id;
   const productId = productdata?.id;
   const shopId = productdata?.shop_id;
@@ -70,6 +70,7 @@ export default function ProductOverview() {
         );
 
         setErrors([]);
+        window.location.reload();
       } catch (error) {
         console.error('Error adding item to cart:', error);
         if (error.response && error.response.data.errors) {
