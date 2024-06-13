@@ -166,75 +166,81 @@ const CheckoutForm = () => {
     };
 
     const fetchCartItems = async () => {
-        try {
-            const response = await axios.get(
-                `http://localhost:5000/users/${userId}/shopping_cart`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                    },
-                }
-            );
-            const cartItemsData = response.data.map((cart) => ({
-                id: cart.id,
-                productId: cart.productId,
-                shopId: cart.shopId,
-            }));
-            setCartItems(cartItemsData);
-            setMessage('Cart items fetched successfully');
-            setErrors([]);
-        } catch (error) {
-            console.error('Error fetching cart items:', error);
-            if (error.response && error.response.data.errors) {
-                setErrors(error.response.data.errors);
-            } else {
-                setMessage(`Error: ${error.message}`);
-            }
-        }
-    };
+      try {
+          const response = await axios.get(
+              `http://localhost:5000/users/${userId}/shopping_cart`,
+              {
+                  headers: {
+                      Authorization: `Bearer ${token}`,
+                      'Content-Type': 'application/json',
+                  },
+              }
+          );
+          const cartItemsData = response.data.map((cart) => ({
+              id: cart.id,
+              productId: cart.productId,
+              shopId: cart.shopId,
+              quantity:cart.quantity,
+          }));
+          setCartItems(cartItemsData);
+          setMessage('Cart items fetched successfully');
+          setErrors([]);
+      } catch (error) {
+          console.error('Error fetching cart items:', error);
+          if (error.response && error.response.data.errors) {
+              setErrors(error.response.data.errors);
+          } else {
+              setMessage(`Error: ${error.message}`);
+          }
+      }
+  };
 
     useEffect(() => {
         fetchCartItems();
     }, [userId, token]);
 
     useEffect(() => {
-        const fetchCategories = async () => {
-            try {
-                if (Array.isArray(cartItems) && cartItems.length > 0) {
-                    const responses = await Promise.all(cartItems.map(product => 
-                        fetch(`http://localhost:5000/products/${product.productId}`, {
-                            method: 'GET',
-                            headers: {
-                                'Authorization': `Bearer ${token}`
-                            }
-                        })
-                    ));
-    
-                    const productsDataArray = await Promise.all(responses.map(async (response) => {
-                        if (response.ok) {
-                            return response.json();
-                        } else {
-                            const errorData = await response.json();
-                            console.error("Error retrieving product:", errorData);
-                            return null;
-                        }
-                    }));
-    
-                    const validData = productsDataArray.filter(data => data !== null);
-    
-                    const totalPrice = validData.reduce((total, product) => total + parseFloat(product.price), 0);
-                    setCheckoutPrice(totalPrice.toFixed(2));
-    
-                    setProductdata(validData);
-                }
-            } catch (error) {
-                console.error('An error occurred, please try again later:', error);
-            }
-        };
-    
-        fetchCategories();
-    }, [cartItems, token]);
+      const fetchCategories = async () => {
+          try {
+              if (Array.isArray(cartItems) && cartItems.length > 0) {
+                  const responses = await Promise.all(cartItems.map(product => 
+                      fetch(`http://localhost:5000/products/${product.productId}`, {
+                          method: 'GET',
+                          headers: {
+                              'Authorization': `Bearer ${token}`
+                          }
+                      })
+                  ));
+  
+                  const productsDataArray = await Promise.all(responses.map(async (response) => {
+                      if (response.ok) {
+                          return response.json();
+                      } else {
+                          const errorData = await response.json();
+                          console.error("Error retrieving product:", errorData);
+                          return null;
+                      }
+                  }));
+  
+                  const validData = productsDataArray.filter(data => data !== null);
+  
+                  const totalPrice = validData.reduce((total, product) => {
+                      const cartItem = cartItems.find(cart => cart.productId === product.id);
+                      const quantity = cartItem ? cartItem.quantity : 0;
+                      return total + quantity * parseFloat(product.price);
+                  }, 0);
+                                      // const intoprice= cartItems.find(cart => cart.productId === product.id)?.quantity || 0;
+                  setCheckoutPrice(totalPrice.toFixed(2));
+  
+                  setProductdata(validData);
+              }
+          } catch (error) {
+              console.error('An error occurred, please try again later:', error);
+          }
+      };
+  
+      fetchCategories();
+  }, [cartItems, token]);
 
 
     // quantity chceck for products
@@ -318,37 +324,39 @@ const CheckoutForm = () => {
                             <p className="mt-1 text-sm text-gray-500">color</p>
                             <div className="flex flex-1 items-end justify-between text-sm">
                               <p className="text-gray-500">
-                                Qty{quantities[product.id]|| 1}
-                                <form className="max-w-xs pt-2 mx-auto">
-                                  <div className="relative flex items-center">
-                                    <button
-                                      type="button"
-                                      onClick={() => decrement(product.id)}
-                                      className="flex-shrink-0 bg-gray-100 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 focus:ring-2 focus:outline-none"
-                                    >
-                                      <svg className="w-2.5 h-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
-                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h16"/>
-                                      </svg>
-                                    </button>
-                                    <input
-                                      type="text"
-                                      id="counter-input"
-                                      className="flex-shrink-0 text-gray-900 border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 max-w-[2.5rem] text-center"
-                                      placeholder=""
-                                      value={quantities[product.id] || 1}
-                                      readOnly
-                                    />
-                                    <button
-                                      type="button"
-                                      onClick={() => increment(product.id)}
-                                      className="flex-shrink-0 bg-gray-100 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 focus:ring-2 focus:outline-none"
-                                    >
-                                      <svg className="w-2.5 h-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 1v16M1 9h16"/>
-                                      </svg>
-                                    </button>
-                                  </div>
-                                </form>
+                                  <form className="max-w-xs pt-2 mx-auto flex gap-5">
+                                      <label htmlFor="">
+                                      Qty:                                                                    
+                                        </label>
+                                      <div className="relative flex items-center">
+                                          <button
+                                          type="button"
+                                          onClick={() => decrement(product.id)}
+                                          className="flex-shrink-0 bg-gray-100 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 focus:ring-2 focus:outline-none"
+                                          >
+                                          <svg className="w-2.5 h-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                                              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h16"/>
+                                          </svg>
+                                          </button>
+                                          <input
+                                              type="text"
+                                              id="counter-input"
+                                              className="flex-shrink-0 text-gray-900 border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 max-w-[2.5rem] text-center"
+                                              placeholder=""
+                                              value={quantities[product.id] || (cartItems.find(cart => cart.productId === product.id)?.quantity || 0)}
+                                              readOnly
+                                          />
+                                          <button
+                                          type="button"
+                                          onClick={() => increment(product.id)}
+                                          className="flex-shrink-0 bg-gray-100 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 focus:ring-2 focus:outline-none"
+                                          >
+                                          <svg className="w-2.5 h-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 1v16M1 9h16"/>
+                                          </svg>
+                                          </button>
+                                      </div>
+                                  </form>
                               </p>
                               <div className="flex">
                                 <button
