@@ -1,15 +1,22 @@
 import React, { useState,useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUser } from "../../redux/userSlice";
+import DialogBox from '../../Customer/DialogBox';
+import { useNavigate } from 'react-router-dom';
+
 export default function Avatar() {
 
     const [isOpen, setIsOpen] = useState(false);
-    // const dispatch = useDispatch();
+    const [Dialogopen, setDialogopenOpen] = useState(false);
+
+    const Navigate =useNavigate();
 
     const handleLogout = () => {
-      localStorage.removeItem('isUserAuthenticated');
       localStorage.removeItem('token');
       localStorage.removeItem('userId');
+      Navigate('/');
+      setDialogopenOpen(false);
+      window.location.reload();
      
     };
 
@@ -22,32 +29,34 @@ export default function Avatar() {
   
     useEffect(() => {
       const fetchUser = async () => {
-        try {
-          const response = await fetch(`http://localhost:5000/users/${userId}`, {
-            method: 'GET',
-            headers: {
-              'Authorization': `Bearer ${token}`
+        if(token && userId){
+          try {
+            const response = await fetch(`http://localhost:5000/users/${userId}`, {
+              method: 'GET',
+              headers: {
+                'Authorization': `Bearer ${token}`
+              }
+            });
+    
+            if (response.ok) {
+              const userData = await response.json();
+              setUser(userData);
+            } else {
+              const errorData = await response.json();
+              console.log(token);
+              setErrorMessage(errorData.message || 'Error retrieving user');
             }
-          });
-  
-          if (response.ok) {
-            const userData = await response.json();
-            setUser(userData);
-          } else {
-            const errorData = await response.json();
-            console.log(token);
-            setErrorMessage(errorData.message || 'Error retrieving user');
+          } catch (error) {
+            setErrorMessage('An error occurred, please try again later');
+            localStorage.removeItem('isUserAuthenticated');
+
+
           }
-        } catch (error) {
-          setErrorMessage('An error occurred, please try again later');
-          localStorage.removeItem('isUserAuthenticated');
-
-
         }
       };
   
       fetchUser();
-    }, [userId, token]);
+    }, [userId, token,handleLogout]);
   
     if (errorMessage) {
       return <p>{errorMessage}</p>;
@@ -93,11 +102,22 @@ export default function Avatar() {
             </li>
            
           </ul>
-          <div onClick={handleLogout} className="py-2">
-            <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ">Sign out</a>
+          <div onClick={()=>{setDialogopenOpen(true)}} className="py-2">
+            <div className="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ">Sign out</div>
           </div>
         </div>
       )}
+       <DialogBox 
+         open={Dialogopen}
+         setOpen={setDialogopenOpen} 
+         title={"Session Logout"}
+         message={"Are you sure you want to Logout your account ,then you have to Login agin to access your account."}
+         ActionButtonName={"Logout"}
+         ActionButtonColorRed={true}
+         IconName={false}
+         handleLogic={handleLogout}
+         />
+
     </div>
   );
 }

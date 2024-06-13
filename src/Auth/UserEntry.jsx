@@ -91,7 +91,7 @@ export default function UserEntry(Props) {
         // console.log(userId);
         // console.log(token);
         setSuccessMessage('Login successful');
-        localStorage.setItem('isUserAuthenticated', 'true');
+        // localStorage.setItem('isUserAuthenticated', 'true');
         localStorage.setItem('token', token);
         localStorage.setItem('userId', userId);
         // localStorage.setItem('user_type', user_type);

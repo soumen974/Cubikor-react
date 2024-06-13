@@ -18,7 +18,7 @@ const SideBar = (Props) => {
    localStorage.removeItem('ShopId');
    localStorage.removeItem('isAdmin');
    localStorage.removeItem('note');
-   navigate('/seller/categoriesadd');
+   // navigate('/seller/categoriesadd');
    setLoader(true);
    setTimeout(() => {
      navigate('/seller/Login')

@@ -58,6 +58,10 @@ export default function EditProfile() {
     }
   }, [userId, token]);
 
+  const navigate =useNavigate();
+
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     // console.log(`Updating ${name} to ${value}`);
@@ -67,7 +71,6 @@ export default function EditProfile() {
     }));
   };
 
-   const navigate =useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -322,6 +325,7 @@ export default function EditProfile() {
           </div>
         </form>
       </div>
+      
       {Dialogopen && <DialogBox 
         open={Dialogopen}
          setOpen={setDialogopenOpen} 
@@ -334,6 +338,8 @@ export default function EditProfile() {
          Loading={Loading}
          
          />}   
+
+
     </div>
   );
 }

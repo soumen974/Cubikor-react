@@ -23,8 +23,8 @@ import CheckoutForm from './Customer/Pages/CheckoutForm';
 
 
 export default function App() {
-
-  const Authenticated =  localStorage.getItem('isUserAuthenticated');
+  const token = localStorage.getItem('token');
+  const Authenticated =  token;
   const Seller =  localStorage.getItem('SellerToken');
   
 

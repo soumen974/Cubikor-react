@@ -9,7 +9,7 @@ export default function ShoppingCart(Props) {
     const [checkoutPrice, setCheckoutPrice] = useState(0);
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
-    const Authenticated = localStorage.getItem('isUserAuthenticated');
+    const Authenticated = token;
 
     const [cartItems, setCartItems] = useState([]);
     const [message, setMessage] = useState('');
@@ -110,7 +110,12 @@ export default function ShoppingCart(Props) {
     
                     const validData = productsDataArray.filter(data => data !== null);
     
-                    const totalPrice = validData.reduce((total, product) => total + parseFloat(product.price), 0);
+                    const totalPrice = validData.reduce((total, product) => {
+                        const cartItem = cartItems.find(cart => cart.productId === product.id);
+                        const quantity = cartItem ? cartItem.quantity : 0;
+                        return total + quantity * parseFloat(product.price);
+                    }, 0);
+                                        // const intoprice= cartItems.find(cart => cart.productId === product.id)?.quantity || 0;
                     setCheckoutPrice(totalPrice.toFixed(2));
     
                     setProductdata(validData);
@@ -123,12 +128,11 @@ export default function ShoppingCart(Props) {
         fetchCategories();
     }, [cartItems, token]);
 
-
     // quantity update
 
     const [quantities, setQuantities] = useState({});
 
-   
+      
     const increment = (id) => {
       setQuantities((prevQuantities) => ({
         ...prevQuantities,
@@ -141,6 +145,8 @@ export default function ShoppingCart(Props) {
         ...prevQuantities,
         [id]: Math.max((prevQuantities[id] || 1) - 1, 1),
       }));
+    //   const cartItem = cartItem.find(cart => cart.productId === id);
+
     };
   
     const quanttityUpdate = async (id) => {
@@ -167,6 +173,9 @@ export default function ShoppingCart(Props) {
            console.error('Error updating cart item quantity:', error);
        }
     };
+    
+    
+   
     
 
    
@@ -221,6 +230,7 @@ export default function ShoppingCart(Props) {
                                             <div className="mt-8">
                                                 <div className="flow-root">
                                                     <ul role="list" className="-my-6 divide-y divide-gray-200">
+                                                    
                                                     {productdata.map((product) => (
                                                         <li key={product.id} className="flex py-6">
                                                             <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
@@ -243,7 +253,10 @@ export default function ShoppingCart(Props) {
                                                                 <div className="flex flex-1 items-end justify-between text-sm">
                                                                     <p className="text-gray-500 "> 
                                                                         <form className="max-w-xs pt-2 mx-auto flex gap-5">
-                                                                            <label htmlFor="">Qty :</label>
+                                                                            <label htmlFor="">
+                                                                            Qty:    
+                                                                                                                                                         
+                                                                             </label>
                                                                             <div className="relative flex items-center">
                                                                                 <button
                                                                                 type="button"
@@ -255,12 +268,12 @@ export default function ShoppingCart(Props) {
                                                                                 </svg>
                                                                                 </button>
                                                                                 <input
-                                                                                type="text"
-                                                                                id="counter-input"
-                                                                                className="flex-shrink-0 text-gray-900 border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 max-w-[2.5rem] text-center"
-                                                                                placeholder=""
-                                                                                value={quantities[product.id] || 1}
-                                                                                readOnly
+                                                                                    type="text"
+                                                                                    id="counter-input"
+                                                                                    className="flex-shrink-0 text-gray-900 border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 max-w-[2.5rem] text-center"
+                                                                                    placeholder=""
+                                                                                    value={quantities[product.id] || (cartItems.find(cart => cart.productId === product.id)?.quantity || 0)}
+                                                                                    readOnly
                                                                                 />
                                                                                 <button
                                                                                 type="button"
@@ -300,7 +313,8 @@ export default function ShoppingCart(Props) {
                                             <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                                             <div className="mt-6">
                                                 <Link to={"/checkout"}  
-                                                 onClick={() => Props.setOpen(false)}                                                  className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                                                 onClick={() => Props.setOpen(false)}        
+                                                 className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                                                 >
                                                     Checkout
                                                 </Link>

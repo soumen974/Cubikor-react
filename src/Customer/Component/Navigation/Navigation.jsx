@@ -30,13 +30,9 @@ export default function Navigation() {
   const [signin, setsignin] = useState(false);
   const [signinUp, setsignUp] = useState(false);
 
-
-  // const Authenticated = userDAta.Auth;
-  // const isAuthenticated = () => {
-  //   return document.cookie.includes('token');
-  // };
-  const isAuthenticated=  localStorage.getItem('isUserAuthenticated');
   const token = localStorage.getItem('token');
+  const isAuthenticated=  token;
+
   const userId = localStorage.getItem('userId');
   let totalQuantity = 0;
 
@@ -441,6 +437,7 @@ useEffect(() => {
             </div>
           </nav>
         </header>
+        
       </div>
      </>
   )

@@ -12,7 +12,7 @@ function classNames(...classes) {
 export default function QuickPreview({ open, setOpen, ShopIDsend, CubeId, catId }) {
   const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
-  const Authenticated =  localStorage.getItem('isUserAuthenticated');
+  const Authenticated = token;
   
   const ShopID = ShopIDsend;
   const productID = CubeId;
@@ -80,6 +80,7 @@ export default function QuickPreview({ open, setOpen, ShopIDsend, CubeId, catId 
           }
         );
         navigate("/")
+        window.location.reload();
         setOpen(false)
       } catch (error) {
         console.error('Error adding item to cart:', error);
