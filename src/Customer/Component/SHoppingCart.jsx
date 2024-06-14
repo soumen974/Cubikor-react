@@ -132,6 +132,17 @@ export default function ShoppingCart(Props) {
 
     const [quantities, setQuantities] = useState({});
 
+    useEffect(() => {
+      const newQuantities = {};
+  
+      productdata.forEach((product) => {
+        const cartItem = cartItems.find(cart => cart.productId === product.id);
+        newQuantities[product.id] = cartItem ? cartItem.quantity : 1;
+      });
+  
+      setQuantities(newQuantities);
+    }, [productdata, cartItems]);
+
       
     const increment = (id) => {
       setQuantities((prevQuantities) => ({
@@ -249,7 +260,7 @@ export default function ShoppingCart(Props) {
                                                                                     id="counter-input"
                                                                                     className="flex-shrink-0 text-gray-900 border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 max-w-[2.5rem] text-center"
                                                                                     placeholder=""
-                                                                                    value={quantities[product.id] || (cartItems.find(cart => cart.productId === product.id)?.quantity || 0)}
+                                                                                    value={quantities[product.id] || 0}
                                                                                     readOnly
                                                                                 />
                                                                                 <button

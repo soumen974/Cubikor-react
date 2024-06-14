@@ -247,13 +247,65 @@ const CheckoutForm = () => {
     
     const [quantities, setQuantities] = useState({});
 
+  useEffect(() => {
+    const newQuantities = {};
+
+    productdata.forEach((product) => {
+      const cartItem = cartItems.find(cart => cart.productId === product.id);
+      newQuantities[product.id] = cartItem ? cartItem.quantity : 1;
+    });
+
+    setQuantities(newQuantities);
+  }, [productdata, cartItems]);
    
-    const increment = (id) => {
-      setQuantities((prevQuantities) => ({
-        ...prevQuantities,
-        [id]: (prevQuantities[id] || 1) + 1,
-      }));
-    };
+  const increment = (id) => {
+    setQuantities((prevQuantities) => {
+      const currentQuantity = prevQuantities[id] || 1;
+      if (currentQuantity < 10) {
+        const newQuantities = {
+          ...prevQuantities,
+          [id]: currentQuantity + 1,
+        };
+  
+        // Find the cart item
+        const cartItem = cartItems.find(cart => cart.productId === id);
+        if (!cartItem) {
+          console.error('Cart item not found');
+          return prevQuantities;
+        }
+        const cartId = cartItem.id;
+  
+        // Data to be sent to the backend
+        const data = {
+          quantity: newQuantities[id],
+          CategoryId: cartItem.CategoryId,  // include this if you want to update CategoryId
+          shopId: cartItem.shopId           // include this if you want to update shopId
+        };
+  
+        // Log data for debugging
+        console.log('Data to be sent:', data);
+  
+        // Update the backend
+        axios.put(`http://localhost:5000/users/${userId}/shopping_cart/${cartId}`, data, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        .then(response => {
+          console.log('User updated successfully', response.data);
+        })
+        .catch(error => {
+          setErrorMessage('There was an error updating the user');
+          console.error('Error:', error.response ? error.response.data : error.message);
+        });
+  
+        return newQuantities;
+      } else {
+        return prevQuantities;
+      }
+    });
+  };
+  
   
     const decrement = (id) => {
       setQuantities((prevQuantities) => ({
@@ -316,7 +368,7 @@ const CheckoutForm = () => {
                                           <button
                                           type="button"
                                           onClick={() => decrement(product.id)}
-                                          className="flex-shrink-0 bg-gray-100 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 focus:ring-2 focus:outline-none"
+                                          className={`${(quantities[product.id])<=1? "cursor-not-allowed":""} flex-shrink-0 bg-gray-100 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 focus:ring-2 focus:outline-none`}
                                           >
                                           <svg className="w-2.5 h-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
                                               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h16"/>
@@ -325,15 +377,16 @@ const CheckoutForm = () => {
                                           <input
                                               type="text"
                                               id="counter-input"
-                                              className="flex-shrink-0 text-gray-900 border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 max-w-[2.5rem] text-center"
+                                              className="flex-shrink-0  text-gray-900 border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 max-w-[2.5rem] text-center"
                                               placeholder=""
-                                              value={quantities[product.id] || (cartItems.find(cart => cart.productId === product.id)?.quantity || 0)}
+                                              value={quantities[product.id] ||0}
                                               readOnly
                                           />
                                           <button
                                           type="button"
                                           onClick={() => increment(product.id)}
-                                          className="flex-shrink-0 bg-gray-100 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 focus:ring-2 focus:outline-none"
+                                          
+                                          className={`flex-shrink-0 ${(quantities[product.id])>=10? "cursor-not-allowed":""}  bg-gray-100 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 focus:ring-2 focus:outline-none`}
                                           >
                                           <svg className="w-2.5 h-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                                               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 1v16M1 9h16"/>
