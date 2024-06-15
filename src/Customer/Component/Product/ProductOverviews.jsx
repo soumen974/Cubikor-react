@@ -11,29 +11,24 @@ function classNames(...classes) {
 
 export default function ProductOverview() {
   const { CubeId } = useParams();
+  
 
- const Navigate= useNavigate();
-  let cubeId = null;
-  
-  if (CubeId) {
-    try {
-      const decodedCubeId = window.atob(CubeId);
-  
-      if (!isNaN(decodedCubeId)) {
-        cubeId = parseInt(decodedCubeId, 10);
-      }
-    } catch (error) {
-      console.error("Failed to decode CubeId:", error);
-      Navigate("/Pagenotfound")
+  function decodeFromCustomBase(encoded) {
+    const baseChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let decoded = 0;
+    for (let i = 0; i < encoded.length; i++) {
+      const char = encoded[i];
+      const value = baseChars.indexOf(char);
+      decoded = decoded * baseChars.length + value;
     }
+    return decoded;
   }
   
-  if (cubeId === null) {
-    console.error("CubeId is not found or invalid");
-    Navigate("/Pagenotfound")
-  }
-  
-  
+
+  const cubeId =decodeFromCustomBase(CubeId) ;
+
+
+
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
@@ -54,7 +49,9 @@ export default function ProductOverview() {
           setProductdata(userData);
         } else {
           const errorData = await response.json();
+          
           console.log(errorData.message || 'Error retrieving products');
+          navigate(`/${CubeId}`);
         }
       } catch (error) {
         console.error('An error occurred, please try again later:', error);
