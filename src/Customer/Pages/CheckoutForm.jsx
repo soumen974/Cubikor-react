@@ -328,6 +328,18 @@ const CheckoutForm = () => {
       });
     };
   
+    // encoded id
+
+    function encodeToCustomBase(id) {
+      const baseChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      let encoded = '';
+      while (id > 0) {
+        const remainder = id % baseChars.length;
+        encoded = baseChars[remainder] + encoded;
+        id = Math.floor(id / baseChars.length);
+      }
+      return encoded.padStart(6, 'a'); // Pad with 'a' instead of '0' to maintain alphabetic characters
+    }
    
   return (
     <section className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8 mt-20">
@@ -356,7 +368,7 @@ const CheckoutForm = () => {
                       productdata.map((product) => (
                         <li key={product.id} className="flex py-6">
                           <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                            <Link to={`/productview/${window.btoa(product.id)}`}>
+                            <Link to={`/productview/${encodeToCustomBase(product.id)}`}>
                               <img
                                 src={product.imageSrc}
                                 alt={product.name}
@@ -367,7 +379,7 @@ const CheckoutForm = () => {
                           <div className="ml-4 flex flex-1 flex-col">
                             <div className="flex justify-between text-base font-medium text-gray-900">
                               <h3>
-                                <a href="#">{product.name}</a>
+                                <Link to={`/productview/${encodeToCustomBase(product.id)}`}>{product.name}</Link>
                               </h3>
                               <p className="ml-4">₹{product.price}</p>
                             </div>
