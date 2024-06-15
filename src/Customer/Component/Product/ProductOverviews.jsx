@@ -11,7 +11,29 @@ function classNames(...classes) {
 
 export default function ProductOverview() {
   const { CubeId } = useParams();
-  const cubeId = parseInt(CubeId);
+
+ const Navigate= useNavigate();
+  let cubeId = null;
+  
+  if (CubeId) {
+    try {
+      const decodedCubeId = window.atob(CubeId);
+  
+      if (!isNaN(decodedCubeId)) {
+        cubeId = parseInt(decodedCubeId, 10);
+      }
+    } catch (error) {
+      console.error("Failed to decode CubeId:", error);
+      Navigate("/Pagenotfound")
+    }
+  }
+  
+  if (cubeId === null) {
+    console.error("CubeId is not found or invalid");
+    Navigate("/Pagenotfound")
+  }
+  
+  
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
