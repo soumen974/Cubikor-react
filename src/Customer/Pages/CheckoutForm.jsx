@@ -53,7 +53,7 @@ const CheckoutForm = () => {
 
         if (response.ok) {
           const userDetails = await response.json();
-          localStorage.setItem('isUserAuthenticated', 'true');
+          
           setUserData(userDetails);
         } else {
           const errorData = await response.json();
@@ -262,56 +262,70 @@ const CheckoutForm = () => {
     setQuantities((prevQuantities) => {
       const currentQuantity = prevQuantities[id] || 1;
       if (currentQuantity < 10) {
+        const newQuantity = currentQuantity + 1;
         const newQuantities = {
           ...prevQuantities,
-          [id]: currentQuantity + 1,
+          [id]: newQuantity,
         };
-  
-        // Find the cart item
-        const cartItem = cartItems.find(cart => cart.productId === id);
-        if (!cartItem) {
-          console.error('Cart item not found');
-          return prevQuantities;
-        }
-        const cartId = cartItem.id;
-  
-        // Data to be sent to the backend
-        const data = {
-          quantity: newQuantities[id],
-          CategoryId: cartItem.CategoryId,  // include this if you want to update CategoryId
-          shopId: cartItem.shopId           // include this if you want to update shopId
-        };
-  
-        // Log data for debugging
-        console.log('Data to be sent:', data);
-  
-        // Update the backend
-        axios.put(`http://localhost:5000/users/${userId}/shopping_cart/${cartId}`, data, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        })
-        .then(response => {
-          console.log('User updated successfully', response.data);
-        })
-        .catch(error => {
-          setErrorMessage('There was an error updating the user');
-          console.error('Error:', error.response ? error.response.data : error.message);
-        });
-  
+
+        // Call quntUpdate with the new quantity
+        setTimeout(() => {
+          quntUpdate(id, newQuantity);
+        }, 3000);
+
         return newQuantities;
       } else {
         return prevQuantities;
       }
     });
   };
+
+
   
   
     const decrement = (id) => {
-      setQuantities((prevQuantities) => ({
-        ...prevQuantities,
-        [id]: Math.max((prevQuantities[id] || 1) - 1, 1),
-      }));
+      setQuantities((prevQuantities) => {
+        const currentQuantity = prevQuantities[id] || 1;
+        if (currentQuantity >1) {
+          const newQuantity = currentQuantity - 1;
+          const newQuantities = {
+            ...prevQuantities,
+            [id]: newQuantity,
+          };
+  
+          // Call quntUpdate with the new quantity
+          setTimeout(() => {
+            quntUpdate(id, newQuantity);
+          }, 3000);
+         
+  
+          return newQuantities;
+        } else {
+          return prevQuantities;
+        }
+      });
+    };
+    const quntUpdate = (id, quantity) => {
+      const PId = id;
+  
+      // Data to be sent to the backend
+      const data = {
+        quantity: quantity,
+      };
+  
+      // Update the backend
+      axios.put(`http://localhost:5000/users/${userId}/shopping_cart/${PId}`, data, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(response => {
+        console.log('Item updated successfully', response.data);
+      })
+      .catch(error => {
+        setErrorMessage('There was an error updating the item');
+        console.error('Error:', error.response ? error.response.data : error.message);
+      });
     };
   
    
@@ -342,7 +356,7 @@ const CheckoutForm = () => {
                       productdata.map((product) => (
                         <li key={product.id} className="flex py-6">
                           <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                            <Link to={`/productview/${product.id}`}>
+                            <Link to={`/productview/${window.btoa(product.id)}`}>
                               <img
                                 src={product.imageSrc}
                                 alt={product.name}
