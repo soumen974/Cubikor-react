@@ -88,8 +88,7 @@ export default function ProductCard() {
     
     
     // Render your UI using productdata and errorMessage
-    
-
+ 
 
   
   return (
@@ -112,8 +111,9 @@ export default function ProductCard() {
               }}
               className="group cursor-pointer bg-gray-100 hover:bg-indigo-500 transition duration-500 px-2 py-2 rounded-lg relative"
             >
+              {/* ${window.btoa(product.id)} */}
               <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:h-80">
-                 <Link to={`/productview/${product.id}`}>
+                 <Link to={`/productview/${window.btoa(product.id)}`}>
                 <img
                   src={product.imageSrc}
                   alt={product.imageAlt}
