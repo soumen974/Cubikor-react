@@ -42,7 +42,7 @@ export default function EditProfile() {
 
         if (response.ok) {
           const userDetails = await response.json();
-          localStorage.setItem('isUserAuthenticated', 'true');
+         
           setUserData(userDetails);
         } else {
           const errorData = await response.json();

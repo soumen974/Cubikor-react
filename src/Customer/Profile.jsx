@@ -29,7 +29,6 @@ export default function Profile() {
 
         if (response.ok) {
           const userData = await response.json();
-          // localStorage.setItem('isUserAuthenticated', 'true');
           setUser(userData);
         } else {
           const errorData = await response.json();
