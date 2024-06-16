@@ -118,6 +118,18 @@ export default function QuickPreview({ open, setOpen, ShopIDsend, CubeId, catId 
     }
   };
 
+  // encoded id code 
+  function encodeToCustomBase(id) {
+    const baseChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let encoded = '';
+    while (id > 0) {
+      const remainder = id % baseChars.length;
+      encoded = baseChars[remainder] + encoded;
+      id = Math.floor(id / baseChars.length);
+    }
+    return encoded.padStart(6, 'a'); // Pad with 'a' instead of '0' to maintain alphabetic characters
+  }
+
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -154,12 +166,12 @@ export default function QuickPreview({ open, setOpen, ShopIDsend, CubeId, catId 
                   >
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
-
+                  
                   {productData && categoryData ? (
                     <div>
                       <div className="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8">
                         <div className="aspect-h-3 aspect-w-2 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5">
-                          <Link to={`/productview/${productData.id}`} onClick={() => setOpen(false)}>
+                          <Link to={`/productview/${encodeToCustomBase(productData.id)}`} onClick={() => setOpen(false)}>
                             <img src={productData.imageSrc} alt={productData.name} className="cursor-pointer object-cover object-center" />
                           </Link>
                         </div>
