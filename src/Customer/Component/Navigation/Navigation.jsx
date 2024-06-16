@@ -6,11 +6,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import pagelogo from "../Data/images-app/page-logo.jpg";
 import SearchBox from '../../SearchBox';
 import SHoppingCart from "../SHoppingCart";
-import { Hidden } from '@mui/material';
 import navigation from "../Data/navigation.json";
 import UserEntry from '../../../Auth/UserEntry';
 import userDAta from "../Data/user.json";
-import { Block } from '@mui/icons-material';
 import Avatar from '../Avatar';
 import axios from 'axios';
 
@@ -32,7 +30,6 @@ export default function Navigation() {
 
   const token = localStorage.getItem('token');
   const isAuthenticated=  token;
-
   const userId = localStorage.getItem('userId');
   let totalQuantity = 0;
 
@@ -47,9 +44,6 @@ export default function Navigation() {
   }
 
   // ----shopping-cart-item-count-
-  const [cartItems, setCartItems] = useState([]);
-  const [message, setMessage] = useState('');
-  const [errors, setErrors] = useState([]);
   const [itemCount, setItemCount] = useState(0);
   
   const fetchCartItems = async () => {
@@ -70,14 +64,13 @@ export default function Navigation() {
         }));
         
         setItemCount(cartItemsData.length); 
-        setMessage('Cart items fetched successfully');
-        setErrors([]);
+        console.log('Cart items fetched successfully');
     } catch (error) {
         console.error('Error fetching cart items:', error);
         if (error.response && error.response.data.errors) {
-            setErrors(error.response.data.errors);
+            console.log(error.response.data.errors);
         } else {
-            setMessage(`Error: ${error.message}`);
+            console.log(`Error: ${error.message}`);
         }
     }
 };
@@ -239,12 +232,12 @@ useEffect(() => {
         </Transition.Root>
 
         <header className="relative bg-white text-indigo-600" >
-       <p className={`${Ad? "h-10": "h-0 hidden" } transform-h flex relative  items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8`}>
+       <div className={`${Ad? "h-10": "h-0 hidden" } transform-h flex relative  items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8`}>
             <h1>Get 20% Discount on orders over ₹ 599/-</h1> 
             <div className="item-right absolute right-10 w-0 md:right-40 md:w-10 cursor-pointer " onClick={()=>setAd(false)}>
             <CloseIcon/>
             </div>
-          </p>
+          </div>
 
           <nav aria-label="Top" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="border-b border-gray-200">

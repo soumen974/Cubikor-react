@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Layout from "./Customer/Component/Layout";
 import Home from "./Customer/Pages/Home";
@@ -46,7 +46,6 @@ export default function App() {
           <Route path="/new" element={<NewProduct/>}/ >
           <Route path="/learn" element={<Learn/>}/ >
           <Route path="/productview/:CubeId" element={<ProductOverview/>}/ >
-          <Route path="/productview/" element={<ProductOverview/>}/ >
           <Route path="/products" element={<CategoryProduct/>}/ >
           <Route path="/products/:CategoryPageID" element={<CategoryProduct/>}/ >
           {Authenticated ? (<Route path="/profile" element={<Profile/>} />): null}

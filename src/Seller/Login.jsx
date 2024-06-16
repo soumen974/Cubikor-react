@@ -1,4 +1,4 @@
-import {React,  useEffect, useState } from 'react'
+import {React, useState } from 'react'
 import pagelogo from "../Customer/Component/Data/images-app/page-logo.jpg";
 import { useNavigate } from 'react-router-dom';
 
@@ -9,7 +9,6 @@ export default function Login() {
     const [SignInpassword, setSignInPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
-    const [userRole, setuserRole] = useState(null);
 
     const navigate= useNavigate();
   

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import DialogBox from "../Customer/DialogBox";
@@ -9,12 +9,11 @@ const CategoryForm = () => {
   const [Dialogopen, setDialogopenOpen] = useState(false);
 
   const shopId = localStorage.getItem('ShopId');
-  const token = localStorage.getItem('SellerToken');
 
   const onSubmit = async (data) => {
     const token = localStorage.getItem('SellerToken');
     try {
-      const response = await axios.post(`http://localhost:5000/shops/${shopId}/categories`, data, {
+       await axios.post(`http://localhost:5000/shops/${shopId}/categories`, data, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -52,7 +51,7 @@ const CategoryForm = () => {
   return (
     <div className="relative isolate px-6 pt-0 lg:pt-0">
       <header className="pb-6">
-          <ol role="list" className="mx-auto flex   ">
+          <ol  className="mx-auto flex   ">
           {product.breadcrumbs.map((breadcrumb) => (
             <li key={breadcrumb.id}>
               <div className="flex items-center">

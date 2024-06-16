@@ -2,12 +2,6 @@
 import Products from './Components/Products'
 import Category from './Components/Category'
 
-
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
-
 export default function DashBoard() {
   const product = {
     name: '3x3 cubes',
@@ -20,7 +14,7 @@ export default function DashBoard() {
      
       <div className=" ">
         <header className="pb-6">
-          <ol role="list" className="mx-auto flex  items-center space-x-2  lg:px-5">
+          <ol  className="mx-auto flex  items-center space-x-2  lg:px-5">
           {product.breadcrumbs.map((breadcrumb) => (
             <li key={breadcrumb.id}>
               <div className="flex items-center">

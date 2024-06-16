@@ -2,21 +2,15 @@ import { Fragment, useState, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 
 export default function ShoppingCart(Props) {
     const [productdata, setProductdata] = useState([]);
     const [checkoutPrice, setCheckoutPrice] = useState(0);
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
-    const Authenticated = token;
 
     const [cartItems, setCartItems] = useState([]);
-    const [message, setMessage] = useState('');
-    const [errors, setErrors] = useState([]);
-    const navigate = useNavigate();
-    const [prdcArray, setprdcArray] = useState([]);
-    const [ShopsArray, setShopsArray] = useState([]);
 
     const RemoveFromMyCart = async (productId) => {
         const cartItem = cartItems.find(cart => cart.productId === productId);
@@ -69,14 +63,12 @@ export default function ShoppingCart(Props) {
                 quantity:cart.quantity,
             }));
             setCartItems(cartItemsData);
-            setMessage('Cart items fetched successfully');
-            setErrors([]);
         } catch (error) {
             console.error('Error fetching cart items:', error);
             if (error.response && error.response.data.errors) {
-                setErrors(error.response.data.errors);
+                console.log(error.response.data.errors);
             } else {
-                setMessage(`Error: ${error.message}`);
+                console.log(`Error: ${error.message}`);
             }
         }
     };
@@ -144,33 +136,7 @@ export default function ShoppingCart(Props) {
     }, [productdata, cartItems]);
 
       
-    const increment = (id) => {
-      setQuantities((prevQuantities) => ({
-        ...prevQuantities,
-        [id]: (prevQuantities[id] || 1) + 1,
-      }));
-    };
-  
-    const decrement = (id) => {
-      setQuantities((prevQuantities) => ({
-        ...prevQuantities,
-        [id]: Math.max((prevQuantities[id] || 1) - 1, 1),
-      }));
-    //   const cartItem = cartItem.find(cart => cart.productId === id);
-
-    };
-  
-    function encodeToCustomBase(id) {
-        const baseChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        let encoded = '';
-        while (id > 0) {
-          const remainder = id % baseChars.length;
-          encoded = baseChars[remainder] + encoded;
-          id = Math.floor(id / baseChars.length);
-        }
-        return encoded.padStart(6, 'a'); // Pad with 'a' instead of '0' to maintain alphabetic characters
-      }
-    
+ 
     
    
     
@@ -231,7 +197,7 @@ export default function ShoppingCart(Props) {
                                                     {productdata.map((product) => (
                                                         <li key={product.id} className="flex py-6">
                                                             <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                                               <Link to={`/productview/${encodeToCustomBase(product.id)}`} onClick={() => Props.setOpen(false)} > <img
+                                                               <Link to={`/productview/${window.btoa(product.id*721426)}`} onClick={() => Props.setOpen(false)} > <img
                                                                     src={product.imageSrc}
                                                                     alt={product.name}
                                                                     className="h-full w-full object-cover object-center"
@@ -242,7 +208,7 @@ export default function ShoppingCart(Props) {
                                                             <div className="ml-4 flex flex-1 flex-col">
                                                                 <div className="flex justify-between text-base font-medium text-gray-900">
                                                                     <h3>
-                                                                        <Link to={`/productview/${encodeToCustomBase(product.id)}`} >{product.name}</Link>
+                                                                        <Link to={`/productview/${window.btoa(product.id*721426)}`} >{product.name}</Link>
                                                                     </h3>
                                                                     <p   className="ml-4">₹{product.price}</p>
                                                                 </div>

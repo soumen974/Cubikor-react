@@ -8,8 +8,8 @@ export default function LayoutSeller() {
   return (
     <>
      <Head/>
-      <div class="p-4  pt-20 sm:ml-64">
-        <div class="p-0">
+      <div className="p-4  pt-20 sm:ml-64">
+        <div className="p-0">
         <Outlet />
         </div>
       </div>

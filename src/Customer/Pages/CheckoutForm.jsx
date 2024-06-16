@@ -6,19 +6,11 @@ import { PencilSquareIcon,PlusIcon} from '@heroicons/react/24/outline';
 
 const CheckoutForm = () => {
 
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [companyName, setCompanyName] = useState('');
-  const [vatNumber, setVatNumber] = useState('');
   const [voucher, setVoucher] = useState('');
-  const [paymentMethod, setPaymentMethod] = useState('credit-card');
-  const [deliveryMethod, setDeliveryMethod] = useState('dhl');
+  
 
  
 
-  const [Dialogopen, setDialogopenOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [Loading, setLoader] = useState(false);
   const [changeAddres, setchangeAddres] = useState(false);
 
 
@@ -61,10 +53,10 @@ const CheckoutForm = () => {
           setUserData(userDetails);
         } else {
           const errorData = await response.json();
-          setErrorMessage(errorData.message || 'Error retrieving user');
+          console.log(errorData.message || 'Error retrieving user');
         }
       } catch (error) {
-        setErrorMessage('An error occurred, please try again later');
+        console.log('An error occurred, please try again later');
       }
     };
 
@@ -115,12 +107,11 @@ const CheckoutForm = () => {
         console.log('User updated successfully', response.data);
         setchangeAddres(false);
         setTimeout(() => {
-          setDialogopenOpen(false);
           
         }, 1100);
       })
       .catch(error => {
-        setErrorMessage('There was an error updating the user');
+        console.log('There was an error updating the user');
         console.error('Error:', error);
       });
   };
@@ -328,24 +319,11 @@ const CheckoutForm = () => {
         console.log('Item updated successfully', response.data);
       })
       .catch(error => {
-        setErrorMessage('There was an error updating the item');
+        console.log('There was an error updating the item');
         console.error('Error:', error.response ? error.response.data : error.message);
       });
     };
   
-    // encoded id
-
-    function encodeToCustomBase(id) {
-      const baseChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-      let encoded = '';
-      while (id > 0) {
-        const remainder = id % baseChars.length;
-        encoded = baseChars[remainder] + encoded;
-        id = Math.floor(id / baseChars.length);
-      }
-      return encoded.padStart(6, 'a'); // Pad with 'a' instead of '0' to maintain alphabetic characters
-    }
-
 
 
    // Get the current date
@@ -393,7 +371,7 @@ const CheckoutForm = () => {
                       productdata.map((product) => (
                         <li key={product.id} className="flex py-6">
                           <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                            <Link to={`/productview/${encodeToCustomBase(product.id)}`}>
+                            <Link to={`/productview/${window.btoa(product.id*721426)}`}>
                               <img
                                 src={product.imageSrc}
                                 alt={product.name}
@@ -404,7 +382,7 @@ const CheckoutForm = () => {
                           <div className="ml-4 flex flex-1 flex-col">
                             <div className="flex justify-between text-base font-medium text-gray-900">
                               <h3>
-                                <Link to={`/productview/${encodeToCustomBase(product.id)}`}>{product.name}</Link>
+                                <Link to={`/productview/${window.btoa(product.id*721426)}`}>{product.name}</Link>
                               </h3>
                               <p className="ml-4">₹{product.price}</p>
                             </div>

@@ -87,18 +87,7 @@ export default function ProductCard() {
     }, [shopId]);
     
     
-    // encoded id code 
-    function encodeToCustomBase(id) {
-      const baseChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-      let encoded = '';
-      while (id > 0) {
-        const remainder = id % baseChars.length;
-        encoded = baseChars[remainder] + encoded;
-        id = Math.floor(id / baseChars.length);
-      }
-      return encoded.padStart(6, 'a'); // Pad with 'a' instead of '0' to maintain alphabetic characters
-    }
-    
+   
 
   
   return (
@@ -123,7 +112,7 @@ export default function ProductCard() {
             >
               {/* ${window.btoa(product.id)} */}
               <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:h-80">
-                 <Link to={`/productview/${encodeToCustomBase(product.id)}`}>
+                 <Link to={`/productview/${window.btoa(product.id*721426)}`}>
                 <img
                   src={product.imageSrc}
                   alt={product.imageAlt}

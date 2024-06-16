@@ -1,4 +1,3 @@
-import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid';
 import DialogBox from '../DialogBox';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -7,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 export default function EditProfile() {
   const [Dialogopen, setDialogopenOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [Loading, setLoader] = useState(false);
 
   const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
@@ -335,7 +333,7 @@ export default function EditProfile() {
          ActionButtonColor={"bg-indigo"}
          IconName={"CheckIcon"}
          handleLogic={handleSubmit}
-         Loading={Loading}
+         
          
          />}   
 

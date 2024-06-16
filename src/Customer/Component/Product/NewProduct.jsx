@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ProductCard from '../ProductCard';
 
 export default function NewProduct(Props) {
@@ -16,7 +16,7 @@ export default function NewProduct(Props) {
        <div className="  ">
           <div className="  text-gray-900">
           <nav aria-label="Breadcrumb">
-          <ol role="list" className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+          <ul  className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
             {product.breadcrumbs.map((breadcrumb) => (
               <li key={breadcrumb.id}>
                 <div className="flex items-center">
@@ -42,7 +42,7 @@ export default function NewProduct(Props) {
                   </a>
                 </li>
             
-          </ol>
+          </ul>
         </nav>
            
           </div>

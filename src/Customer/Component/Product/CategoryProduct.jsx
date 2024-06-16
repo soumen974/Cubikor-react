@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState} from "react";
 import productData from "../Data/products.json";
 import QuickPreview from "./QuickPreview";
 import { useParams } from "react-router-dom";
@@ -14,7 +14,6 @@ export default function CategoryProduct() {
   const categoryId = parseInt(CategoryPageID);
 
   const selectedProduct = productData.find(product => product.id === categoryId);
-
 
 if (!selectedProduct ) {
   return <NotFound/>;
@@ -40,7 +39,7 @@ if (!selectedProduct ) {
       <div className="mx-auto max-w-2xl px-2 py-16 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
         
         <nav aria-label="Breadcrumb" className="mt-10 md:mt-20">
-          <ol role="list" className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+          <ol  className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
             {product.breadcrumbs.map((breadcrumb) => (
               <li key={breadcrumb.id}>
                 <div className="flex items-center">
@@ -61,7 +60,7 @@ if (!selectedProduct ) {
               </li>
             ))}
                 <li className="text-sm">
-                    {productData .filter(product => product.id === categoryId).map(product => (
+                    {productData.filter(product => product.id === categoryId).map(product => (
                       <div key={productData.id} aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
                       {product.name}
                       </div>
@@ -73,7 +72,7 @@ if (!selectedProduct ) {
         
 
         <div className="">
-          {productData .filter(product => product.id === categoryId).map(product => (
+          {productData.filter(product => product.id === categoryId).map(product => (
             <div key={product.id}  className="">
                 <h2 className="text-2xl font-bold tracking-tight text-gray-900 py-5">Category : {product.name} </h2>
                 <div className="mt-6 grid grid-cols-2 gap-x-3 gap-y-3 md:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">

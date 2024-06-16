@@ -43,7 +43,7 @@ const CreateProduct = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
+       await axios.post(
         `http://localhost:5000/shops/${shopId}/products`,
         { ...formData, price: parseFloat(formData.price), rating: parseFloat(formData.rating), reviewCount: parseInt(formData.reviewCount) },
         {
@@ -130,33 +130,9 @@ const CreateProduct = () => {
 
 
 // ----------------shops-all
-const [productdata, setProductdata] = useState([]);
-const [errorMessage, setErrorMessage] = useState('');
 
 
 // Use another useEffect for fetching products for each shop
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await axios.get(`http://localhost:5000/shops/${shopId}/products`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
-        });
-        const categoriesData = response.data.map(product => ({
-          id: product.id,
-          name: product.name
-        }));
-        setProductdata(categoriesData);
-      } catch (error) {
-        console.error('Error fetching categories:', error);
-      }
-    };
-
-    fetchCategories();
-  }, [shopId, token]);
 
 
   // ---pagination
@@ -172,7 +148,7 @@ const [errorMessage, setErrorMessage] = useState('');
   return (
     <div className="relative isolate px-6 pt-0 lg:pt-0">
       <header className="pb-6">
-          <ol role="list" className="mx-auto flex   ">
+          <ol  className="mx-auto flex   ">
           {product.breadcrumbs.map((breadcrumb) => (
             <li key={breadcrumb.id}>
               <div className="flex items-center">
