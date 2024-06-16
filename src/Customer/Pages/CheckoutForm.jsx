@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate ,Link} from 'react-router-dom';
+import { PencilSquareIcon,PlusIcon} from '@heroicons/react/24/outline';
+
 
 const CheckoutForm = () => {
 
@@ -17,6 +19,8 @@ const CheckoutForm = () => {
   const [Dialogopen, setDialogopenOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [Loading, setLoader] = useState(false);
+  const [changeAddres, setchangeAddres] = useState(false);
+
 
   const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
@@ -109,9 +113,10 @@ const CheckoutForm = () => {
     })
       .then(response => {
         console.log('User updated successfully', response.data);
+        setchangeAddres(false);
         setTimeout(() => {
           setDialogopenOpen(false);
-          navigate('/');
+          
         }, 1100);
       })
       .catch(error => {
@@ -340,9 +345,29 @@ const CheckoutForm = () => {
       }
       return encoded.padStart(6, 'a'); // Pad with 'a' instead of '0' to maintain alphabetic characters
     }
-   
+
+
+
+   // Get the current date
+    let today = new Date();
+
+    // Add 5 days to the current date
+    today.setDate(today.getDate() + 5);
+
+    // Define an array of month names and day names
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+    // Extract the necessary parts of the date
+    let dayOfWeek = dayNames[today.getDay()];
+    let day = today.getDate().toString().padStart(2, '0');
+    let month = monthNames[today.getMonth()];
+    let year = today.getFullYear();
+
+    // Print the formatted date
+    const formattedDate = `${dayOfWeek}, ${day} ${month} ${year}`;
   return (
-    <section className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8 mt-20">
+    <section className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8 mt-20 ">
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 space-y-4">
         <div className="lg:col-span-2 space-y-4">
@@ -441,13 +466,16 @@ const CheckoutForm = () => {
               </div>
             </div>
 
-            <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-gray-900">Contact Information</h3>
+
+            {changeAddres ?
+           (
+             <form className="group relative rounded-xl border border-indigo-200 bg-indigo-50 py-7 px-5 space-y-4">
+                <h3 className="text-xl font-semibold text-indigo-600">Contact Information</h3>
 
                <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
                 <div className="sm:col-span-3">
-                  <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
+                  <label htmlFor="name" className="block text-sm font-medium leading-6 text-indigo-600">
                     Full name
                   </label>
                   <div className="mt-2">
@@ -464,7 +492,7 @@ const CheckoutForm = () => {
                 </div>
 
                 <div className="sm:col-span-3">
-                  <label htmlFor="mobile_number" className="block text-sm font-medium leading-6 text-gray-900">
+                  <label htmlFor="mobile_number" className="block text-sm font-medium leading-6 text-indigo-600">
                     Mobile Number
                   </label>
                   <div className="mt-2">
@@ -481,7 +509,7 @@ const CheckoutForm = () => {
                 </div>
 
                 <div className="sm:col-span-3 sm:col-start-1">
-                  <label htmlFor="street" className="block text-sm font-medium leading-6 text-gray-900">
+                  <label htmlFor="street" className="block text-sm font-medium leading-6 text-indigo-600">
                     Street address
                   </label>
                   <div className="mt-2">
@@ -498,7 +526,7 @@ const CheckoutForm = () => {
                 </div>
 
                 <div className="sm:col-span-3">
-                  <label htmlFor="shipping_country" className="block text-sm font-medium leading-6 text-gray-900">
+                  <label htmlFor="shipping_country" className="block text-sm font-medium leading-6 text-indigo-600">
                     Shipping Country
                   </label>
                   <div className="mt-2">
@@ -515,7 +543,7 @@ const CheckoutForm = () => {
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label htmlFor="city" className="block text-sm font-medium leading-6 text-gray-900">
+                  <label htmlFor="city" className="block text-sm font-medium leading-6 text-indigo-600">
                     City
                   </label>
                   <div className="mt-2">
@@ -532,7 +560,7 @@ const CheckoutForm = () => {
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label htmlFor="state" className="block text-sm font-medium leading-6 text-gray-900">
+                  <label htmlFor="state" className="block text-sm font-medium leading-6 text-indigo-600">
                     State / Province
                   </label>
                   <div className="mt-2">
@@ -549,7 +577,7 @@ const CheckoutForm = () => {
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label htmlFor="zipcode" className="block text-sm font-medium leading-6 text-gray-900">
+                  <label htmlFor="zipcode" className="block text-sm font-medium leading-6 text-indigo-600">
                     ZIP / Postal code
                   </label>
                   <div className="mt-2">
@@ -564,14 +592,27 @@ const CheckoutForm = () => {
                     />
                   </div>
                 </div>
+                <button onClick={handleSubmit}  className=' absolute top-3 right-3  ms-auto  hover:bg-gray-50 inline-flex justify-center items-center w-8 h-8 text-blue-900 rounded-lg focus:ring-2 focus:ring-blue-400 p-1 bg-blue-200 '>
+                  <PlusIcon className="h-6 w-6 "/>
+                </button>
 
-               
-
-               
               </div>
 
                
-            </div>
+            </form>):(
+              <div className="group relative rounded-md border border-indigo-200 bg-indigo-50 p-4 ps-0">
+                 <div className="px-4 py-2 sm:grid sm:grid-rows sm:gap-2 ">
+                  
+                    <dt className="text-xl font-semibold text-indigo-600">Shipping Address</dt>
+                    <dd className="mt-1 text-sm leading-6 text-indigo-600 sm:col-span-2 sm:mt-0 capitalize">
+                      {userData.street}, {userData.city}, {userData.state}, Pin-{userData.zipcode}, {userData.country}
+                    </dd>
+                  </div>
+                  <div onClick={()=>{setchangeAddres(true)}} className='hidden cursor-pointer group-hover:block absolute bottom-3 right-3 text-Orange-700  text-indigo-400'>
+                    <PencilSquareIcon className="h-6 w-6 mr-2"/>
+                  </div>
+              </div>
+            )}
 
             <div className="space-y-4">
             <h3 className="text-xl font-semibold text-gray-900">Delivery Methods</h3>
@@ -597,7 +638,7 @@ const CheckoutForm = () => {
                           Cash on  Delivery
                       </div>
                       <p id="dhl-text" className="mt-1 text-xs font-normal text-gray-500">
-                          Get it by Tomorrow
+                          Get it by  {formattedDate}
                       </p>
                       </div>
                   </div>
@@ -621,7 +662,7 @@ const CheckoutForm = () => {
                           UPI payment
                       </div>
                       <p id="fedex-text" className="mt-1 text-xs font-normal text-gray-500">
-                          Get it by Friday, 13 Dec 2023
+                          Get it by {formattedDate}
                       </p>
                       </div>
                   </div>
@@ -645,7 +686,7 @@ const CheckoutForm = () => {
                           Card Payment
                       </div>
                       <p id="express-text" className="mt-1 text-xs font-normal text-gray-500">
-                          Get it today
+                          Get it by {formattedDate}
                       </p>
                       </div>
                   </div>
