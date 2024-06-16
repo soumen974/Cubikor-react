@@ -15,7 +15,7 @@ export default function Hero() {
 
     <div className="  ">
       
-      <div className="relative isolate px-6 pt-0 lg:pt-0 ">
+      <div className="relative isolate px-6   ">
         <div
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
           aria-hidden="true"
@@ -28,7 +28,7 @@ export default function Hero() {
             }}
           />
         </div>
-        <div className="mx-auto max-w-2xl py-32 sm:py-10 lg:py-10">
+        <div className="mx-auto max-w-2xl py-32 ">
           <div className=" mb-8 flex justify-center">
             <div className="relative rounded-full px-3 py-1 text-[2.8vw] sm:text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
             ~ New month, new purchase, free delivery!{' '}
