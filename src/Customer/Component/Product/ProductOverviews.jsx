@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { StarIcon } from '@heroicons/react/20/solid'
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import NotFound from '../NotFound';
 import SuggestedProduct from './SuggestedProduct';
 
 function classNames(...classes) {
@@ -11,27 +10,13 @@ function classNames(...classes) {
 
 export default function ProductOverview() {
   const { CubeId } = useParams();
-  
-
-  function decodeFromCustomBase(encoded) {
-    const baseChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    let decoded = 0;
-    for (let i = 0; i < encoded.length; i++) {
-      const char = encoded[i];
-      const value = baseChars.indexOf(char);
-      decoded = decoded * baseChars.length + value;
-    }
-    return decoded;
-  }
-  
-
-  const cubeId =decodeFromCustomBase(CubeId) ;
+    
+  const cubeId= window.atob(CubeId)/721426;
 
 
 
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
-  const [errors, setErrors] = useState([]);
   const [categoryData, setCategoryData] = useState(null);
   const [productdata, setProductdata] = useState(null);
 
@@ -88,12 +73,11 @@ export default function ProductOverview() {
           }
         );
 
-        setErrors([]);
         window.location.reload();
       } catch (error) {
         console.error('Error adding item to cart:', error);
         if (error.response && error.response.data.errors) {
-          setErrors(error.response.data.errors);
+          console.log(error.response.data.errors);
         } else {
           console.log(`Error: ${error.message}`);
         }
