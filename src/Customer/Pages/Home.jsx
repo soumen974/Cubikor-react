@@ -23,7 +23,7 @@ export default function Home() {
           <CompanyWhoGet/>,
         ].map((item,index)=>
           (
-          <div key={index} className={` mt-32 ${index===2&& "h-screen"} ${index===0&& "mt-6 md:mt-32"}`}>{item}</div>
+          <div key={index} className={` mt-20`}>{item}</div>
           ))
         }
 
