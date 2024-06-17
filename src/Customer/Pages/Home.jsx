@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <>
     
-    <div className=" ">
+    <div className="grid grid-cols-1 gap-20 ">
         
         {[
           <Hero/>,
@@ -22,7 +22,7 @@ export default function Home() {
           <CompanyWhoGet/>,
         ].map((item,index)=>
           (
-          <div key={index} className={` mt-20`}>{item}</div>
+          <div key={index}  className={`${index===(1||2)? "mt-0":"mt-20"} `}>{item}</div>
           ))
         }
 

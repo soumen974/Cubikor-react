@@ -131,7 +131,7 @@ export default function UserEntry(Props) {
    {/* signIn - login */}
    
    <Transition.Root show={Props.SignInopen  } as={Fragment}>
-      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef1} onClose={Props.setOpenSignIn}>
+      <Dialog as="div" className="relative z-40" initialFocus={cancelButtonRef1} onClose={Props.setOpenSignIn}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -249,7 +249,7 @@ export default function UserEntry(Props) {
     {/* signUp */}
 
     <Transition.Root show={Props.open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={Props.setOpen}>
+      <Dialog as="div" className="relative z-40" initialFocus={cancelButtonRef} onClose={Props.setOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"

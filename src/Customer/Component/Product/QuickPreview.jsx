@@ -123,7 +123,7 @@ export default function QuickPreview({ open, setOpen, ShopIDsend, CubeId, catId 
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-999" onClose={setOpen}>
+      <Dialog as="div" className="relative z-40" onClose={setOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"

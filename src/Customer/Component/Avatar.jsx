@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchUser } from "../../redux/userSlice";
 import DialogBox from '../../Customer/DialogBox';
 import { useNavigate } from 'react-router-dom';
+import PageLoder from "../../../src/Loaders/PageLoder";
 
 export default function Avatar() {
 
@@ -43,10 +44,11 @@ export default function Avatar() {
               setUser(userData);
             } else {
               const errorData = await response.json();
-              // handleLogout();
+              
               setErrorMessage(errorData.message || 'Error retrieving user');
             }
           } catch (error) {
+            handleLogout();
             setErrorMessage('An error occurred, please try again later');
 
 
@@ -62,7 +64,7 @@ export default function Avatar() {
     }
   
     if (!user) {
-      return <p>Loading...</p>;
+      return <p className='text-indigo-600'><PageLoder/></p>;
     }
 
 
