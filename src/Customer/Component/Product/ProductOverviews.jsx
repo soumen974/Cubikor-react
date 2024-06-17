@@ -4,6 +4,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import SuggestedProduct from './SuggestedProduct';
 import PageLoder from "../../../Loaders/PageLoder";
+import { HeartIcon} from '@heroicons/react/24/outline';
+import TostBox from "../../TostBox";
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -53,6 +56,16 @@ export default function ProductOverview() {
   const productId = productdata?.id;
   const shopId = productdata?.shop_id;
   const quantity = 1;
+  const [message, setmessage] = useState({success:false, error:false});
+  
+  const SuccessSound = () => {
+    const audio = new Audio(process.env.PUBLIC_URL + '/Sounds/success_bell-6776.mp3');
+    audio.play();
+  };
+  const errorSound= () => {
+    const audio = new Audio(process.env.PUBLIC_URL + '/Sounds/windows-error-sound-effect-35894.mp3');
+    audio.play();
+  }
 
   const AddingToBag = async (e) => {
     e.preventDefault();
@@ -74,9 +87,21 @@ export default function ProductOverview() {
           }
         );
 
-        window.location.reload();
+        // window.location.reload();
+        setTimeout(() => {
+          setmessage({success:false});
+        }, 3000);
+        setmessage({success:true});
+        SuccessSound();
+
       } catch (error) {
-        console.error('Error adding item to cart:', error);
+        console.error('Already added to cart:', error);
+        setTimeout(() => {
+          setmessage({error:false});
+        }, 3000);
+        setmessage({error:true});
+        errorSound();
+
         if (error.response && error.response.data.errors) {
           console.log(error.response.data.errors);
         } else {
@@ -97,6 +122,7 @@ export default function ProductOverview() {
             'Content-Type': 'application/json'
           }
         });
+        
         setCategoryData(response.data);
       } catch (error) {
         console.error('Error fetching category:', error);
@@ -132,8 +158,10 @@ export default function ProductOverview() {
   return (
     <>
       <div className="bg-white ">
+       {message.success? <TostBox success={true} message={"Successfully  added to cart"}/>:null}
+       {message.error? <TostBox error={true} message={"Already added to cart"}/>:null}
         <div>
-          <div className="mt-20 text-gray-900">
+          <div className="mt-10 text-gray-900">
             <nav aria-label="Breadcrumb">
               <ol role="list" className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
                 {pagenation.breadcrumbs.map((breadcrumb) => (
@@ -164,8 +192,15 @@ export default function ProductOverview() {
             </nav>
           </div>
 
-          <div className="pt-20">
-            <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:-mt-5 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+          <div className="md:pt-20 relative">
+            
+            <form className=" text-transparent  cursor-pointer group absolute top-8 right-8">
+              <abbr title='add to fav'>
+               <HeartIcon className=" group-active:fill-yellow-400 fill-gray-200   h-6 w-6 mr-2"/>
+              </abbr>
+            </form>
+
+            <div className="mx-auto  max-w-2xl sm:px-6 lg:-mt-20 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-32">
               <div className="bg-indigo-100 aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
               {productdata.imageSrc?
                 <img

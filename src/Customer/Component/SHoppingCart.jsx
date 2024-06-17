@@ -15,7 +15,7 @@ export default function ShoppingCart(Props) {
     const RemoveFromMyCart = async (productId) => {
         const cartItem = cartItems.find(cart => cart.productId === productId);
         if (!cartItem) {
-            console.error('Cart item not found for productId:', productId);
+            console.error('Cart item not found for productId:');
             return;
         }
 
@@ -38,7 +38,7 @@ export default function ShoppingCart(Props) {
 
             setCartItems(prevCartItems => prevCartItems.filter(cart => cart.productId !== productId));
 
-            console.log('Cart item removed:', cartItem);
+            console.log('Cart item removed:');
 
         } catch (error) {
             console.error('Error removing cart item:', error);

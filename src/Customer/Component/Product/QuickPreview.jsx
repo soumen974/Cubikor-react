@@ -5,9 +5,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, clearErrors, clearMessage } from '../../../redux/cartSlice';
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
-}
+import PageLoder from "../../../Loaders/PageLoder";
+
+
 
 export default function QuickPreview({ open, setOpen, ShopIDsend, CubeId, catId }) {
   const token = localStorage.getItem('token');
@@ -59,6 +59,15 @@ export default function QuickPreview({ open, setOpen, ShopIDsend, CubeId, catId 
     fetchCategory();
   }, [ShopID, token, catId]);
 
+  const [messages, setmessages] = useState({success:false, error:false});
+  const SuccessSound = () => {
+    const audio = new Audio(process.env.PUBLIC_URL + '/Sounds/success_bell-6776.mp3');
+    audio.play();
+  };
+  const errorSound= () => {
+    const audio = new Audio(process.env.PUBLIC_URL + '/Sounds/windows-error-sound-effect-35894.mp3');
+    audio.play();
+  }
   
   const AddingToBag = async (e) => {
     e.preventDefault();
@@ -79,11 +88,21 @@ export default function QuickPreview({ open, setOpen, ShopIDsend, CubeId, catId 
             }
           }
         );
-        navigate("/")
-        window.location.reload();
+        // navigate("/")
+        // window.location.reload();
+        setTimeout(() => {
+          setmessages({success:false});
+        }, 3000);
+        setmessages({success:true});
+        SuccessSound();
         setOpen(false)
       } catch (error) {
-        console.error('Error adding item to cart:', error);
+        console.error('Already added to cart:', error);
+        setTimeout(() => {
+          setmessages({error:false});
+        }, 3000);
+        setmessages({error:true});
+        errorSound();
         if (error.response && error.response.data.errors) {
           setErrors(error.response.data.errors);
           
@@ -122,6 +141,7 @@ export default function QuickPreview({ open, setOpen, ShopIDsend, CubeId, catId 
 
 
   return (
+    <>
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-40" onClose={setOpen}>
         <Transition.Child
@@ -177,14 +197,9 @@ export default function QuickPreview({ open, setOpen, ShopIDsend, CubeId, catId 
                             <form onSubmit={AddingToBag}>
                               <button
                                 type="submit"
-                                className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                className={`mt-6 flex w-full items-center justify-center rounded-md border border-transparent  px-8 py-3 text-base font-medium text-white  focus:outline-none focus:ring-2 ${messages.success? null : messages.error? "focus:ring-red-500 bg-red-600 hover:bg-red-700":" focus:ring-indigo-500 bg-indigo-600 hover:bg-indigo-700" }  focus:ring-offset-2`}
                               >
-                               {errors?  "Add to bag":"alredy added "}
-                                
-                                      {errors.map((error, index) => (
-                                        <li key={index}>{error.msg}</li>
-                                      ))}
-                                    
+                               {messages.error? "Already added":"Add to bag"}
                               </button>
                             </form>
                           </section>
@@ -192,7 +207,7 @@ export default function QuickPreview({ open, setOpen, ShopIDsend, CubeId, catId 
                       </div>
                     </div>
                   ) : (
-                    <p>Loading...</p>
+                    <div className='p-40  '><PageLoder/></div>
                   )}
                 </div>
               </Dialog.Panel>
@@ -201,6 +216,7 @@ export default function QuickPreview({ open, setOpen, ShopIDsend, CubeId, catId 
         </div>
       </Dialog>
     </Transition.Root>
+    </>
   );
 }
 
@@ -209,40 +225,4 @@ export default function QuickPreview({ open, setOpen, ShopIDsend, CubeId, catId 
 
 
 
-// {product.filter(product => product.id === Props.CategoryId).map(product => (
 
-//   <div key={product.id} >
-//     {product.data.filter(dataItem => dataItem.id === Props.CubeId).map(dataItem => (
-//         <div key={dataItem.id} className="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8">
-//           <div className="aspect-h-3 aspect-w-2 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5">
-//           <Link to={`/productview/${product.id}/${dataItem.id}`} onClick={() => Props.setOpen(false)}>
-//             <img src={dataItem.imageSrc} alt={dataItem.imageAlt} className="cursor-pointer object-cover object-center" />
-//           </Link>
-//           </div>
-//           <div className="sm:col-span-8 lg:col-span-7">
-//             <h2 className="text-2xl font-bold text-gray-900 sm:pr-12 py-8">Puzzle Category : {product.name}</h2>
-//             {/* Nested map function to iterate over data array */}
-              
-//                 <div key={dataItem.id}>
-//                   <h3>{dataItem.name}</h3>
-//                   <p>{dataItem.price}</p>
-//                 </div>
-              
-//             <section aria-labelledby="options-heading" className="mt-10">
-//               <h3 id="options-heading" className="sr-only">Product options</h3>
-//               <form>
-//                 {/* Colors */}
-//                 {/* Sizes */}
-//                 <button
-//                   type="submit"
-//                   className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-//                 >
-//                   Add to bag
-//                 </button>
-//               </form>
-//             </section>
-//           </div>
-//         </div>
-//      ))}
-//   </div>
-// ))}
