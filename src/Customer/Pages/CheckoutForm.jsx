@@ -344,6 +344,46 @@ const CheckoutForm = () => {
 
     // Print the formatted date
     const formattedDate = `${dayOfWeek}, ${day} ${month} ${year}`;
+
+
+    // Proceed to Payment
+
+
+    const OrderPlaced = async () => {
+      const usrAddress= userData.street + userData.city + userData.state + userData.zipcode + userData.country;
+
+      const orderData = productdata.map(product => ({
+        customerId: userId,
+        productId: product.id,
+        quantity: quantities[product.id],
+        sellerId: product.shop_id, 
+        userAddress: usrAddress,  
+      }));
+    
+      console.log('Order Data:', orderData); // Log the order data
+    
+      try {
+        const responses = await Promise.all(orderData.map(data => 
+          axios.post('http://localhost:5000/place-order', data)
+        ));
+        console.log('All orders placed successfully:', responses);
+      } catch (error) {
+        if (error.response) {
+          console.error('Error placing orders:', error.response.data);
+        } else {
+          console.error('Error placing orders:', error.message);
+        }
+      }
+    };
+    
+    
+    
+    
+    
+
+
+
+
   return (
     <section className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8 mt-20 ">
       <form onSubmit={handleSubmit}>
@@ -370,6 +410,7 @@ const CheckoutForm = () => {
                     ):(
                       productdata.map((product) => (
                         <li key={product.id} className="flex py-6">
+                          
                           <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                             <Link to={`/productview/${window.btoa(product.id*721426)}`}>
                               <img
@@ -430,7 +471,7 @@ const CheckoutForm = () => {
                                   type="button"
                                   className="font-medium text-indigo-600 hover:text-indigo-500"
                                 >
-                                  Remove
+                                  Remove 
                                 </button>
                               </div>
                             </div>
@@ -735,13 +776,13 @@ const CheckoutForm = () => {
                 </div>
             </div>
 
-            <div className="space-y-3">
-                <button
-                type="submit"
-                className="flex w-full items-center justify-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300"
+            <div  className="space-y-3">
+                <div
+                onClick={OrderPlaced}
+                className="flex cursor-pointer w-full items-center justify-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300"
                 >
                 Proceed to Payment
-                </button>
+                </div>
 
                 <p className="text-sm font-normal text-gray-500">
                 One or more items in your cart require an account.{' '}
