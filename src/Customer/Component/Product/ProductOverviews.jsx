@@ -92,7 +92,7 @@ export default function ProductOverview() {
           setmessage({success:false});
         }, 3000);
         setmessage({success:true});
-        SuccessSound();
+        // SuccessSound();
 
       } catch (error) {
         console.error('Already added to cart:', error);
@@ -100,7 +100,7 @@ export default function ProductOverview() {
           setmessage({error:false});
         }, 3000);
         setmessage({error:true});
-        errorSound();
+        // errorSound();
 
         if (error.response && error.response.data.errors) {
           console.log(error.response.data.errors);
