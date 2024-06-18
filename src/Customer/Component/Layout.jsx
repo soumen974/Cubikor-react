@@ -34,7 +34,7 @@ export default function Layout() {
       <div className="relative rounded-xl mx-auto max-w-screen py-0 px-0 lg:py-12 lg:px-[12vw]  ">
       <Footer/>
       </div>
-      <abbr title='Scroll to Top' className={` fixed top-[25rem] lg:top-[30rem] ${showButton? "opacity-100 " :" opacity-0 invisible "} xl:-right-12 right-0 mx-auto max-w-screen py-20 px-2 md:px-[12vw]`}>
+      <abbr title='Scroll to Top' className={` fixed top-[25rem] lg:top-[30rem] ${showButton? "opacity-100 " :" opacity-0 invisible "} xl:right-20 right-0 mx-auto w-fit h-fit py-20 px-2 `}>
         <button   onClick={()=>{window.scrollTo({top: 0, behavior: 'smooth'})}} className=" group shadow-md hover:shadow-indigo-300 bg-gray-200 rounded-full  animate-bounce w-fit p-2">
                 <svg className="w-6 h-6 text-violet-500  rotate-180" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
                     <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>

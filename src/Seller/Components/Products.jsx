@@ -37,7 +37,7 @@ const Products = () => {
 
   return (
     <>
-        <div  className="relative mt-6 mx-auto max-w-2xl px-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
+    <div  className="relative mt-6 mx-auto max-w-2xl px-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
             <h2 className="text-2xl tracking-tight text-gray-900 flex item-center gap-3 pb-2 ">Products
               <button
               onClick={() => navigate('/seller/productadd')}
