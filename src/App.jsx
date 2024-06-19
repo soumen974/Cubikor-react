@@ -19,6 +19,8 @@ import ImageList from "./Seller/Image_uploder/ImageList";
 import ImageUploader from "./Seller/Image_uploder/ImageUploader";
 import DashBoard from './Seller/DashBoard';
 import CheckoutForm from './Customer/Pages/CheckoutForm';
+import SellerOrders from './Seller/SellerOrders';
+import CustomerOrders from './Customer/Pages/CustomerOrders';
 
 
 
@@ -51,6 +53,9 @@ export default function App() {
           {Authenticated ? (<Route path="/profile" element={<Profile/>} />): null}
           {Authenticated ? (<Route path="/profileEdit" element={<EditProfile/>} />): null}
           {Authenticated ? (<Route path="/checkout" element={<CheckoutForm/>} />): null}
+          {Authenticated ? (<Route path="/checkout/:productID" element={<CheckoutForm/>} />): null}
+          {Authenticated ? (<Route path="/myorders" element={<CustomerOrders/>} />): null}
+
 
           
 
@@ -63,6 +68,8 @@ export default function App() {
           <Route path="/seller" element={<DashBoard/>} />
           <Route path="/seller/categoriesadd" element={<CreateCategory/>} />
           <Route path="/seller/productadd" element={<CreateProduct/>} />
+          <Route path="/seller/orders" element={<SellerOrders/>} />
+
 
         </Route>
         ):
