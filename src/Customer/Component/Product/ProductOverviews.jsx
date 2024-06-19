@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { StarIcon } from '@heroicons/react/20/solid'
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import SuggestedProduct from './SuggestedProduct';
 import PageLoder from "../../../Loaders/PageLoder";
@@ -15,7 +15,7 @@ function classNames(...classes) {
 export default function ProductOverview() {
   const { CubeId } = useParams();
     
-  const cubeId= window.atob(CubeId)/721426;
+   const cubeId= window.atob(CubeId)/721426;
 
 
 
@@ -292,11 +292,11 @@ export default function ProductOverview() {
                   >
                     Add to bag
                   </button>
-                  <button
+                  <Link to={`/checkout/${window.btoa(productdata.id*721426)}`}
                     className="mt-5 flex w-full items-center justify-center rounded-md border border-transparent bg-yellow-300 px-8 py-3 text-base font-medium text-black hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
                   >
                     Buy Now
-                  </button>
+                  </Link>
                 </form>
               </div>
 
