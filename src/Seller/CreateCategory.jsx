@@ -78,7 +78,7 @@ const CategoryForm = () => {
               <p className="mt-1 text-sm leading-6 text-gray-600">
                 This information will help us to send your purchase.
               </p>
-            </div>
+        </div>
       <div className="mx-auto max-w-2xl py-10 sm:py-10 lg:py-10">
         
             

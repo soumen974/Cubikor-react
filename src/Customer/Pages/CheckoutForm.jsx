@@ -350,7 +350,7 @@ const CheckoutForm = () => {
 
 
     const OrderPlaced = async () => {
-      const usrAddress= userData.street + userData.city + userData.state + userData.zipcode + userData.country;
+      const usrAddress= userData.street +", "+ userData.city +", "+ userData.state +", pin- "+ userData.zipcode +", "+ userData.country;
 
       const orderData = productdata.map(product => ({
         customerId: userId,
@@ -627,7 +627,7 @@ const CheckoutForm = () => {
                       {userData.street}, {userData.city}, {userData.state}, Pin-{userData.zipcode}, {userData.country}
                     </dd>
                   </div>
-                  <div onClick={()=>{setchangeAddres(true)}} className='hidden cursor-pointer group-hover:block absolute bottom-3 right-3 text-Orange-700  text-indigo-400'>
+                  <div onClick={()=>{setchangeAddres(true)}} className='hidden cursor-pointer group-hover:block absolute bottom-3 right-3   text-indigo-400'>
                     <PencilSquareIcon className="h-6 w-6 mr-2"/>
                   </div>
               </div>
