@@ -2,7 +2,7 @@ import { Fragment, useState, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import axios from 'axios';
-import { Link} from 'react-router-dom';
+import { Link, Navigate} from 'react-router-dom';
 
 export default function ShoppingCart(Props) {
     const [productdata, setProductdata] = useState([]);
@@ -243,7 +243,7 @@ export default function ShoppingCart(Props) {
                                             <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                                             <div className="mt-6">
                                                 <Link to={"/checkout"}  
-                                                 onClick={() => Props.setOpen(false)}        
+                                                 onClick={() => {Props.setOpen(false)}}        
                                                  className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                                                 >
                                                     Checkout
