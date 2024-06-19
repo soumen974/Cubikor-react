@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUser } from "../../redux/userSlice";
 import DialogBox from '../../Customer/DialogBox';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PageLoder from "../../../src/Loaders/PageLoder";
 
 export default function Avatar() {
@@ -99,7 +99,7 @@ export default function Avatar() {
               <a href="/" className="block px-4 py-2 hover:bg-gray-100 ">Favorite</a>
             </li>
             <li>
-              <a href="/" className="block px-4 py-2 hover:bg-gray-100 ">My Orders</a>
+              <Link  to={"/myorders"} className="block px-4 py-2 hover:bg-gray-100 ">My Orders</Link>
             </li>
            
             <li>
