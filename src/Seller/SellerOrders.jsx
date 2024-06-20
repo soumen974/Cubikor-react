@@ -9,7 +9,6 @@ const SellerOrders = () => {
     const shopId = localStorage.getItem('ShopId');
     const sellerId=shopId;
 
-  const [orders, setOrders] = useState([]);
   const [error, setError] = useState('');
   const [orderItems, setOrderItems] = useState([]);
   const [productData, setProductData] = useState([]);
@@ -46,19 +45,8 @@ const SellerOrders = () => {
   useEffect(() => {
     const fetchSellerOrders = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/seller-orders/${sellerId}`);
-        setOrders(response.data.orders);
-        const mappedOrders = response.data.orders.map((order) => ({
-          Order_ID: order.order_id,
-          Customer_ID: order.customer_id,
-          Product_ID: order.product_id,
-          quantity: order.quantity,
-          Order_Date: formatDate(order.order_date),
-          ExpectedDeleveryDate:expectedDeleveryDate(order.order_date),
-          Status: order.status,
-          Address: order.user_address
-        }));
-        setOrderItems(mappedOrders);
+        const response = await axios.get(`http://localhost:5000/seller-orders/${sellerId}`);       
+        setOrderItems(response.data.orders);
       } catch (err) {
         setError(err.response ? err.response.data.message : 'Error fetching seller orders');
       }
@@ -67,79 +55,7 @@ const SellerOrders = () => {
     fetchSellerOrders();
   }, [sellerId]);
 
-  // Fetch the products based on the order items
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        if (Array.isArray(orderItems) && orderItems.length > 0) {
-          const responses = await Promise.all(orderItems.map(product =>
-            fetch(`http://localhost:5000/products/${product.Product_ID}`, {
-              method: 'GET',
-              headers: {
-                'Authorization': `Bearer ${token}`
-              }
-            })
-          ));
-
-          const productsDataArray = await Promise.all(responses.map(async (response) => {
-            if (response.ok) {
-              return response.json();
-            } else {
-              const errorData = await response.json();
-              console.error("Error retrieving product:", errorData);
-              return null;
-            }
-          }));
-
-          const validOrderData = productsDataArray.filter(data => data !== null);
-          setProductData(validOrderData);
-        }
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
-
-    fetchProducts();
-  }, [orderItems, token]);
-
-   // Update quantities based on product data and order items
-
-   const [quantities, setQuantities] = useState({});
-   const [OrderTime, setOrderTime] = useState({});
-   const[newStatus,setnewStatus]=useState({});
-   const[newTiming,setnewTiming]=useState({});
-   const[newAddress,setnewAddress]=useState({});
-   const[newexpecDateOfDelevery,setexpecDateOfDelevery]=useState({});
-
  
- 
-  useEffect(() => {
-   const newQuantities = {};
-   const newOrderTime={};
-   const newStatus={};
-   const newOrderTiming={};
-   const newAddress={};
-   const expecDateOfDelevery={};
-
-   productData.forEach((product) => {
-     const OrderItemBox = orderItems.find(order => order.Product_ID === product.id);
-     newQuantities[product.id] = OrderItemBox ? OrderItemBox.quantity : null;
-     newOrderTime[product.id] = OrderItemBox ? OrderItemBox.Order_Date : null;
-     newStatus[product.id] = OrderItemBox ? OrderItemBox.Status : null;
-     newOrderTiming[product.id] = OrderItemBox ? OrderItemBox.OrderTiming : null;
-     newAddress[product.id] = OrderItemBox ? OrderItemBox.Address : null;
-     expecDateOfDelevery[product.id] = OrderItemBox ? OrderItemBox.ExpectedDeleveryDate : null;
-
- 
- 
-   });
-   setexpecDateOfDelevery(expecDateOfDelevery)
-   setnewAddress(newAddress)
-   setnewTiming(newOrderTiming);
-   setnewStatus(newStatus);
-   setOrderTime(newOrderTime);
-   setQuantities(newQuantities);
- }, [productData, orderItems]);
 
  // pagination
 const product = {
@@ -148,7 +64,22 @@ const product = {
     { id: 2, name: 'Orders', href: '/seller/orders' }
 
   ]};
-
+  // {orders.map((order) => (
+  //   <tr key={order.order_id}>
+  //     <td>{order.order_id}</td>
+  //     <td>{order.customer_id}</td>
+  //     <td>{order.product_id}</td>
+  //     <td>{order.quantity}</td>
+  //     <td>{order.order_date}</td>
+  //     <td>{order.status}</td>
+  //     <td>{order.user_address}</td>
+  //     <td>{order.Product_name}</td>
+  //     <td><img src={order.product_imageSrc} alt={order.Product_name} width="50" /></td>
+  //     <td>{order.product_price}</td>
+  //     <td>{order.user_name}</td>
+  //     <td>{order.user_mobileNumber}</td>
+  //   </tr>
+  // ))}
 
   return (
     <div className="relative isolate px-6 pt-0 lg:pt-0">
@@ -176,18 +107,7 @@ const product = {
           </ol>
       </header>
       
-      {orderItems.map((item) => (
-            <tr key={item.Order_ID}>
-              <td>{item.Order_ID}</td>
-              <td>{item.Customer_ID}</td>
-              <td>{item.Product_ID}</td>
-              <td>{item.quantity}</td>
-              <td>{item.Order_Date}</td>
-              <td>{item.ExpectedDeliveryDate}</td>
-              <td>{item.Status}</td>
-              <td>{item.Address}</td>
-            </tr>
-          ))}
+    
       <div className="mx-auto max-w-6xl py-32 sm:py-10 lg:py-10 h-screen ">
 
         <h3 className="text-4xl pt-5 pb-3 font-semibold leading-7 text-gray-800 capitalize">Order history</h3>
@@ -240,38 +160,44 @@ const product = {
         
         <div className="px-4 pt-2 sm:px-0">     
           {error && <p style={{ color: 'red' }}>{error}</p>}
+
           <ul className='grid  gap-x-4 md:grid-cols-1 border border-gray-200 rounded-[1rem]  divide-y divide-gray-200 '>
-          {productData.map((product) => (
-            <li key={product.id} className=" flex py-8 px-8">
+          {orderItems.map((product) => (
+            <li key={product.order_id} className=" flex py-8 px-8">
                 
                 <div className="h-30 w-[9rem] item-ce flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                     
-                    <Link to={`/productview/${window.btoa(product.id*721426)}`}  > <img
-                        src={product.imageSrc}
-                        alt={product.name}
+                    <Link to={`/productview/${window.btoa(product.product_id*721426)}`}  > <img
+                        src={product.product_imageSrc}
+                        alt={product.Product_name}
                         className="h-full w-full object-cover object-center"
                     />
                     </Link>
                 </div>
 
                 <div className="ml-4 flex flex-1 flex-col">
-                <p className="mt-1 text-[11px]  w-fit  text-indigo-400 border-[1px]  border-indigo-300 bg-indigo-100 rounded-sm px-2 flex gap-1"> <ClockIcon className='h-4 w-4' /> {newexpecDateOfDelevery[product.id]} </p>
+                <p className="mt-1 text-[11px]  w-fit  text-indigo-400 border-[1px]  border-indigo-300 bg-indigo-100 rounded-sm px-2 flex gap-1"> <ClockIcon className='h-4 w-4' /> {expectedDeleveryDate(product.order_date)} </p>
 
                     <div className="mt-1 flex justify-between text-base font-medium text-gray-900">
                         <h3>
-                            <Link to={`/productview/${window.btoa(product.id*721426)}`} >{product.name}</Link>
+                            <Link to={`/productview/${window.btoa(product.product_id*721426)}`} >{product.Product_name} , order Id :{product.order_id}</Link>
                         </h3>
-                        <p   className="ml-4">₹{product.price}</p>
+                        
+                        <p   className="ml-4">₹{product.product_price}</p>
                     </div>
                     <p className="mt-1 text-sm text-gray-500">color </p>
-                    <p className="text-gray-500 ">  Qty:  {quantities[product.id]} </p>
-                    <p className="mt-1 text-sm text-gray-500 "> {OrderTime[product.id]}</p>
-                    <p className="mt-1 text-sm text-gray-500 "> {newTiming[product.id]}</p>              
+                    <p className="text-gray-500 ">  Qty:  {product.quantity} </p>
+                    <p className="mt-1 text-sm text-gray-500 "> {formatDate(product.order_date)}</p>
+                    <p className="mt-1 text-sm text-gray-500 "> {expectedDeleveryDate(product.order_date)}</p>              
 
                     <div className="flex flex-1 items-end justify-between text-sm">
-                      <p className="mt-1 text-sm text-gray-500 "> {newAddress[product.id]}</p>
-                      <p className="mt-1 text-sm text-green-400  bg-green-100 rounded-full px-2 flex justify-center items-center gap-1"> <CheckCircleIcon className='h-2 w-2 fill-green-400' /> {newStatus[product.id]}</p>
+                      <p className="mt-1 text-sm text-gray-500 "> {product.Address}</p>
+                      <p className="mt-1 text-sm text-green-400  bg-green-100 rounded-full px-2 flex justify-center items-center gap-1"> <CheckCircleIcon className='h-2 w-2 fill-green-400' /> {product.status}</p>
                     </div>
+                    CustomerId: {product.customer_id} ,
+                    name: {product.user_name} ,
+                    mobile Number: {product.user_mobileNumber} , <br />
+                    Addres: {product.user_address}
 
 
                 </div>
