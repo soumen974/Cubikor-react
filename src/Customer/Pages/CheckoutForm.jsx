@@ -7,13 +7,7 @@ import { PencilSquareIcon,PlusIcon} from '@heroicons/react/24/outline';
 const CheckoutForm = () => {
 
   const [voucher, setVoucher] = useState('');
-  
-
- 
-
   const [changeAddres, setchangeAddres] = useState(false);
-
-
   const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
 
@@ -347,41 +341,45 @@ const CheckoutForm = () => {
 
 
     // Proceed to Payment
-
-
     const OrderPlaced = async () => {
-      const usrAddress= userData.street +", "+ userData.city +", "+ userData.state +", pin- "+ userData.zipcode +", "+ userData.country;
-
+      const usrAddress = `${userData.street}, ${userData.city}, ${userData.state}, pin-${userData.zipcode}, ${userData.country}`;
+    
       const orderData = productdata.map(product => ({
         customerId: userId,
         productId: product.id,
         quantity: quantities[product.id],
-        sellerId: product.shop_id, 
-        userAddress: usrAddress,  
+        sellerId: product.shop_id,
+        userAddress: usrAddress,
+        productName: product.name,
+        productImageSrc: product.imageSrc,
+        productPrice: product.price,
+        userName: userData.name,
+        userMobileNumber: userData.mobile_number
       }));
     
       console.log('Order Data:', orderData); // Log the order data
     
       try {
-        const responses = await Promise.all(orderData.map(data => 
+        const responses = await Promise.all(orderData.map(data =>
           axios.post('http://localhost:5000/place-order', data)
         ));
         console.log('All orders placed successfully:', responses);
+    
+        // Optionally, show success message to the user
       } catch (error) {
         if (error.response) {
           console.error('Error placing orders:', error.response.data);
+          alert('Error placing orders: ' + error.response.data.message);
+        } else if (error.request) {
+          console.error('No response received:', error.request);
+          alert('No response received from the server. Please try again.');
         } else {
-          console.error('Error placing orders:', error.message);
+          console.error('Error:', error.message);
+          alert('An error occurred: ' + error.message);
         }
       }
     };
     
-    
-    
-    
-    
-
-
 
 
   return (
