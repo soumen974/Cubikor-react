@@ -47,6 +47,17 @@ const CustomerOrders = () => {
     return `${dayOfWeek}, ${day} ${month} ${year}`;
   }
   
+  // update order status
+
+  const UpdateStatus = async (order_id,newStatus) => {
+    try {
+      const response = await axios.put(`http://localhost:5000/update-order-status/${order_id}`, { status: newStatus });
+      console.log(response.data.message);
+    } catch (error) {
+      console.log(error.response ? error.response.data.message : 'Error updating order status');
+    }
+  };
+
   // Fetching the orders items
   useEffect(() => {
     const fetchCustomerOrders = async () => {
@@ -59,9 +70,14 @@ const CustomerOrders = () => {
     };
 
     fetchCustomerOrders();
-  }, [customerId]);
+  }, [customerId,UpdateStatus]);
 
+  // drop down to update the order status
 
+  const [dropdown, setDropdown] = useState(null);
+  const handleDropdown = (id) => {
+    setDropdown(dropdown === id ? null : id);
+};
 
 
 
@@ -73,6 +89,8 @@ const product = {
 
 
   return (  
+    <>
+    <span onClick={()=>{setDropdown(!dropdown)}} className={` h-screen ${dropdown?"flex":"hidden"} fixed w-full  overflow-hidden  -mt-30`}></span>
     <div className="mx-auto max-w-6xl py-32 sm:py-10 lg:py-10 min-h-screen ">
         <header className="pb-1">
           <ol  className="mx-auto flex   ">
@@ -105,9 +123,9 @@ const product = {
         
         <div className="px-4 pt-2 sm:px-0">     
           {error && <p style={{ color: 'red' }}>{error}</p>}
-          <ul className='grid  gap-x-4 md:grid-cols-1 border border-gray-200 rounded-[1rem]  divide-y divide-gray-200 '>
+          <ul className='flex flex-col-reverse gap-x-4   border border-gray-200 rounded-[1rem]  divide-y divide-gray-200 '>
           {orders.map((product) => (
-            <li key={product.order_id} className=" flex py-8 px-8">
+            <li key={product.order_id} className=" flex  py-8 px-8">
                 
                 <div className="h-30 w-[9rem] item-ce flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                     
@@ -120,7 +138,31 @@ const product = {
                 </div>
 
                 <div className="ml-4 flex flex-1 flex-col">
-                <p className="mt-1 text-[11px]  w-fit  text-indigo-400 border-[1px]  border-indigo-300 bg-indigo-100 rounded-sm px-2 flex gap-1"> <ClockIcon className='h-4 w-4' />  {expectedDeleveryDate(product.order_date)}</p>
+
+                <div className="flex flex-1 items-end justify-between text-sm">
+                   <p className="mt-1 text-[11px]  w-fit  text-indigo-400 border-[1px]  border-indigo-300 bg-indigo-100 rounded-sm px-2 flex gap-1"> <ClockIcon className='h-4 w-4' />  {expectedDeleveryDate(product.order_date)}</p>
+                   
+                      <div className="relative flex justify-end px-4 pt-4">
+                            <button
+                                onClick={() => handleDropdown(product.order_id)}
+                                className={`inline-block text-gray-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg text-sm p-1.5`}
+                            >
+                                <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
+                                    <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
+                                </svg>
+                            </button>
+                            <div className={` ${dropdown === product.order_id ? 'block' : 'hidden'}  absolute -right-2 top-12 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-36`}>
+                                <ul id="status"
+                                    onClick={() => {UpdateStatus(product.order_id,'Canceled')}}>
+                               
+                                    <li >
+                                        <h1 value="Canceled" className="cursor-pointer block pl-4 py-2 text-sm text-red-600 hover:bg-gray-100">Cancel Order</h1>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                      
+                </div>
 
                     <div className="mt-1 flex justify-between text-base font-medium text-gray-900">
                         <h3>
@@ -130,14 +172,14 @@ const product = {
                     </div>
                     <p className="mt-1 text-sm text-gray-500">color </p>
                     <p className="text-gray-500 ">  Qty:  {product.quantity} </p>
-                    <p className="mt-1 text-sm text-gray-500 "> OrderDAte:{formatDate(product.order_date)}</p>
+                    <p className="mt-1 text-sm text-gray-500 "> Order Date: {formatDate(product.order_date)}</p>
 
                     <div className="flex flex-1 items-end justify-between text-sm">
                       <p className="mt-1 text-sm text-gray-500 "> {extractTime(product.order_date)}</p>
-
                       <p className={`${product.status==="Shipped"?"text-yellow-400  bg-yellow-100": product.status==="Canceled"? "text-red-400  bg-red-100" : product.status==="Delivered"? "text-indigo-400  bg-indigo-100" : "text-green-400  bg-green-100"} mt-1 text-sm  rounded-full px-2 flex justify-center items-center gap-1`}> <CheckCircleIcon className={`h-2 w-2  ${product.status==="Shipped"? "fill-yellow-400": product.status==="Canceled"? "fill-red-400" : product.status==="Delivered"? "fill-indigo-400" :"fill-green-400" }`} /> 
                       {product.status}
                       </p>
+                      
                     </div>
 
                 </div>
@@ -147,6 +189,7 @@ const product = {
         </div> 
         
     </div>
+    </>
   );
 };
 
