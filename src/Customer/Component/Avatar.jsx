@@ -107,7 +107,7 @@ export default function Avatar() {
             </li>
            
           </ul>
-          <div onClick={()=>{setDialogopenOpen(true)}} className="py-2">
+          <div onClick={()=>{setDialogopenOpen(true);setIsOpen(!isOpen);}}  className="py-2">
             <div className="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ">Sign out</div>
           </div>
         </div>
