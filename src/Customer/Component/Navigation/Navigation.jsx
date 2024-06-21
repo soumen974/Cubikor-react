@@ -33,18 +33,11 @@ export default function Navigation() {
   const userId = localStorage.getItem('userId');
   let totalQuantity = 0;
 
-  // Check if userData contains the Shopping_bag array
-  if (userDAta && userDAta.Shopping_bag && Array.isArray(userDAta.Shopping_bag)) {
-      // Iterate through the Shopping_bag array and sum up the quantities
-      userDAta.Shopping_bag.forEach(item => {
-          totalQuantity += item.quantity;
-      });
-  } else {
-      console.error("userData or Shopping_bag is undefined or not an array.");
-  }
+ 
 
   // ----shopping-cart-item-count-
   const [itemCount, setItemCount] = useState(0);
+  const [cartData,setcartData]=useState([]);
   
   const fetchCartItems = async () => {
     try {
@@ -62,9 +55,9 @@ export default function Navigation() {
             productId: cart.productId,
             shopId: cart.shopId,
         }));
-        
+        setcartData(cartItemsData);
         setItemCount(cartItemsData.length); 
-        console.log('Cart items fetched successfully');
+        
     } catch (error) {
         console.error('Error fetching cart items:', error);
         if (error.response && error.response.data.errors) {
@@ -77,7 +70,7 @@ export default function Navigation() {
 
 useEffect(() => {
     fetchCartItems();
-}, [userId]);
+}, [userId,itemCount]);
 
 
 
