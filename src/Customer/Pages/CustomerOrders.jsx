@@ -58,6 +58,13 @@ const CustomerOrders = () => {
     }
   };
 
+  // drop down to update the order status
+
+  const [dropdown, setDropdown] = useState(null);
+  const handleDropdown = (id) => {
+    setDropdown(dropdown === id ? null : id);
+};
+
   // Fetching the orders items
   useEffect(() => {
     const fetchCustomerOrders = async () => {
@@ -70,21 +77,19 @@ const CustomerOrders = () => {
     };
 
     fetchCustomerOrders();
-  }, [customerId,UpdateStatus]);
+  }, [customerId,dropdown]);
 
-  // drop down to update the order status
 
-  const [dropdown, setDropdown] = useState(null);
-  const handleDropdown = (id) => {
-    setDropdown(dropdown === id ? null : id);
-};
 
 
 
 // pagination
 const product = {
   breadcrumbs: [
-    { id: 1, name: 'Home', href: '/' }]};
+    { id: 1, name: 'Home', href: '/' },
+    { id: 2, name: 'My orders', href: '/myorders' }
+
+  ]};
 
 
 
