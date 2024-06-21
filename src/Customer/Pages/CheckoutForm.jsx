@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate ,Link} from 'react-router-dom';
-import { PencilSquareIcon,PlusIcon} from '@heroicons/react/24/outline';
-
+import { useNavigate ,Link, Navigate} from 'react-router-dom';
+import { PencilSquareIcon,PlusIcon,CheckIcon} from '@heroicons/react/24/outline';
+import { FaArrowUpRightFromSquare } from "react-icons/fa6";
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 
 const CheckoutForm = () => {
 
@@ -116,11 +117,8 @@ const CheckoutForm = () => {
     const [checkoutPrice, setCheckoutPrice] = useState(0);
 
     const [cartItems, setCartItems] = useState([]);
-    const [message, setMessage] = useState('');
+    const [message, setMessage] = useState(false);
     const [errors, setErrors] = useState([]);
-    const navigate = useNavigate();
-    const [prdcArray, setprdcArray] = useState([]);
-    const [ShopsArray, setShopsArray] = useState([]);
 
     const RemoveFromMyCart = async (productId) => {
         const cartItem = cartItems.find(cart => cart.productId === productId);
@@ -173,14 +171,14 @@ const CheckoutForm = () => {
               quantity:cart.quantity,
           }));
           setCartItems(cartItemsData);
-          setMessage('Cart items fetched successfully');
+          console.log('Cart items fetched successfully');
           setErrors([]);
       } catch (error) {
           console.error('Error fetching cart items:', error);
           if (error.response && error.response.data.errors) {
               setErrors(error.response.data.errors);
           } else {
-              setMessage(`Error: ${error.message}`);
+              console.log(`Error: ${error.message}`);
           }
       }
   };
@@ -339,8 +337,13 @@ const CheckoutForm = () => {
     // Print the formatted date
     const formattedDate = `${dayOfWeek}, ${day} ${month} ${year}`;
 
+    
+
 
     // Proceed to Payment
+    
+    const navigate=useNavigate();
+
     const OrderPlaced = async () => {
       const usrAddress = `${userData.street}, ${userData.city}, ${userData.state}, pin-${userData.zipcode}, ${userData.country}`;
     
@@ -364,6 +367,12 @@ const CheckoutForm = () => {
           axios.post('http://localhost:5000/place-order', data)
         ));
         console.log('All orders placed successfully:', responses);
+        setMessage(true);
+        setTimeout(() => {
+          setMessage(false);
+          navigate('/')
+          
+        }, 5000);
     
         // Optionally, show success message to the user
       } catch (error) {
@@ -379,12 +388,46 @@ const CheckoutForm = () => {
         }
       }
     };
+
+    // pagination
+const product = {
+  breadcrumbs: [
+    { id: 1, name: 'Home', href: '/' },
+    { id: 2, name: 'checkout', href: '/checkout' }
+  ]};
     
     
 
 
   return (
-    <section className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8 mt-20 ">
+    <>
+    
+    <section className="mx-auto max-w-6xl py-32 sm:py-10 lg:py-10  ">
+    <header className="py-4 ">
+      <ol  className="mx-auto flex   ">
+      {product.breadcrumbs.map((breadcrumb) => (
+        <li key={breadcrumb.id}>
+          <div className="flex items-center">
+            <a href={breadcrumb.href} className="mr-2 text-sm font-medium text-gray-900">
+              {breadcrumb.name}
+            </a>
+            <svg
+              width={16}
+              height={20}
+              viewBox="0 0 16 20"
+              fill="currentColor"
+              aria-hidden="true"
+              className="h-5 w-4 text-gray-300"
+            >
+              <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+            </svg>
+          </div>
+        </li>
+      ))}
+      </ol>
+    </header>
+      
+      {!message?
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 space-y-4">
         <div className="lg:col-span-2 space-y-4">
@@ -795,9 +838,25 @@ const CheckoutForm = () => {
          </div>
 
         </div>
-      </form>
+      </form>:
+      <div className=" mx-auto h-[70vh] flex justify-center items-center">
+          <p className=' md:flex  gap-10 justify-center items-center text-green-400 '>
+            <CheckIcon className=' animate-bounce bg-green-100 md:p-5 p-2  mx-auto flex justify-center rounded-full md:h-40 h-20 md:w-40'/> 
+            <div className='grid  py-2 text-gray-700 ' >
+              <h1 className='flex justify-center md:justify-start text-gray-700 text-xl font-bold' >Thank You!</h1>
+              <h1 className='flex justify-center md:justify-start py-2 text-gray-700 ' >Your Order has successfully placed.</h1>
+              <div className='flex gap-5 justify-center md:justify-start py-2  ' >
+                <Link to={'/myorders'} className='bg-indigo-100 px-6 py-2 rounded-full text-indigo-600 flex justify-center item-center gap-2 ' >Track your Order <FaArrowUpRightFromSquare className='h-6' /></Link>
+                <Link to={'/'} className='flex justify-center items-center gap-2 group'>Continue shopping <MdKeyboardDoubleArrowRight className=' group-hover: text-indigo-300 w-6 h-6' /> </Link>
+              </div>
+
+            </div>
+          </p>
+
+      </div>}
       
     </section>
+    </>
   );
 };
 
