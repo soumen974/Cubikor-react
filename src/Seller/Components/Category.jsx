@@ -7,7 +7,7 @@ import Drawer from './DrawerCat';
 
 export default function Category() {
     const [categories, setCategories] = useState([]);
-    const [dropdown, setDropdown] = useState(null);
+        const [dropdown, setDropdown] = useState(null);
 
     const shopId = localStorage.getItem('ShopId');
     const token = localStorage.getItem('SellerToken');
