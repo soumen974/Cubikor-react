@@ -352,7 +352,7 @@ const CheckoutForm = () => {
         userAddress: usrAddress,
         productName: product.name,
         productImageSrc: product.imageSrc,
-        productPrice: product.price,
+        productPrice: (product.price *quantities[product.id]),
         userName: userData.name,
         userMobileNumber: userData.mobile_number
       }));
@@ -379,6 +379,7 @@ const CheckoutForm = () => {
         }
       }
     };
+    
     
 
 
