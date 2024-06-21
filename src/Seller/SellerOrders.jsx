@@ -53,6 +53,13 @@ const SellerOrders = () => {
     }
   };
 
+    // drop down to update the order status
+
+    const [dropdown, setDropdown] = useState(null);
+    const handleDropdown = (id) => {
+      setDropdown(dropdown === id ? null : id);
+  };
+
   // get the oder data
 
   useEffect(() => {
@@ -66,14 +73,9 @@ const SellerOrders = () => {
     };
 
     fetchSellerOrders();
-  }, [sellerId,UpdateStatus]);
+  }, [sellerId,dropdown]);
 
-    // drop down to update the order status
 
-    const [dropdown, setDropdown] = useState(null);
-    const handleDropdown = (id) => {
-      setDropdown(dropdown === id ? null : id);
-  };
 
   const NoOftotalOrder=orderItems.length;
   const NoOfactiveOrder=orderItems.filter(order => order.status === 'Order Confirmed' || order.status === 'Shipped' || order.status === 'Order Placed').length;
