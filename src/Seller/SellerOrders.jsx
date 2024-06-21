@@ -42,6 +42,19 @@ const SellerOrders = () => {
       return `${dayOfWeek}, ${day} ${month} ${year}`;
     }
 
+   // update order status
+  
+   const UpdateStatus = async (order_id,newStatus) => {
+    try {
+      const response = await axios.put(`http://localhost:5000/update-order-status/${order_id}`, { status: newStatus });
+      console.log(response.data.message);
+    } catch (error) {
+      console.log(error.response ? error.response.data.message : 'Error updating order status');
+    }
+  };
+
+  // get the oder data
+
   useEffect(() => {
     const fetchSellerOrders = async () => {
       try {
@@ -53,8 +66,21 @@ const SellerOrders = () => {
     };
 
     fetchSellerOrders();
-  }, [sellerId]);
+  }, [sellerId,UpdateStatus]);
 
+    // drop down to update the order status
+
+    const [dropdown, setDropdown] = useState(null);
+    const handleDropdown = (id) => {
+      setDropdown(dropdown === id ? null : id);
+  };
+
+  const NoOftotalOrder=orderItems.length;
+  const NoOfactiveOrder=orderItems.filter(order => order.status === 'Order Confirmed' || order.status === 'Shipped' || order.status === 'Order Placed').length;
+  const NoOfcompleteOrder=(orderItems.filter(order => order.status === 'Delivered').length);
+  const NoOfcancelOrder=(orderItems.filter(order => order.status === 'Canceled').length);
+  
+ 
  
 
  // pagination
@@ -64,24 +90,10 @@ const product = {
     { id: 2, name: 'Orders', href: '/seller/orders' }
 
   ]};
-  // {orders.map((order) => (
-  //   <tr key={order.order_id}>
-  //     <td>{order.order_id}</td>
-  //     <td>{order.customer_id}</td>
-  //     <td>{order.product_id}</td>
-  //     <td>{order.quantity}</td>
-  //     <td>{order.order_date}</td>
-  //     <td>{order.status}</td>
-  //     <td>{order.user_address}</td>
-  //     <td>{order.Product_name}</td>
-  //     <td><img src={order.product_imageSrc} alt={order.Product_name} width="50" /></td>
-  //     <td>{order.product_price}</td>
-  //     <td>{order.user_name}</td>
-  //     <td>{order.user_mobileNumber}</td>
-  //   </tr>
-  // ))}
-
-  return (
+ 
+ return (
+    <>
+    <span onClick={()=>{setDropdown(!dropdown)}} className={` h-screen ${dropdown?"flex":"hidden"} fixed w-full  overflow-hidden  -mt-30`}></span>
     <div className="relative isolate px-6 pt-0 lg:pt-0">
       <header className="pb-6">
           <ol  className="mx-auto flex   ">
@@ -119,7 +131,7 @@ const product = {
               <CubeIcon className="h-8 w-8   "/>
             </div>
             <div className="grid grid-cols-1  items-center">
-              <h1 className='font-semibold text-xl' >36</h1>
+              <h1 className='font-semibold text-xl' >{NoOftotalOrder}</h1>
               <h1 className='text-gray-400'>Total Order</h1>
             </div>
           </div>
@@ -129,7 +141,8 @@ const product = {
               <CubeIcon className="h-8 w-8   "/>
             </div>
             <div className="grid grid-cols-1  items-center">
-              <h1 className='font-semibold text-xl' >36</h1>
+              <h1 className='font-semibold text-xl' >{NoOfactiveOrder}
+              </h1>
               <h1 className='text-gray-400'>Active Order</h1>
             </div>
           </div>
@@ -139,7 +152,7 @@ const product = {
               <CubeIcon className="h-8 w-8   "/>
             </div>
             <div className="grid grid-cols-1  items-center">
-              <h1 className='font-semibold text-xl' >36</h1>
+              <h1 className='font-semibold text-xl' >{NoOfcompleteOrder}</h1>
               <h1 className='text-gray-400'>Completed </h1>
             </div>
           </div>
@@ -149,7 +162,7 @@ const product = {
               <CubeIcon className="h-8 w-8   "/>
             </div>
             <div className="grid grid-cols-1  items-center">
-              <h1 className='font-semibold text-xl' >36</h1>
+              <h1 className='font-semibold text-xl' >{NoOfcancelOrder}</h1>
               <h1 className='text-gray-400'>Canceled</h1>
             </div>
           </div>
@@ -161,7 +174,7 @@ const product = {
         <div className="px-4 pt-2 sm:px-0">     
           {error && <p style={{ color: 'red' }}>{error}</p>}
 
-          <ul className='grid  gap-x-4 md:grid-cols-1 border border-gray-200 rounded-[1rem]  divide-y divide-gray-200 '>
+          <ul className='flex flex-col-reverse border border-gray-200 rounded-[1rem]  divide-y divide-gray-200 '>
           {orderItems.map((product) => (
             <li key={product.order_id} className=" flex py-8 px-8">
                 
@@ -176,8 +189,37 @@ const product = {
                 </div>
 
                 <div className="ml-4 flex flex-1 flex-col">
-                <p className="mt-1 text-[11px]  w-fit  text-indigo-400 border-[1px]  border-indigo-300 bg-indigo-100 rounded-sm px-2 flex gap-1"> <ClockIcon className='h-4 w-4' /> {expectedDeleveryDate(product.order_date)} </p>
+                    <div className="flex flex-1 items-end justify-between text-sm">
+                      <p className="mt-1 text-[11px]  w-fit  text-indigo-400 border-[1px]  border-indigo-300 bg-indigo-100 rounded-sm px-2 flex gap-1"> <ClockIcon className='h-4 w-4' />  {expectedDeleveryDate(product.order_date)}</p>
+                      
+                          <div className="relative z-20 flex justify-end px-4 pt-4">
+                                <button
+                                    onClick={() => handleDropdown(product.order_id)}
+                                    className={`inline-block text-gray-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg text-sm p-1.5`}
+                                >
+                                    <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
+                                        <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
+                                    </svg>
+                                </button>
+                                <div className={`  ${dropdown === product.order_id ? 'block' : 'hidden'}  absolute -right-2 top-12 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-36`}>
+                                    <ul id="status"
+                                        >
+                                        <li onClick={() => {UpdateStatus(product.order_id,'Order Confirmed')}} >
+                                            <h1 value="Canceled" className="cursor-pointer block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">Order Confirmed</h1>
+                                        </li>
 
+                                        <li onClick={() => {UpdateStatus(product.order_id,'Shipped')}} >
+                                            <h1 value="Canceled" className="cursor-pointer block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">Shipped</h1>
+                                        </li>
+
+                                        <li onClick={() => {UpdateStatus(product.order_id,'Delivered')}} >
+                                            <h1 value="Delivered" className="cursor-pointer block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100">Delivered</h1>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                          
+                    </div>
                     <div className="mt-1 flex justify-between text-base font-medium text-gray-900">
                         <h3>
                             <Link to={`/productview/${window.btoa(product.product_id*721426)}`} >{product.Product_name} , order Id :{product.order_id}</Link>
@@ -192,8 +234,10 @@ const product = {
 
                     <div className="flex flex-1 items-end justify-between text-sm">
                       <p className="mt-1 text-sm text-gray-500 "> {product.Address}</p>
-                      <p className="mt-1 text-sm text-green-400  bg-green-100 rounded-full px-2 flex justify-center items-center gap-1"> <CheckCircleIcon className='h-2 w-2 fill-green-400' /> {product.status}</p>
-                    </div>
+                      <p className={`${product.status==="Shipped"?"text-yellow-400  bg-yellow-100": product.status==="Canceled"? "text-red-400  bg-red-100" : product.status==="Delivered"? "text-indigo-400  bg-indigo-100" : "text-green-400  bg-green-100"} mt-1 text-sm  rounded-full px-2 flex justify-center items-center gap-1`}> <CheckCircleIcon className={`h-2 w-2  ${product.status==="Shipped"? "fill-yellow-400": product.status==="Canceled"? "fill-red-400" : product.status==="Delivered"? "fill-indigo-400" :"fill-green-400" }`} /> 
+                      {product.status}
+                      </p>
+                                          </div>
                     CustomerId: {product.customer_id} ,
                     name: {product.user_name} ,
                     mobile Number: {product.user_mobileNumber} , <br />
@@ -206,7 +250,8 @@ const product = {
           </ul>
         </div> 
       </div>
-</div>
+    </div>
+    </>
   );
 };
 
