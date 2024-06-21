@@ -2,7 +2,7 @@
 import { Fragment, useEffect, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import pagelogo from "../Customer/Component/Data/images-app/page-logo.jpg";
-// import { useSelector, useDispatch } from 'react-redux';
+import { ExclamationTriangleIcon,CheckIcon } from '@heroicons/react/24/outline';
 
 export default function UserEntry(Props) {
   const cancelButtonRef1 = useRef(null);
@@ -55,6 +55,10 @@ export default function UserEntry(Props) {
         setConfirmPassword('');
       } else {
         const errorData = await response.json();
+        
+        setTimeout(() => {
+          setError('');
+       }, 3000);
         setError(errorData.error );
       }
     } catch (error) {
@@ -130,6 +134,7 @@ export default function UserEntry(Props) {
 
    {/* signIn - login */}
    
+   
    <Transition.Root show={Props.SignInopen  } as={Fragment}>
       <Dialog as="div" className="relative z-40" initialFocus={cancelButtonRef1} onClose={Props.setOpenSignIn}>
         <Transition.Child
@@ -168,8 +173,8 @@ export default function UserEntry(Props) {
              </div>
              
           <div className=" mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-          {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+          {errorMessage && <p className='-mt-9 py-2 text-red-400 flex gap-2'><ExclamationTriangleIcon className='h-6 bg-red-100 p-1 rounded-full w-6'/>{errorMessage}</p>}
+          {successMessage && <p className='-mt-9 py-2 text-green-400 flex gap-2'><CheckIcon className='h-6 bg-green-100 p-1 rounded-full w-6'/> {successMessage}</p>}
             <form onSubmit={SignInAuthCheck} className="space-y-6" >
               <div>
                 <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
@@ -286,8 +291,10 @@ export default function UserEntry(Props) {
              </div>
   
           <div className=" mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          {error && <p style={{ color: 'red' }}>{error}</p>}
-          {success ?( <p style={{ color: 'green' }}>{success}</p>)
+          {error && <p className='-mt-9 py-2 text-red-400 flex gap-2'><ExclamationTriangleIcon className='h-6 bg-red-100 p-1 rounded-full w-6'/>{error}</p>}
+          {success ?( <p className='grid justify-center items-center text-green-400 '><CheckIcon className=' bg-green-100 p-2 mx-auto flex justify-center rounded-full h-10 w-10'/> 
+                       <h1 className='flex justify-center py-2 ' >{success}  </h1>
+                      </p>)
           :(
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
