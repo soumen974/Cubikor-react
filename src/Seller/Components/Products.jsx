@@ -24,6 +24,7 @@ const Products = () => {
               name: product.name,
                 imageSrc: product.imageSrc,
                 price: product.price,
+                product_image:product.product_image
             }));
             setProductdata(categoriesData);
           } catch (error) {
@@ -128,7 +129,8 @@ const Products = () => {
                   >
                     
                     <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap ">
-                      <img className="w-10 h-10 rounded-full" src={product.imageSrc} alt={`${product.name} image`} />
+                      <img className="w-10 h-10 rounded-full" src={`http://localhost:5000/${product.product_image}`} alt={`${product.name} image`} />
+
                       <div className="ps-3 truncate">
                         <div className="text-base font-semibold truncate">{product.name}</div>
                         <div className="font-normal text-gray-500">{product.price}</div>
