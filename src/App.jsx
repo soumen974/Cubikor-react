@@ -21,6 +21,7 @@ import DashBoard from './Seller/DashBoard';
 import CheckoutForm from './Customer/Pages/CheckoutForm';
 import SellerOrders from './Seller/SellerOrders';
 import CustomerOrders from './Customer/Pages/CustomerOrders';
+import DemoApp from './Demo/DemoApp';
 
 
 
@@ -56,6 +57,7 @@ export default function App() {
           {Authenticated ? (<Route path="/checkout/:productID" element={<CheckoutForm/>} />): null}
           {Authenticated ? (<Route path="/myorders" element={<CustomerOrders/>} />): null}
 
+          <Route path="/demouser" element={<DemoApp/>}/ >
 
           
 

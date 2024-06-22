@@ -182,7 +182,7 @@ export default function QuickPreview({ open, setOpen, ShopIDsend, CubeId, catId 
                       <div className="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8">
                         <div className="aspect-h-3 aspect-w-2 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5">
                           <Link to={`/productview/${window.btoa(productData.id*721426)}`} onClick={() => setOpen(false)}>
-                            <img src={productData.imageSrc} alt={productData.name} className="cursor-pointer object-cover object-center" />
+                            <img src={`http://localhost:5000/${productData.product_image}`} alt={productData.name} className="cursor-pointer object-cover object-center" />
                           </Link>
                         </div>
                         <div className="sm:col-span-8 lg:col-span-7">

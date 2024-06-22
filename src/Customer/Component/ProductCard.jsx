@@ -155,7 +155,7 @@ export default function ProductCard() {
               <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:w-[14rem] lg:h-[17rem]">
                  <Link to={`/productview/${window.btoa(product.id*721426)}`}>
                 <img
-                  src={product.imageSrc}
+                  src={`http://localhost:5000/${product.product_image}`}
                   alt={product.imageAlt}
                   className="w-full h-full object-cover object-center lg:w-full lg:h-full transition-transform duration-500 group-hover:scale-105 rounded-sm"
                 />

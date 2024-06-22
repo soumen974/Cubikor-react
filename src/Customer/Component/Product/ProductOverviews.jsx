@@ -202,56 +202,40 @@ export default function ProductOverview() {
 
             <div className="mx-auto  max-w-2xl sm:px-6 lg:-mt-20 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-32">
               <div className="bg-indigo-100 aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
-              {productdata.imageSrc?
+             
                 <img
-                  src={productdata.imageSrc}
+                  src={`http://localhost:5000/${productdata.product_image}`}
                   alt={productdata.imageAlt}
                   className="h-full w-full object-cover object-center"
-                />:
-                <div className="  flex justify-center items-center h-[80vh]">
-                  <PageLoder/>
-                </div>
-                }
+                />
               </div>
               <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
                 <div className="bg-indigo-100 aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-                {productdata.imageSrc?
+                
                   <img
-                    src={productdata.imageSrc}
+                    src={`http://localhost:5000/${productdata.product_image}`}
                     alt={productdata.imageAlt}
                     className="h-full w-full object-cover object-center"
                   />
-                  :
-                <div className="  flex justify-center items-center h-[40vh]">
-                  <PageLoder/>
-                </div>
-                }
+                
                 </div>
                 <div className="bg-yellow-100 aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-                {productdata.imageSrc?
+                
                   <img
-                    src={productdata.imageSrc}
+                    src={`http://localhost:5000/${productdata.product_image}`}
                     alt={productdata.imageAlt}
                     className="h-full w-full object-cover object-center"
                   />
-                  :
-                  <div className="  flex justify-center items-center h-[40vh]">
-                    <PageLoder/>
-                  </div>
-                  }
+                 
                 </div>
               </div>
               <div className="bg-yellow-100 aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
-              {productdata.imageSrc?
+              
                 <img
-                  src={productdata.imageSrc}
+                  src={`http://localhost:5000/${productdata.product_image}`}
                   alt={productdata.imageAlt}
                   className="h-full w-full object-cover object-center"
-                />:
-                <div className="  flex justify-center items-center h-[80vh]">
-                  <PageLoder/>
-                </div>
-                }
+                />
               </div>
             </div>
 
