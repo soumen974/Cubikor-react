@@ -10,7 +10,7 @@ const CreateProduct = () => {
   const [formData, setFormData] = useState({
     name: '',
     href: '/',
-    imageSrc: '',
+    // imageSrc: '',
     imageAlt: '',
     price: '',
     color: '',
@@ -80,7 +80,7 @@ const CreateProduct = () => {
       setFormData({
         name: '',
         href: '/',
-        imageSrc: '',
+        // imageSrc: '',
         imageAlt: '',
         price: '',
         color: '',
@@ -246,7 +246,7 @@ const CreateProduct = () => {
                 </div>
               </div>
               
-              <div className="sm:col-span-3">
+              {/* <div className="sm:col-span-3">
                 <label>imageSrc</label>
                 <div className="mt-2">
                   <input
@@ -257,11 +257,11 @@ const CreateProduct = () => {
                     className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
-              </div>
+              </div> */}
 
 
-              <div className="flex flex-wrap items-center justify-center sm:col-span-3  w-full">
-                  <label htmlFor="dropzone-file" className="w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 relative">
+              <div className="flex  sm:col-span-3 justify-center items-center  ">
+                  <label htmlFor="dropzone-file" className="w-full h-60 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 relative">
                       {imagePreview && (
                           <>
                               <img src={imagePreview} alt="Uploaded" className="w-full h-full object-cover rounded-lg" />
@@ -273,7 +273,7 @@ const CreateProduct = () => {
                           </>
                       )}
                       {!imagePreview && (
-                          <div className="flex flex-col items-center justify-center h-full">
+                          <div className="flex flex-col items-center justify-center  h-full ">
                               <svg className="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
                                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
                               </svg>
@@ -285,10 +285,22 @@ const CreateProduct = () => {
                   </label>
               </div>
 
+              <div className="sm:col-span-3">
+                <label>Highlights on this product:</label>
+                <div className="mt-2">
+                  <textarea
+                    name="highlights"
+                    value={formData.highlights}
+                    onChange={handleChange}
+                    className="block w-full md:min-h-48 md:max-h-60 rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  ></textarea>
+                </div>
+              </div>
+
              
              
               <div className="sm:col-span-6">
-                <label>Image Alt:</label>
+                <label> Alter name for this image:</label>
                 <div className="mt-2">
                   <input
                     type="text"
@@ -378,17 +390,7 @@ const CreateProduct = () => {
                 </div>
               </div>
 
-              <div className="sm:col-span-6">
-                <label>Highlights:</label>
-                <div className="mt-2">
-                  <textarea
-                    name="highlights"
-                    value={formData.highlights}
-                    onChange={handleChange}
-                    className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  ></textarea>
-                </div>
-              </div>
+              
             </div>
 
             <div className="mt-6 flex items-center justify-end gap-x-6">
