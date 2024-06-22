@@ -3,13 +3,10 @@ import axios from 'axios';
 import DialogBox from "../Customer/DialogBox";
 import { useNavigate } from 'react-router-dom';
 
-
 const CreateProduct = () => {
   const [Dialogopen, setDialogopenOpen] = useState(false);
 
   // post--method
-  const navigate=useNavigate();
-
   const [formData, setFormData] = useState({
     name: '',
     href: '/',
@@ -22,34 +19,61 @@ const CreateProduct = () => {
     description: '',
     details: '',
     highlights: '',
-    categoryId: ''
+    categoryId: '',
+    product_image: null
   });
 
   const [errors, setErrors] = useState([]);
   const [categories, setCategories] = useState([]);
   const [shopName, setShopName] = useState('');
-  
+  const [imagePreview, setImagePreview] = useState(null);
+
   const shopId = localStorage.getItem('ShopId');
   const token = localStorage.getItem('SellerToken');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
+    const { name, type, value, files } = e.target;
+    if (type === 'file' && files && files[0]) {
+      setFormData({
+        ...formData,
+        [name]: files[0],
+      });
+      setImagePreview(URL.createObjectURL(files[0]));
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
+  };
+
+  const handleRemoveImage = () => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      product_image: null,
     });
+    setImagePreview(null);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const data = new FormData();
+    for (const key in formData) {
+      if (formData[key] !== null && formData[key] !== '') {
+        data.append(key, formData[key]);
+      }
+    }
+
     try {
-       await axios.post(
+      await axios.post(
         `http://localhost:5000/shops/${shopId}/products`,
-        { ...formData, price: parseFloat(formData.price), rating: parseFloat(formData.rating), reviewCount: parseInt(formData.reviewCount) },
+        data,
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json'
+            'Content-Type': 'multipart/form-data',
           },
         }
       );
@@ -65,8 +89,11 @@ const CreateProduct = () => {
         description: '',
         details: '',
         highlights: '',
-        categoryId: ''
+        categoryId: '',
+        product_image: null
       });
+      setImagePreview(null);
+      
       setDialogopenOpen(false);
       navigate("/seller");
     } catch (error) {
@@ -126,24 +153,13 @@ const CreateProduct = () => {
     fetchShopName();
   }, [shopId, token]);
 
-// -----get_method
-
-
-// ----------------shops-all
-
-
-// Use another useEffect for fetching products for each shop
-
-
-  // ---pagination
   const product = {
     name: '3x3 cubes',
     breadcrumbs: [
       { id: 1, name: 'Dashboard', href: '/seller' },
       { id: 2, name: 'Add Product', href: '/seller/productadd' },
-    ]};
-
-
+    ]
+  };
 
   return (
     <div className="relative isolate px-6 pt-0 lg:pt-0">
@@ -229,9 +245,9 @@ const CreateProduct = () => {
                   />
                 </div>
               </div>
-
-              <div className="sm:col-span-6">
-                <label>Image Source:</label>
+              
+              <div className="sm:col-span-3">
+                <label>imageSrc</label>
                 <div className="mt-2">
                   <input
                     type="text"
@@ -243,6 +259,34 @@ const CreateProduct = () => {
                 </div>
               </div>
 
+
+              <div className="flex flex-wrap items-center justify-center sm:col-span-3  w-full">
+                  <label htmlFor="dropzone-file" className="w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 relative">
+                      {imagePreview && (
+                          <>
+                              <img src={imagePreview} alt="Uploaded" className="w-full h-full object-cover rounded-lg" />
+                              <button className="absolute top-2 right-2 p-1 bg-white rounded-full text-gray-500 hover:text-red-500" onClick={handleRemoveImage}>
+                                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                  </svg>
+                              </button>
+                          </>
+                      )}
+                      {!imagePreview && (
+                          <div className="flex flex-col items-center justify-center h-full">
+                              <svg className="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                              </svg>
+                              <p className="mb-2 text-sm text-gray-500"><span className="font-semibold">Click to upload Image</span> or drag and drop</p>
+                              <p className="text-xs text-gray-500">Image (MAX. 800x400px)</p>
+                          </div>
+                      )}
+                      <input id="dropzone-file" name='product_image' type="file" accept="image/*" className="hidden"  onChange={handleChange} />
+                  </label>
+              </div>
+
+             
+             
               <div className="sm:col-span-6">
                 <label>Image Alt:</label>
                 <div className="mt-2">
