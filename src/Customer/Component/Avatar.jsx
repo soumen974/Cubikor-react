@@ -70,7 +70,7 @@ export default function Avatar() {
 
   
   return (
-    <div className="  relative inline-block text-left">
+    <div className=" group  relative inline-block text-left">
       <abbr className='no-underline  ' title={user.name}> 
         <button
             id="dropdownUserAvatarButton"
@@ -82,10 +82,9 @@ export default function Avatar() {
         </button>
       </abbr>
 
-      {isOpen && (
-        <div
+      <div
           id="dropdownAvatar"
-          className=" z-10 lg:absolute  lg:right-0 md:mt-2 md:w-44 w-full  md:bg-white divide-y divide-gray-100 rounded-lg lg:shadow "
+          className="md:hidden group-hover:block z-10 lg:absolute  lg:right-0 md:mt-2 md:w-44 w-full  md:bg-white divide-y divide-gray-100 rounded-lg lg:shadow "
         >
           <div className="md:px-4 py-3 truncate text-sm text-gray-900 ">
             <div>{user.name}</div>
@@ -111,7 +110,8 @@ export default function Avatar() {
             <div className="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ">Sign out</div>
           </div>
         </div>
-      )}
+
+     
        <DialogBox 
          open={Dialogopen}
          setOpen={setDialogopenOpen} 
