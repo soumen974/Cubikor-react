@@ -354,7 +354,7 @@ const CheckoutForm = () => {
         sellerId: product.shop_id,
         userAddress: usrAddress,
         productName: product.name,
-        productImageSrc: product.imageSrc,
+        productImageSrc: `http://localhost:5000/${product.product_image}`,
         productPrice: (product.price *quantities[product.id]),
         userName: userData.name,
         userMobileNumber: userData.mobile_number
@@ -456,7 +456,7 @@ const product = {
                           <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                             <Link to={`/productview/${window.btoa(product.id*721426)}`}>
                               <img
-                                src={product.imageSrc}
+                                src={`http://localhost:5000/${product.product_image}`}
                                 alt={product.name}
                                 className="h-full w-full object-cover object-center"
                               />
