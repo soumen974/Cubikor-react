@@ -370,7 +370,6 @@ const CheckoutForm = () => {
         setMessage(true);
         setTimeout(() => {
           setMessage(false);
-          navigate('/')
           
         }, 5000);
     
