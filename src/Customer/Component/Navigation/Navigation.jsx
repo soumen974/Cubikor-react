@@ -31,8 +31,7 @@ export default function Navigation() {
   const token = localStorage.getItem('token');
   const isAuthenticated=  token;
   const userId = localStorage.getItem('userId');
-  let totalQuantity = 0;
-
+  
    // open ctrl+k search bar
 
    const handleKeyDown = (event) => {
@@ -41,8 +40,6 @@ export default function Navigation() {
       SetSearchBar(true);
     }
   };
-
-
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
