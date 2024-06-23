@@ -2,7 +2,7 @@ import { Fragment, useState, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import axios from 'axios';
-import { Link, Navigate} from 'react-router-dom';
+import { Link} from 'react-router-dom';
 
 export default function ShoppingCart(Props) {
     const [productdata, setProductdata] = useState([]);
