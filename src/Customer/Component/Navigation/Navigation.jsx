@@ -33,6 +33,24 @@ export default function Navigation() {
   const userId = localStorage.getItem('userId');
   let totalQuantity = 0;
 
+   // open ctrl+k search bar
+
+   const handleKeyDown = (event) => {
+    if (event.ctrlKey && event.key === 'k') {
+      event.preventDefault();
+      SetSearchBar(true);
+    }
+  };
+
+
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
  
 
   // ----shopping-cart-item-count-
