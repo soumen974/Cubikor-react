@@ -54,7 +54,7 @@ export default function App() {
           {Authenticated ? (<Route path="/profile" element={<Profile/>} />): null}
           {Authenticated ? (<Route path="/profileEdit" element={<EditProfile/>} />): null}
           {Authenticated ? (<Route path="/checkout" element={<CheckoutForm/>} />): null}
-          {Authenticated ? (<Route path="/checkout/:productID" element={<CheckoutForm/>} />): null}
+          {Authenticated ? (<Route path="/checkout/:prdid" element={<CheckoutForm/>} />): null}
           {Authenticated ? (<Route path="/myorders" element={<CustomerOrders/>} />): null}
 
           <Route path="/demouser" element={<DemoApp/>}/ >

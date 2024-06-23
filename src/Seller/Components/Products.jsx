@@ -36,9 +36,20 @@ const Products = () => {
       }, [shopId, token]);
       const navigate=useNavigate();
 
+      // product action
+
+      // const [categories, setCategories] = useState([]);
+        const [dropdown, setDropdown] = useState(null);
+
+      const handleDropdown = (id) => {
+        setDropdown(dropdown === id ? null : id);
+    };
+
   return (
     <>
+     <span onClick={()=>{setDropdown(!dropdown)}} className={` h-screen ${dropdown?"flex":"hidden"} fixed w-full    z-40 overflow-hidden  -mt-80`}></span>
     <div  className="relative mt-6 mx-auto max-w-2xl px-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
+      
             <h2 className="text-2xl tracking-tight text-gray-900 flex item-center gap-3 pb-2 ">Products
               <button
               onClick={() => navigate('/seller/productadd')}
@@ -137,19 +148,40 @@ const Products = () => {
                       </div>
                     </th>
                     <td className="px-6 py-4">{product.price}</td>
-                    <td className="px-6 py-4 truncate">{product.name}</td>
+                    <td className="px-6 py-4 truncate">3x3</td>
                     <td className="px-6 py-4">
                       <div className="flex items-center truncate">
                         <div
-                          className={`h-2.5 w-2.5 rounded-full truncate ${product.name === 'Online' ? 'bg-green-500' : 'bg-red-500'} me-2`}
+                          className={`h-2.5 w-2.5 rounded-full truncate ${product.name === 'YJ MGC 3x3 Magnetic Speedcube' ? 'bg-green-500' : 'bg-red-500'} me-2`}
                         ></div>{' '}
-                        <h1 className='truncate'>{product.name}</h1>
+                        <h1 className='truncate'>{product.name === 'YJ MGC 3x3 Magnetic Speedcube' ?"Instock":"Out of Stock"}</h1>
                       </div>
                     </td>
-                    <td className="px-6 py-4">
-                      <a href="#" className="font-medium text-blue-600 hover:underline">
-                        Edit user
-                      </a>
+                    <td className="px-6 py-4"> 
+                    <div className="relative flex justify-end px-4 pt-4">
+                        <button
+                            onClick={() => handleDropdown(product.id)}
+                            className={`inline-block text-gray-500 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg text-sm p-1.5`}
+                        >
+                            <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
+                                <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
+                            </svg>
+                        </button>
+                        <div className={`z-50 ${dropdown === product.id ? 'block' : 'hidden'} absolute right-10 top-5 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44`}>
+                            <ul className="py-2" aria-labelledby="dropdownButton">
+                                <li >
+                                    <h1 className="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit</h1>
+                                </li>
+                                <li>
+                                    <h1  className="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Export Data</h1>
+                                </li>
+                                <li >
+                                    <h1  className="cursor-pointer block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Delete</h1>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                      
                     </td>
                   </tr>
                 ))

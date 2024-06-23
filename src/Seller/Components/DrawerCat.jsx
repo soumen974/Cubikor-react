@@ -71,7 +71,7 @@ export default function DrawerCat({ drawerOpen, setDrawerOpen, ProductIdforEdit 
   return (
     <>
       {/* Drawer component */}
-      <div className={`${drawerOpen ? 'translate-y-[2rem]' : 'translate-y-[51rem] opacity-0 '} h-screen transition ease-in-out delay-150 fixed z-50 w-full overflow-y-auto bg-white border-t border-gray-200 rounded-t-lg dark:border-gray-700 dark:bg-gray-800 left-0 right-0`}>
+      <div className={`${drawerOpen ? 'translate-y-[2rem] block' : 'translate-y-[51rem] hidden opacity-0 '} h-screen transition ease-in-out delay-150 fixed z-50 w-full overflow-y-auto bg-white border-t border-gray-200 rounded-t-lg dark:border-gray-700 dark:bg-gray-800 left-0 right-0`}>
         <div onClick={() => setDrawerOpen(!drawerOpen)} className="p-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700">
           <span className="absolute w-8 h-1 -translate-x-1/2 bg rounded-lg top-3 left-1/2 dark:bg-gray-500"></span>
           <h5 id="drawer-swipe-label" className="inline-flex items-center text-base text-indigo-700 dark:text-gray-400 font-medium">

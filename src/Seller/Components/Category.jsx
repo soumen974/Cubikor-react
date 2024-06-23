@@ -43,7 +43,7 @@ export default function Category() {
         setDropdown(dropdown === id ? null : id);
     };
 
-    const deleteUser = async (id) => {
+    const deletecategory = async (id) => {
         try {
             const response = await axios.delete(`http://localhost:5000/shops/${shopId}/categories/${id}`, {
                 headers: {
@@ -55,7 +55,7 @@ export default function Category() {
             navigate('/seller');
         } catch (error) {
           setDropdown(true);
-            console.error('Error fetching categories:', error);
+            console.error('Error deleting categories:', error);
         }
    
     };
@@ -70,7 +70,7 @@ export default function Category() {
     return (
         <>
         <Drawer drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} ProductIdforEdit={ProductIdforEdit} />
-         <span onClick={()=>{setDropdown(!dropdown)}} className={` h-screen ${dropdown?"flex":"hidden"} fixed w-full   z-40 overflow-hidden  -mt-30`}></span>
+         <span onClick={()=>{setDropdown(!dropdown)}} className={` h-screen ${dropdown?"flex":"hidden"} fixed w-full  z-40 overflow-hidden  -mt-40`}></span>
         <div  className="mx-auto max-w-2xl px-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
             <h2 className="text-2xl tracking-tight text-gray-900 flex item-center gap-3 ">Categories
                   <button
@@ -123,7 +123,7 @@ export default function Category() {
                                           <li>
                                               <h1  className="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Export Data</h1>
                                           </li>
-                                          <li onClick={() => deleteUser(category.id)}>
+                                          <li onClick={() => deletecategory(category.id)}>
                                               <h1  className="cursor-pointer block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Delete</h1>
                                           </li>
                                       </ul>
