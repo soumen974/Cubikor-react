@@ -70,7 +70,7 @@ export default function Avatar() {
 
   
   return (
-    <div className=" group  relative inline-block text-left">
+    <div className=" group z  relative inline-block text-left">
       <abbr className='no-underline  ' title={user.name}> 
         <button
             id="dropdownUserAvatarButton"
@@ -81,35 +81,36 @@ export default function Avatar() {
             <div className={`px-4 py-2 text-black   rounded-full bg-yellow-400 uppercase cursor-pointer  `}>{user.name.charAt(0)|| user.email.charAt(0) }</div>
         </button>
       </abbr>
-
-      <div
-          id="dropdownAvatar"
-          className="md:hidden group-hover:block z-10 lg:absolute  lg:right-0 md:mt-2 md:w-44 w-full  md:bg-white divide-y divide-gray-100 rounded-lg lg:shadow "
-        >
-          <div className="md:px-4 py-3 truncate text-sm text-gray-900 ">
-            <div>{user.name}</div>
-            <div className="font-medium truncate"><abbr className='no-underline hover:underline decoration-solid' title={user.email}>{user.email}</abbr></div>
-          </div>
-          <ul className="py-2 text-sm text-gray-700 " aria-labelledby="dropdownUserAvatarButton">
-          <li>
-              <a href="/profile" className="block px-4 py-2 hover:bg-gray-100 ">Profile</a>
-            </li>
+      <div className="md:group-hover:block md:hidden bg-red- z-10 lg:absolute  lg:right-0 md:mt-2 md:w-44 w-full top-2 md:pt-10">
+        <div
+            id="dropdownAvatar"
+            className=" md:pt-2  md:bg-white divide-y divide-gray-100 rounded-lg lg:shadow "
+          >
+            <div className="md:px-4 py-3 truncate  text-gray-900 ">
+              <div className='capitalize text-sm font-medium text-gray-900 truncate '>{user.name}</div>
+              <div className="text-sm text-gray-500 truncate "><abbr className='no-underline hover:underline decoration-solid' title={user.email}>{user.email}</abbr></div>
+            </div>
+            <ul className="py-2 text-sm text-gray-700 " aria-labelledby="dropdownUserAvatarButton">
             <li>
-              <a href="/" className="block px-4 py-2 hover:bg-gray-100 ">Favorite</a>
-            </li>
-            <li>
-              <Link  to={"/myorders"} className="block px-4 py-2 hover:bg-gray-100 ">My Orders</Link>
-            </li>
-           
-            <li>
-              <a href="/" className="block px-4 py-2 hover:bg-gray-100">Settings</a>
-            </li>
-           
-          </ul>
-          <div onClick={()=>{setDialogopenOpen(true);setIsOpen(!isOpen);}}  className="py-2">
-            <div className="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ">Sign out</div>
-          </div>
+                <a href="/profile" className="block px-4 py-2 hover:bg-gray-100 ">Profile</a>
+              </li>
+              <li>
+                <a href="/" className="block px-4 py-2 hover:bg-gray-100 ">Favorite</a>
+              </li>
+              <li>
+                <Link  to={"/myorders"} className="block px-4 py-2 hover:bg-gray-100 ">My Orders</Link>
+              </li>
+            
+              <li>
+                <a href="/" className="block px-4 py-2 hover:bg-gray-100">Settings</a>
+              </li>
+            
+            </ul>
+            <div onClick={()=>{setDialogopenOpen(true);setIsOpen(!isOpen);}}  className="py-2">
+              <div className="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ">Sign out</div>
+            </div>
         </div>
+      </div>
 
      
        <DialogBox 
