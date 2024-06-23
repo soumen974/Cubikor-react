@@ -3,14 +3,11 @@ import { Dialog, Transition } from '@headlessui/react'
 import { IoSearchOutline } from "react-icons/io5";
 import axios from 'axios';
 import { Link} from 'react-router-dom';
+import PageLoder from '../Loaders/PageLoder';
 
 
 export default function SearchBox(Props) {
   const cancelButtonRef = useRef(null)
-
-  const open =Props.open;
-  const setOpen=Props.setOpen;
- 
 
 
   // search bar logic 
@@ -18,23 +15,82 @@ export default function SearchBox(Props) {
   const [searchTerm, setSearchTerm] = useState('');
   const [productIds, setProductIds] = useState([]);
   const [error, setError] = useState('');
+  const [isloading, setisloading] = useState(false)
 
 
   const handleSearch = async () => {
-    
+    setisloading(true);
+   
     try {
       const response = await axios.get(`http://localhost:5000/products?q=${searchTerm}`);
       setProductIds(response.data); // Assuming response.data is an array of product IDs
+      fetchCategories();
+      setError(false)
     } catch (error) {
-      console.error('Error fetching products:', error);
-      // setError(error);
-      // Handle error, e.g., show a message to the user
+      if (error.response) {
+        if (error.response.status === 404) {
+          setError(error.response.data.message);
+        } else {
+          setError(`Error fetching products: ${error.response.data.message}`);
+        }
+      } else {
+        setError('Error fetching products');
+      }
+      setisloading(false);
     }
   };
 
+  // fire the search on cheage on field 
+  const handleChangeField = (e) => {
+    setSearchTerm(e.target.value)
+    // e.preventDefault();
+    handleSearch();
+  };
+
+  // get the products from ids 
+  const token = localStorage.getItem('token');
+  const [productdata, setProductdata] = useState([]);
+
+ 
+    const fetchCategories = async () => {
+        try {
+            if (Array.isArray(productIds) && productIds.length > 0) {
+                const responses = await Promise.all(productIds.map(id => 
+                    fetch(`http://localhost:5000/products/${id}`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    })
+                ));
+
+                const productsDataArray = await Promise.all(responses.map(async (response) => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        const errorData = await response.json();
+                        setError("Error retrieving product:", errorData);
+                        return null;
+                    }
+                }));
+
+                const validData = productsDataArray.filter(data => data !== null);
+                setisloading(false);
+                setProductdata(validData);
+            }
+        } catch (error) {
+          setError('An error occurred, please try again later:', error);
+          setisloading(false);
+        }
+    };
+
+   
+
+  
+
   return (
-    <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-50" initialFocus={cancelButtonRef} onClose={setOpen}>
+    <Transition.Root show={Props.open} as={Fragment}>
+      <Dialog as="div" className="relative z-50" initialFocus={cancelButtonRef} onClose={Props.setOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -59,29 +115,28 @@ export default function SearchBox(Props) {
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg shadow-sm shadow-gray-400 text-left   transition-all sm:my-8 w-full max-w-md">
-              <form className="max-w-md mx-auto w-full">
-  <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only">
-    Search
-  </label>
-  <div className="relative">
-    <input
-      id="default-search"
-      type="text"
-      value={searchTerm}
-      onChange={(e) => setSearchTerm(e.target.value)}
-      className="block w-full sm:max-w-lg px-4 py-4 placeholder:text-gray-500 text-md text-gray-900 border-b-[1px] bg-gray-50 focus:outline-none focus:ring-yellow-500"
-      placeholder="Find cubes..."
-      required
-    />
-    <button
-      type="button" // Specify type="button" to prevent form submission
-      onClick={handleSearch}
-      className="absolute right-2.5 bottom-3.5 pr-2 font-medium text-sm text-gray-400"
-    >
-      <IoSearchOutline className="h-6 w-6" />
-    </button>
-  </div>
-</form>
+              <form onSubmit={handleSearch} className="max-w-md mx-auto w-full">
+                <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only">
+                  Search
+                </label>
+                <div className="relative">
+                  <input
+                    id="default-search"
+                    type="text"
+                    value={searchTerm}
+                    onChange={handleChangeField}
+                    className="block w-full sm:max-w-lg px-4 py-4 placeholder:text-gray-500 text-md text-gray-900 border-b-[1px] bg-gray-50 focus:outline-none focus:ring-yellow-500"
+                    placeholder="Find cubes..."
+                    required
+                  />
+                  <button
+                    onClick={handleSearch}
+                    className="absolute right-2.5 bottom-3.5 pr-2 font-medium text-sm text-gray-400"
+                  >
+                    <IoSearchOutline className="h-6 w-6" />
+                  </button>
+                </div>
+              </form>
 
                 {/* search things */}
                 <div className="bg-gray-50  py-0 px- pb-0 overflow-y-auto max-h-60">
@@ -92,14 +147,32 @@ export default function SearchBox(Props) {
                           <span className="ml-4 text-right text-xs text-slate-600 truncate"></span>
                         </li>
                         }
+                      {isloading && 
+                        <li className="flex items-center truncate justify-center p-4" id="headlessui-combobox-option-:rp:" role="option" tabindex="-1" aria-selected="false" data-headlessui-state="">
+                          <span className="whitespace-nowrap font-semibold truncate flex justify-center "> <h1><PageLoder/></h1></span>
+                        </li> }
 
-                      {productIds.map((id) => (
-                      <li key={id} className="flex items-center truncate justify-between p-4" id="headlessui-combobox-option-:rp:" role="option" tabindex="-1" aria-selected="false" data-headlessui-state="">
+                     
+
+                      {productdata.map((product) => (
+                        <li key={product.id} className="flex items-center truncate justify-between p-4" id="headlessui-combobox-option-:rp:" role="option" tabindex="-1" aria-selected="false" data-headlessui-state="">
                         <span className="whitespace-nowrap font-semibold truncate text-slate-900">
-                        <Link
-                         to={`/productview/${window.btoa(id*721426)}`} > Cube {id}</Link>
+                        <Link onClick={()=>{Props.setOpen(false)}} className='flex' to={`/productview/${window.btoa(product.id*721426)}`} >
+                        
+                          <img
+                              src={`http://localhost:5000/${product.product_image}`}
+                              alt={product.name}
+                              className="h-6 w-6 rounded-full object-cover object-center"
+                          />
+                          
+                         {product.name}
+                         </Link>
                           </span>
-                        <span className="ml-4 text-right text-xs text-slate-600 truncate">Category / 3x3 cubes</span>
+                        <span className="ml-4 text-right text-xs text-slate-600 truncate">
+                          Category / 3x3 cubes
+                          
+
+                        </span>
                       </li>
                       ))}
                     
