@@ -4,6 +4,7 @@ import { fetchUser } from "../../redux/userSlice";
 import DialogBox from '../../Customer/DialogBox';
 import { Link, useNavigate } from 'react-router-dom';
 import PageLoder from "../../../src/Loaders/PageLoder";
+import Cookies from 'js-cookie';
 
 export default function Avatar() {
 
@@ -24,6 +25,9 @@ export default function Avatar() {
     // const dispatch = useDispatch();
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
+    // const token = Cookies.get('UserToken');
+    // const userId = Cookies.get('userId');
+
 
     const [user, setUser] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
