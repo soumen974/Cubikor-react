@@ -1,10 +1,18 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Outlet, useNavigate } from 'react-router-dom'
 import Head from './Components/Head'
 
 
 
 export default function LayoutSeller() {
+  const shopId = localStorage.getItem('ShopId');
+  const Navigate=useNavigate();
+useEffect(() => {
+ if(!shopId){
+  Navigate('/seller/Login')
+ }
+}, [shopId])
+
   return (
     <>
      <Head/>
