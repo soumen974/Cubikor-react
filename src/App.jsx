@@ -65,18 +65,15 @@ export default function App() {
         </Route>
 
 
-        {Seller ? (
+        
         <Route path="/seller" element={<LayoutSeller/>}>
           <Route path="/seller" element={<DashBoard/>} />
           <Route path="/seller/categoriesadd" element={<CreateCategory/>} />
           <Route path="/seller/productadd" element={<CreateProduct/>} />
           <Route path="/seller/orders" element={<SellerOrders/>} />
-
-
         </Route>
-        ):
-        <Route path="/seller/Login" element={<Login/>} />
-        }
+        
+        
         {!Seller ? (
         <>
         <Route path="/seller/Login" element={<Login/>} />

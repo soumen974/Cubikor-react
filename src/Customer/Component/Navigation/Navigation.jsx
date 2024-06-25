@@ -11,6 +11,8 @@ import UserEntry from '../../../Auth/UserEntry';
 import userDAta from "../Data/user.json";
 import Avatar from '../Avatar';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+
 
 
 
@@ -29,6 +31,8 @@ export default function Navigation() {
   const [signinUp, setsignUp] = useState(false);
 
   const token = localStorage.getItem('token');
+  // const token = Cookies.get('UserToken');
+  // const userId = Cookies.get('userId');
   const isAuthenticated=  token;
   const userId = localStorage.getItem('userId');
   
