@@ -58,14 +58,7 @@ export default function ProductOverview() {
   const quantity = 1;
   const [message, setmessage] = useState({success:false, error:false});
   
-  const SuccessSound = () => {
-    const audio = new Audio(process.env.PUBLIC_URL + '/Sounds/success_bell-6776.mp3');
-    audio.play();
-  };
-  const errorSound= () => {
-    const audio = new Audio(process.env.PUBLIC_URL + '/Sounds/windows-error-sound-effect-35894.mp3');
-    audio.play();
-  }
+
 
   const AddingToBag = async (e) => {
     e.preventDefault();
