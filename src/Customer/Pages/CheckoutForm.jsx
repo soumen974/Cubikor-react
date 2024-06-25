@@ -8,7 +8,7 @@ import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 const CheckoutForm = () => {
 
   const {prdid}=useParams();
-  const productidforcheckout= window.atob(prdid)/721426;
+  // const productidforcheckout= window.atob(prdid)/721426;
   const [buynowProductData, setbuynowProductData] = useState([]);
 
   const [voucher, setVoucher] = useState('');
@@ -231,23 +231,6 @@ const CheckoutForm = () => {
   
                   setProductdata(validData);
 
-              }else if(productidforcheckout){
-                const response = await fetch(`http://localhost:5000/products/${productidforcheckout}`, {
-                      method: 'GET',
-                      headers: {
-                          'Authorization': `Bearer ${token}`
-                      }
-                  });
-
-                  if (response.ok) {
-                    const productDatafromparam = await response.json();
-                    setbuynowProductData(productDatafromparam);
-                  } else {
-                    const errorData = await response.json();
-                    
-                    console.log(errorData.message || 'Error retrieving products');
-                    navigate(`/${CubeId}`);
-                  }
               }
           } catch (error) {
               console.error('An error occurred, please try again later:', error);
@@ -461,75 +444,8 @@ const product = {
               <div className="flow-root">
                   <ul role="list" className="-my-6 divide-y divide-gray-200">
                     
-                    {productidforcheckout?
+                    {
                     
-                      
-                        <li  className="flex py-6">
-                          <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                            <Link to={`/productview/${window.btoa(buynowProductData.id*721426)}`}>
-                              <img
-                                src={`http://localhost:5000/${buynowProductData.product_image}`}
-                                alt={buynowProductData.name}
-                                className="h-full w-full object-cover object-center"
-                              />
-                            </Link>
-                          </div>
-                          <div className="ml-4 flex flex-1 flex-col">
-                            <div className="flex justify-between text-base font-medium text-gray-900">
-                              <h3>
-                                <Link to={`/productview/${window.btoa(buynowProductData.id*721426)}`}>{buynowProductData.name}</Link>
-                              </h3>
-                              <p className="ml-4">₹{buynowProductData.price}</p>
-                            </div>
-                            <p className="mt-1 text-sm text-gray-500">color</p>
-                            <div className="flex flex-1 items-end justify-between text-sm">
-                              <p className="text-gray-500">
-                                  <form className="max-w-xs pt-2 mx-auto flex gap-5">
-                                      <label htmlFor="">
-                                      Qty:                                                                    
-                                        </label>
-                                      <div className="relative flex items-center">
-                                          <button
-                                          type="button"
-                                         
-                                          className={` flex-shrink-0 bg-gray-100 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 focus:ring-2 focus:outline-none`}
-                                          >
-                                          <svg className="w-2.5 h-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
-                                              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h16"/>
-                                          </svg>
-                                          </button>
-                                          <input
-                                              type="text"
-                                              id="counter-input"
-                                              className="flex-shrink-0  text-gray-900 border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 max-w-[2.5rem] text-center"
-                                              placeholder=""
-                                             
-                                              readOnly
-                                          />
-                                          <button
-                                          type="button"
-                                          className={`flex-shrink-0   bg-gray-100 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 focus:ring-2 focus:outline-none`}
-                                          >
-                                          <svg className="w-2.5 h-2.5 text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 1v16M1 9h16"/>
-                                          </svg>
-                                          </button>
-                                      </div>
-                                  </form>
-                              </p>
-                              <div className="flex">
-                                <button
-                                  onClick={() => RemoveFromMyCart(product.id)}
-                                  type="button"
-                                  className="font-medium text-indigo-600 hover:text-indigo-500"
-                                >
-                                  Remove 
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                      :
                       productdata.length === 0 ? (
                           <div className="sm:col-span-2 mb-5">
                             <Link
