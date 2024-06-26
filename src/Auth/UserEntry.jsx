@@ -123,7 +123,11 @@ export default function UserEntry(Props) {
   };
 
  
-  
+  // google login
+
+    const handleOAuthGoogleLogin = () => {
+    window.location.href = 'http://localhost:5000/auth/google'; 
+  };
 
  
   
@@ -221,14 +225,22 @@ export default function UserEntry(Props) {
   
               <div>
                 <button
-                  // onClick={SignInAuthCheck}
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   Sign in
                 </button>
               </div>
+              
             </form>
+            <div>
+                <button
+                  onClick={handleOAuthGoogleLogin}
+                  className="flex w-full justify-center  mt-3 px-3 py-1.5 text-sm font-semibold  text-gray-700    "
+                >
+                   Login with Google
+                </button>
+              </div>
   
             <p className="mt-10 text-center flex text-sm text-gray-500">
               Not a member ?
