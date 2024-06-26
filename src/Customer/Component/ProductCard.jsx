@@ -4,6 +4,8 @@ import QuickPreview from "./Product/QuickPreview";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { MdKeyboardArrowRight } from "react-icons/md";
+import { HeartIcon } from '@heroicons/react/24/outline'
+
 
 
 
@@ -155,9 +157,14 @@ export default function ProductCard() {
                 
               }}
               className="group cursor-pointer  bg-gray-100 hover:bg-indigo-500 transition duration-500 px-2 py-2  rounded-lg relative"
-            >
+            >  
+            
+                    <div className="p-2 absolute top-3 z-40 text-gray-400 group hover:text-gray-500">
+                      <span className="sr-only">Favorite</span>
+                      <HeartIcon className="h-6 w-6 rounded-full group-active:fill-indigo-500 fill-green-400" aria-hidden="true" />
+                    </div>
               
-              <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:w-[14rem] lg:h-[17rem]">
+              <div className="aspect-w-1 relative aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:w-[14rem] lg:h-[17rem]">
                  <Link to={`/productview/${window.btoa(product.id*721426)}`}>
                 <img
                   src={`http://localhost:5000/${product.product_image}`}
@@ -165,8 +172,10 @@ export default function ProductCard() {
                   className="w-full h-full object-cover object-center lg:w-full lg:h-full transition-transform duration-500 group-hover:scale-105 rounded-sm"
                 />
                 </Link>
+               
                 
               </div>
+
               <div className="mt-4   justify-between">
                   <div className="  " >
                     <p className="text-sm md:w-[14rem] truncate overflow-hidden group-hover:text-white text-gray-700 w-full ">
