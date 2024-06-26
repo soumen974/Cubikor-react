@@ -307,7 +307,7 @@ export default function ProductOverview() {
           </div>
 
           <div>
-            <SuggestedProduct categoryName={categoryData?.name} catID={categoryData?.id} />
+            <SuggestedProduct categoryName={categoryData?.name} catID={productdata.id} />
           </div>
         </div>
       </div>
