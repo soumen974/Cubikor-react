@@ -1,7 +1,7 @@
 
 import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
-import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon,HeartIcon } from '@heroicons/react/24/outline'
 import CloseIcon from '@mui/icons-material/Close';
 import pagelogo from "../Data/images-app/page-logo.jpg";
 import SearchBox from '../../SearchBox';
@@ -12,10 +12,10 @@ import userDAta from "../Data/user.json";
 import Avatar from '../Avatar';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-
-
-
-
+import { RiSignalWifiErrorLine } from "react-icons/ri";
+import { MdOutlineCancel } from "react-icons/md";
+import { IoIosArrowDown } from "react-icons/io";
+import { MdFavoriteBorder } from "react-icons/md";
 
 
 function classNames(...classes) {
@@ -29,6 +29,7 @@ export default function Navigation() {
   const [shoppingCart, setshoppingCart] = useState(false);
   const [signin, setsignin] = useState(false);
   const [signinUp, setsignUp] = useState(false);
+  const[error,seterrror]=useState(null);
 
   const token = localStorage.getItem('token');
   // const token = Cookies.get('UserToken');
@@ -83,6 +84,7 @@ export default function Navigation() {
             console.log(error.response.data.errors);
         } else {
             console.log(`Error: ${error.message}`);
+            seterrror(error.message);
         }
     }
 };
@@ -92,13 +94,26 @@ useEffect(() => {
 }, [userId,itemCount]);
 
 
-
   
 
   return (
     <>
     <SearchBox open={SearchBar} setOpen={SetSearchBar}/>
     <SHoppingCart open={shoppingCart} setOpen={setshoppingCart}/>
+    {/* error */}
+    {error&&
+    <div className="z-50 fixed top-[48rem] md:top-2 md:px-[30%] px-[10%]   w-full flex justify-center ">
+        <div className="flex relative items-center w-fit  px-4  py-3 space-x-4  text-gray-500 bg-white divide-x  divide-gray-200 rounded-md shadow-md border space-x " role="alert">
+            <div className={`mx-auto flex  flex-shrink-0 items-center justify-center rounded-full  bg-red-100  p-2`}>
+                <RiSignalWifiErrorLine className="h-5 w-5 text-red-600" aria-hidden="true" />
+            </div>
+            <div className="px-3 text-sm font-normal">{error} Or: Server down</div>
+           
+        </div> 
+        
+        
+   </div>}
+
     <UserEntry SignInopen={signin} setOpenSignIn={setsignin} open={signinUp} setOpen={setsignUp}/>
       <div className="bg-white fixed w-full z-40">
         {/* Mobile menu */}
@@ -282,33 +297,30 @@ useEffect(() => {
                 {/* Flyout menus */}
                 <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
                   <div className="flex h-full space-x-8">
-                    {navigation.categories.map((category) => (
+                    <div className="flex group h-full space-x-8">
+                    {navigation.categories.slice(0, 1).map((category) => (
                       <Popover key={category.name} className="flex">
-                        {({ open }) => (
-                          <>
-                            <div className="relative flex">
+                       
+                          <div className='group hover:bg-red-00 flex'>
+                            <div className="group relative flex">
                               <Popover.Button
-                                className={classNames(
-                                  open
-                                    ? 'border-indigo-600 text-indigo-600'
-                                    : 'border-none text-gray-700 hover:text-gray-800',
-                                  'relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out'
-                                )}
-                              >
+                                className={
+                                  
+                                    'group-hover:border-indigo-600 gap-x-2  group-hover:text-indigo-600 border-b-2 border-transparent text-gray-700 hover:text-gray-800 relative z-10 -mb-px flex items-center  pt-px text-sm font-medium transition-colors duration-200 ease-out'}
+>
                                 {category.name}
+                                <div className='flex   items-center '>
+                                 <IoIosArrowDown className='group-hover:rotate-180 transition-rotate transition ease-out duration-200' />
+                                </div>
                               </Popover.Button>
+                              
                             </div>
 
-                            <Transition
-                              as={Fragment}
-                              enter="transition ease-out duration-200"
-                              enterFrom="opacity-0"
-                              enterTo="opacity-100"
-                              leave="transition ease-in duration-150"
-                              leaveFrom="opacity-100"
-                              leaveTo="opacity-0"
+                            <div
+                              
+                              className='hidden group-hover:block transition-block delay-400 duration-400 ease-out group-hover:opacity-100 opacity-0 transition-opacity  '
                             >
-                              <Popover.Panel className="absolute inset-x-0 top-full text-sm text-gray-500">
+                              <div className="absolute inset-x-0 top-full text-sm text-gray-500">
                                 {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
                                 <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true" />
 
@@ -360,12 +372,18 @@ useEffect(() => {
                                     </div>
                                   </div>
                                 </div>
-                              </Popover.Panel>
-                            </Transition>
-                          </>
-                        )}
+                              </div>
+                            </div>
+                          </div>
+                        
                       </Popover>
                     ))}
+                    </div>
+
+                    
+
+                    
+
 
                     {navigation.pages.map((page) => (
                       <a
@@ -406,15 +424,12 @@ useEffect(() => {
                     </div>
                   )}
 
-                  <div className="hidden lg:ml-8 lg:flex">
-                    <a href="#" className="flex items-center text-gray-700 hover:text-gray-800">
-                      <img
-                        src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg"
-                        alt=""
-                        className="block h-auto w-5 flex-shrink-0"
-                      />
-                      <span className="ml-3 block text-sm font-medium">INR</span>
-                      <span className="sr-only">, change currency</span>
+
+                  {/* fav */}
+                  <div className="flex lg:ml-6" onClick={isAuthenticated ? () => setshoppingCart(true) : () => setsignin(true)}>
+                    <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
+                      <span className="sr-only">Favorite</span>
+                      <HeartIcon className="h-6 w-6 rounded-full" aria-hidden="true" />
                     </a>
                   </div>
 
