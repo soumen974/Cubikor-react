@@ -61,7 +61,7 @@ export default function AddtoCart({ ShopID, productID, catId }) {
             }
           }
         }else{
-          navigate("/seller/Login")
+          // navigate("/seller/Login")
         }
        
       };
