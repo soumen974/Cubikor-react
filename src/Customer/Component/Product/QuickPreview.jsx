@@ -6,6 +6,8 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, clearErrors, clearMessage } from '../../../redux/cartSlice';
 import PageLoder from "../../../Loaders/PageLoder";
+import Favorite from "../../Component/Fav";
+import AddtoCart from "../../Component/AddtoCart";
 
 
 
@@ -168,7 +170,7 @@ export default function QuickPreview({ open, setOpen, ShopIDsend, CubeId, catId 
               leaveTo="opacity-0 translate-y-4 md:translate-y-0 md:scale-95"
             >
               <Dialog.Panel className="p-[1rem] pt-[5rem] sm:mt-0 flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl">
-                <div className="relative flex w-full items-center overflow-hidden bg-white rounded-md px-8 pb-8 pt-0 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
+                <div className="relative flex w-full items-center overflow-hidden bg-white rounded-md px-8 pb-8 pt-8 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
                   <button
                     type="button"
                     className="absolute right-9 top-10 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8"
@@ -180,11 +182,18 @@ export default function QuickPreview({ open, setOpen, ShopIDsend, CubeId, catId 
                   {productData && categoryData ? (
                     <div>
                       <div className="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8">
+                        
+                      <div className="p-2 absolute   top-9 z-40 text-gray-200 group hover:text-indigo-500">
+                        <span className="sr-only">Favorite</span>
+                        <Favorite  prdId={productData.id} prdName={productData.name} prdImage_src={productData.product_image} prdPrice={productData.price}/>
+                      </div>
+
                         <div className="aspect-h-3 aspect-w-2 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5">
                           <Link to={`/productview/${window.btoa(productData.id*721426)}`} onClick={() => setOpen(false)}>
                             <img src={`http://localhost:5000/${productData.product_image}`} alt={productData.name} className="cursor-pointer object-cover object-center" />
                           </Link>
                         </div>
+
                         <div className="sm:col-span-8 lg:col-span-7">
                           <h2 className="text-2xl font-bold text-gray-900 sm:pr-12 py-8">Puzzle Category: {categoryData.name}</h2>
                           <div>
@@ -194,14 +203,7 @@ export default function QuickPreview({ open, setOpen, ShopIDsend, CubeId, catId 
 
                           <section aria-labelledby="options-heading" className="mt-10">
                             <h3 id="options-heading" className="sr-only">Product options</h3>
-                            <form onSubmit={AddingToBag}>
-                              <button
-                                type="submit"
-                                className={`mt-6 flex w-full items-center justify-center rounded-md border border-transparent  px-8 py-3 text-base font-medium text-white  focus:outline-none focus:ring-2 ${messages.success? null : messages.error? "focus:ring-red-500 bg-red-600 hover:bg-red-700":" focus:ring-indigo-500 bg-indigo-600 hover:bg-indigo-700" }  focus:ring-offset-2`}
-                              >
-                               {messages.error? "Already added":"Add to bag"}
-                              </button>
-                            </form>
+                            <AddtoCart ShopID={ShopID} productID={productID} catId={catId} />
                           </section>
                         </div>
                       </div>
