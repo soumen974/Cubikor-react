@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DialogBox from "../Customer/DialogBox";
 import { useNavigate } from 'react-router-dom';
+import useConfirmExit from "../message/useConfirmExit";
 
 const CreateProduct = () => {
   const [Dialogopen, setDialogopenOpen] = useState(false);
 
+  useConfirmExit('Are you sure you want to leave this page?');
   // post--method
   const [formData, setFormData] = useState({
     name: '',
@@ -152,6 +154,9 @@ const CreateProduct = () => {
 
     fetchShopName();
   }, [shopId, token]);
+
+
+  
 
   const product = {
     name: '3x3 cubes',

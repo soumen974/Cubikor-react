@@ -1,10 +1,12 @@
-import React, {  useState } from 'react';
+import React, {  useState ,useEffect} from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import DialogBox from "../Customer/DialogBox";
 import { useNavigate } from 'react-router-dom';
+import useConfirmExit from "../message/useConfirmExit";
 
 const CategoryForm = () => {
+  useConfirmExit('Are you sure you want to leave this page? Changes that you made may not be saved.');
   const { register, handleSubmit, reset } = useForm();
   const [Dialogopen, setDialogopenOpen] = useState(false);
 
@@ -38,6 +40,7 @@ const CategoryForm = () => {
     
   };
 
+  
   // -------------pagination----------------
   const product = {
     name: '3x3 cubes',
