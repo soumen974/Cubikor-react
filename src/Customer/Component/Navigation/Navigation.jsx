@@ -84,7 +84,7 @@ export default function Navigation() {
             console.log(error.response.data.errors);
         } else {
             console.log(`Error: ${error.message}`);
-            seterrror(error.message);
+            // seterrror(error.message);
         }
     }
 };
@@ -107,7 +107,7 @@ useEffect(() => {
             <div className={`mx-auto flex  flex-shrink-0 items-center justify-center rounded-full  bg-red-100  p-2`}>
                 <RiSignalWifiErrorLine className="h-5 w-5 text-red-600" aria-hidden="true" />
             </div>
-            <div className="px-3 text-sm font-normal">{error} Or: Server down</div>
+            <div className="px-3 text-sm font-normal">{error}</div>
            
         </div> 
         
@@ -426,12 +426,14 @@ useEffect(() => {
 
 
                   {/* fav */}
-                  <div className="flex lg:ml-6" onClick={isAuthenticated ? () => setshoppingCart(true) : () => setsignin(true)}>
+                  {/* <div className="flex lg:ml-6" onClick={isAuthenticated ? () => setshoppingCart(true) : () => setsignin(true)}>
                     <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
                       <span className="sr-only">Favorite</span>
                       <HeartIcon className="h-6 w-6 rounded-full" aria-hidden="true" />
                     </a>
-                  </div>
+                  </div> */}
+
+                  
 
                   {/* Search */}
                   <div className="flex lg:ml-6" onClick={()=>SetSearchBar(true)}>
