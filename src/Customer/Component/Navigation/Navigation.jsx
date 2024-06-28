@@ -317,8 +317,8 @@ useEffect(() => {
                             </div>
 
                             <div
-                              
-                              className='hidden group-hover:block transition-block delay-400 duration-400 ease-out group-hover:opacity-100 opacity-0 transition-opacity  '
+                              // group-hover:translate-x-full translate-y-[4rem] translate-y-[-30rem] transform hidden group-hover:block transition ease-in-out duration-500 sm:duration-700
+                              className='transition ease-in-out delay-200 duration-500  group-hover:block hidden    fixed mx-auto left-0 -z-10 top-20 w-full   '
                             >
                               <div className="absolute inset-x-0 top-full text-sm text-gray-500">
                                 {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
