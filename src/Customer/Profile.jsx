@@ -46,8 +46,8 @@ export default function Profile() {
 
   return (
     <>
-      <div className="mx-auto max-w-6xl py-32 sm:py-10 lg:py-10">
-        <div className="px-4 pt-20 sm:px-0">
+      <div className="mx-auto max-w-6xl ">
+        <div className="px-4  sm:px-0">
           {errorMessage && (
             <div className="text-red-500">{errorMessage}</div>
           )}

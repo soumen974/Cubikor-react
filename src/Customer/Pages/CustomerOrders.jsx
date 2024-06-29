@@ -96,7 +96,7 @@ const product = {
   return (  
     <>
     <span onClick={()=>{setDropdown(!dropdown)}} className={` h-screen ${dropdown?"flex":"hidden"} fixed w-full  overflow-hidden  -mt-30`}></span>
-    <div className="mx-auto max-w-6xl py-32 sm:py-10 lg:py-10 min-h-screen ">
+    <div className="mx-auto max-w-6xl  min-h-screen ">
         <header className="pb-1">
           <ol  className="mx-auto flex   ">
           {product.breadcrumbs.map((breadcrumb) => (

@@ -154,7 +154,7 @@ export default function ProductOverview() {
        {message.success? <TostBox success={true} message={"Successfully  added to cart"}/>:null}
        {message.error? <TostBox error={true} message={"Already added to cart"}/>:null}
         <div>
-          <div className="mt-10 text-gray-900">
+          <div className=" text-gray-900">
             <nav aria-label="Breadcrumb">
               <ol role="list" className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
                 {pagenation.breadcrumbs.map((breadcrumb) => (

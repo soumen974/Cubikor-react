@@ -112,11 +112,11 @@ export default function EditProfile() {
   };
 
   return (
-    <div className="relative isolate px-6 pt-0 lg:pt-0">
-      <div className="mx-auto max-w-2xl py-32 sm:py-10 lg:py-10">
+    <div className="relative isolate px-6 ">
+      <div className="mx-auto max-w-2xl ">
         <form >
           {errorMessage && <p>{errorMessage}</p>}
-          <div className="space-y-8 mt-20">
+          <div className="space-y-8 ">
             <div className="border-b border-gray-900/10 pb-7">
               <h2 className="text-md font-semibold leading-7 text-gray-900">Profile : {userData.name}</h2>
               <p className="mt-1 text-sm leading-6 text-gray-600">
