@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { FaChevronRight } from "react-icons/fa6";
 
 const navigation = [
   { name: 'Product', href: '#' },
@@ -52,8 +53,11 @@ export default function Hero() {
               >
                 Get your own
               </a>
-              <a href="/new" className="text-sm font-semibold leading-6 text-gray-900">
-              Check out other cubes<span aria-hidden="true">→</span>
+              <a href="/new" className=" flex items-center justify-center group/check text-sm  font-semibold leading-6 text-gray-900">
+              Check out other cubes
+              <span className='group-hover/check:translate-x-1 flex h-2 transition-translate transition duration-200 ' aria-hidden="true">
+               <FaChevronRight className='h-3 w-3'/>
+              </span>
               </a>
             </div>
           </div>

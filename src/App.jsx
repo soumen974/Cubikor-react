@@ -22,6 +22,7 @@ import CheckoutForm from './Customer/Pages/CheckoutForm';
 import SellerOrders from './Seller/SellerOrders';
 import CustomerOrders from './Customer/Pages/CustomerOrders';
 import DemoApp from './Demo/DemoApp';
+import Favorite from './Customer/Pages/Favorite';
 
 
 
@@ -47,6 +48,7 @@ export default function App() {
           <Route path="/ImageUploader" element={<ImageUploader/>} />
           
           <Route path="/new" element={<NewProduct/>}/ >
+          <Route path="/favorites" element={<Favorite/>}/ >
           <Route path="/learn" element={<Learn/>}/ >
           <Route path="/productview/:CubeId" element={<ProductOverview/>}/ >
           <Route path="/products" element={<CategoryProduct/>}/ >

@@ -411,8 +411,8 @@ const product = {
   return (
     <>
     
-    <section className="mx-auto max-w-6xl py-32 sm:py-10 lg:py-10  ">
-    <header className="py-4 ">
+    <section className="mx-auto max-w-6xl   ">
+    <header className=" ">
       <ol  className="mx-auto flex   ">
       {product.breadcrumbs.map((breadcrumb) => (
         <li key={breadcrumb.id}>

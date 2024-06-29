@@ -12,7 +12,7 @@ export default function NewProduct(Props) {
   return (
     <div className=''>
     { !Props.page ? 
-    <div className=' pt-20 pb-7'>
+    <div className='  pb-7'>
        <div className="  ">
           <div className="  text-gray-900">
           <nav aria-label="Breadcrumb">

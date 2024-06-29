@@ -329,8 +329,8 @@ useEffect(() => {
                                     <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-16">
                                       <div className="col-start-2 grid grid-cols-2 gap-x-8">
                                         {category.featured.map((item) => (
-                                          <div key={item.name} className="group relative text-base sm:text-sm">
-                                            <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
+                                          <div key={item.name} className="group/img relative text-base sm:text-sm">
+                                            <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover/img:opacity-75">
                                               <img
                                                 src={item.imageSrc}
                                                 alt={item.imageAlt}
