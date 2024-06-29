@@ -27,11 +27,11 @@ export default function Layout() {
   return (
     <>
      <Navigation/>
-      <div className="relative mx-auto max-w-screen py-20 px-2 md:px-[12vw]  ">
+      <div className="relative mx-auto max-w-screen py-40 px-2 md:px-[12vw]  ">
           <Outlet />
       </div>
      
-      <div className="relative rounded-xl mx-auto max-w-screen py-0 px-0 lg:py-12 lg:px-[12vw]  ">
+      <div className="relative rounded-xl    ">
       <Footer/>
       </div>
       <abbr title='Scroll to Top' className={` fixed top-[25rem] lg:top-[30rem] ${showButton? "opacity-100 " :" opacity-0 invisible "} xl:right-20 right-0 mx-auto w-fit h-fit py-20 px-2 `}>
