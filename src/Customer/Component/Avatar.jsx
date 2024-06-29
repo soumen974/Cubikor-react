@@ -99,7 +99,7 @@ export default function Avatar() {
                 <a href="/profile" className="block px-4 py-2 hover:bg-gray-100 ">Profile</a>
               </li>
               <li>
-                <a href="/" className="block px-4 py-2 hover:bg-gray-100 ">Favorite</a>
+                <Link to={"/favorites"} className="block px-4 py-2 hover:bg-gray-100 ">Favorite</Link>
               </li>
               <li>
                 <Link  to={"/myorders"} className="block px-4 py-2 hover:bg-gray-100 ">My Orders</Link>
