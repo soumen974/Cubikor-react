@@ -4,8 +4,8 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import SuggestedProduct from './SuggestedProduct';
 import PageLoder from "../../../Loaders/PageLoder";
-import { HeartIcon} from '@heroicons/react/24/outline';
 import TostBox from "../../TostBox";
+import Favorites from "../Fav";
 
 
 function classNames(...classes) {
@@ -187,11 +187,7 @@ export default function ProductOverview() {
 
           <div className="md:pt-20 relative">
             
-            <form className=" text-transparent  cursor-pointer group absolute top-8 right-8">
-              <abbr title='add to fav'>
-               <HeartIcon className=" group-active:fill-yellow-400 fill-gray-200   h-6 w-6 mr-2"/>
-              </abbr>
-            </form>
+            
 
             <div className="mx-auto  max-w-2xl sm:px-6 lg:-mt-20 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-32">
               <div className="bg-indigo-100 aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
@@ -229,6 +225,11 @@ export default function ProductOverview() {
                   alt={productdata.imageAlt}
                   className="h-full w-full object-cover object-center"
                 />
+              </div>
+
+              <div className="p-2 absolute hidden group-hover:block  top-3 z-40 text-gray-200 group hover:text-indigo-500">
+                <span className="sr-only">Favorite</span>
+                <Favorites prdId={productdata.id} prdName={productdata.name} prdImage_src={productdata.product_image} prdPrice={productdata.price}/>
               </div>
             </div>
 

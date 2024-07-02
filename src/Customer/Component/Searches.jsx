@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import PageLoder from '../../Loaders/PageLoder';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import Favorite from "../Component/Fav";
 
 
@@ -11,9 +11,11 @@ import Favorite from "../Component/Fav";
 export default function Searches() {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
-  const searchTerm = searchParams.get('q');
+//   const searchTerm = searchParams.get('q');
 
   const [productIds, setProductIds] = useState([]);
+  const [searchTerm, setSearchTerm] = useState(searchParams.get('q'));
+
   const [error, setError] = useState('');
   const [isloading, setisloading] = useState(false)
   const token = localStorage.getItem('token');
@@ -21,7 +23,7 @@ export default function Searches() {
 
   const handleSearch = async () => {
     setisloading(true);
-    
+
    
     try {
       const response = await axios.get(`http://localhost:5000/products?q=${searchTerm}`);
@@ -43,6 +45,14 @@ export default function Searches() {
   };
 
   useEffect(() => {handleSearch()}, [searchTerm]);
+
+  const handleChangeField = (e) => {
+    setSearchTerm(e.target.value);
+    handleSearch();
+    if (e.key === 'Enter') {
+      e.preventDefault();
+    }
+  };
 
 
     // get the products from ids 
@@ -82,7 +92,10 @@ export default function Searches() {
           }
       };
   return (
-    <div>Searches: {searchTerm}
+    <div>Searches:
+        <input type="text"  value={searchTerm}
+                    onChange={handleChangeField}
+                    onKeyDown={handleChangeField}/> 
     <div className="">
         {isloading && 
         <li className="flex items-center truncate justify-center p-4" id="headlessui-combobox-option-:rp:" role="option" tabindex="-1" aria-selected="false" data-headlessui-state="">
