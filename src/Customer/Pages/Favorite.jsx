@@ -1,8 +1,29 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
+import axios from 'axios';
 import ProductCard from '../Component/ProductCard';
 
 export default function Favorite(Props) {
-    
+
+
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/protected', {
+          withCredentials: true  // Ensure credentials (cookies) are sent
+        });
+        setUser(response.data);
+        console.log(response.data);  // Log the response data
+      } catch (error) {
+        setError(error.response ? error.response.data : error.message);
+      }
+    };
+
+    fetchData();
+  }, []);
   
     const product = {
         name: '3x3 cubes',
@@ -36,6 +57,7 @@ export default function Favorite(Props) {
                 </div>
               </li>
             ))}
+           
             <li className="text-sm">
                   <a href="/new" aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
                   New
@@ -52,6 +74,18 @@ export default function Favorite(Props) {
             
     </div> : null}
     <ProductCard/>
+    <div>
+      {error && <p>Error: {error}</p>}
+      {user ? (
+        <div>
+          <h1>Welcome {user.name}</h1>
+          <p>ID: {user.id}</p>
+          <p>Email: {user.email}</p>
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
     
     
     </div>
