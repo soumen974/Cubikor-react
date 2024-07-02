@@ -2,7 +2,7 @@ import { Fragment, useRef, useState ,useEffect} from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { IoSearchOutline } from "react-icons/io5";
 import axios from 'axios';
-import { Link} from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import PageLoder from '../Loaders/PageLoder';
 
 
@@ -16,6 +16,9 @@ export default function SearchBox(Props) {
   const [productIds, setProductIds] = useState([]);
   const [error, setError] = useState('');
   const [isloading, setisloading] = useState(false)
+  const Navigate = useNavigate();
+
+  
 
 
   const handleSearch = async () => {
@@ -42,10 +45,15 @@ export default function SearchBox(Props) {
 
   // fire the search on cheage on field 
   const handleChangeField = (e) => {
-    setSearchTerm(e.target.value)
-    // e.preventDefault();
+    setSearchTerm(e.target.value);
     handleSearch();
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      Navigate(`/result?q=${searchTerm}`);
+      Props.setOpen(false);
+    }
   };
+
 
   // get the products from ids 
   const token = localStorage.getItem('token');
@@ -125,6 +133,7 @@ export default function SearchBox(Props) {
                     type="text"
                     value={searchTerm}
                     onChange={handleChangeField}
+                    onKeyDown={handleChangeField}
                     className="block w-full sm:max-w-lg px-4 py-4 placeholder:text-gray-500 text-md text-gray-900 border-b-[1px] bg-gray-50 focus:outline-none focus:ring-yellow-500"
                     placeholder="Find cubes..."
                     required

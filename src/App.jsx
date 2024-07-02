@@ -23,6 +23,7 @@ import SellerOrders from './Seller/SellerOrders';
 import CustomerOrders from './Customer/Pages/CustomerOrders';
 import DemoApp from './Demo/DemoApp';
 import Favorite from './Customer/Pages/Favorite';
+import Searches from './Customer/Component/Searches';
 
 
 
@@ -58,6 +59,8 @@ export default function App() {
           {Authenticated ? (<Route path="/checkout" element={<CheckoutForm/>} />): null}
           {Authenticated ? (<Route path="/checkout/:prdid" element={<CheckoutForm/>} />): null}
           {Authenticated ? (<Route path="/myorders" element={<CustomerOrders/>} />): null}
+
+          <Route path="/result" element={<Searches/>}/ >
 
           <Route path="/demouser" element={<DemoApp/>}/ >
 
