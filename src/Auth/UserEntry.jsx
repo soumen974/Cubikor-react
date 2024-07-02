@@ -82,6 +82,7 @@ export default function UserEntry(Props) {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify({ email: SignInemail, password: SignInpassword }), // Corrected variable names
       });
   
