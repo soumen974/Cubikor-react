@@ -5,7 +5,7 @@ import DialogBox from '../../Customer/DialogBox';
 import { Link, useNavigate } from 'react-router-dom';
 import PageLoder from "../../../src/Loaders/PageLoder";
 import Cookies from 'js-cookie';
-
+import axios from "axios";
 export default function Avatar() {
 
     const [isOpen, setIsOpen] = useState(false);
@@ -13,9 +13,36 @@ export default function Avatar() {
 
     const Navigate =useNavigate();
 
+
+    function logout() {
+      axios.post('http://localhost:5000/logout', {}, { withCredentials: true })
+        .then(response => {
+          console.log(response.data);
+          // Redirect to login page or show a logged-out message
+          // window.location.href = '/login';
+          localStorage.removeItem('token');
+          localStorage.removeItem('userId');
+          // Cookies.remove('UserToken');
+          // Cookies.remove('userId');
+          // deleteCookie('UserToken');
+          // deleteCookie('userId');
+          Navigate('/');
+          setDialogopenOpen(false);
+          window.location.reload();
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+    
+
     const handleLogout = () => {
       localStorage.removeItem('token');
       localStorage.removeItem('userId');
+      Cookies.remove('UserToken');
+      Cookies.remove('userId');
+      deleteCookie('UserToken');
+      deleteCookie('userId');
       Navigate('/');
       setDialogopenOpen(false);
       window.location.reload();
@@ -52,7 +79,7 @@ export default function Avatar() {
               setErrorMessage(errorData.message || 'Error retrieving user');
             }
           } catch (error) {
-            handleLogout();
+            
             setErrorMessage('An error occurred, please try again later');
 
 
@@ -125,7 +152,7 @@ export default function Avatar() {
          ActionButtonName={"Logout"}
          ActionButtonColorRed={true}
          IconName={false}
-         handleLogic={handleLogout}
+         handleLogic={logout}
          />
 
     </div>
