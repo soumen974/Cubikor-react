@@ -49,46 +49,58 @@ export default function Avatar() {
      
     };
 
-    // const dispatch = useDispatch();
-    const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('userId');
-    // const token = Cookies.get('UserToken');
-    // const userId = Cookies.get('userId');
+
 
 
     const [user, setUser] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
   
-    useEffect(() => {
-      const fetchUser = async () => {
-        if(token && userId){
-          try {
-            const response = await fetch(`http://localhost:5000/users/${userId}`, {
-              method: 'GET',
-              headers: {
-                'Authorization': `Bearer ${token}`
-              }
-            });
+  
+    //   const fetchUser = async () => {
+    //     if(token && userId){
+    //       try {
+    //         const response = await fetch(`http://localhost:5000/users/${userId}`, {
+    //           method: 'GET',
+    //           headers: {
+    //             'Authorization': `Bearer ${token}`
+    //           }
+    //         });
     
-            if (response.ok) {
-              const userData = await response.json();
-              setUser(userData);
-            } else {
-              const errorData = await response.json();
+    //         if (response.ok) {
+    //           const userData = await response.json();
+    //           setUser(userData);
+    //         } else {
+    //           const errorData = await response.json();
               
-              setErrorMessage(errorData.message || 'Error retrieving user');
-            }
-          } catch (error) {
+    //           setErrorMessage(errorData.message || 'Error retrieving user');
+    //         }
+    //       } catch (error) {
             
-            setErrorMessage('An error occurred, please try again later');
+    //         setErrorMessage('An error occurred, please try again later');
 
 
-          }
+    //       }
+    //     }
+    //   };
+  
+    //   fetchUser();
+    // }, [userId, token]);
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get('http://localhost:5000/protected', {
+            withCredentials: true  // Ensure credentials (cookies) are sent
+          });
+          setUser(response.data);
+          console.log(response.data);  // Log the response data
+        } catch (error) {
+          setErrorMessage(error.response ? error.response.data : error.message);
         }
       };
   
-      fetchUser();
-    }, [userId, token]);
+      fetchData();
+    }, []);
   
     if (errorMessage) {
       return <p>{errorMessage}</p>;
