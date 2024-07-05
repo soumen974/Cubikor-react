@@ -96,6 +96,7 @@ export default function Avatar() {
           console.log(response.data);  // Log the response data
         } catch (error) {
           setErrorMessage(error.response ? error.response.data : error.message);
+          logout();
         }
       };
   

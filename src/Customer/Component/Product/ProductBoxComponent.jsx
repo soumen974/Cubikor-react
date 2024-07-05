@@ -19,7 +19,7 @@ export default function ProductBoxComponent({image,name,price,id}) {
         //     setcatId(product.category_id);
             
         //   }}
-            className="group cursor-pointer group  bg-gray-100 hover:bg-indigo-500 transition duration-500 px-2 py-2  rounded-lg relative"
+            className="group w-fit cursor-pointer group  bg-gray-100 hover:bg-indigo-500 transition duration-500 px-2 py-2  rounded-lg relative"
         >  
         
             <div className="p-2 absolute hidden group-hover:block  top-3 z-40 text-gray-200 group hover:text-indigo-500">
@@ -29,12 +29,12 @@ export default function ProductBoxComponent({image,name,price,id}) {
             
             <div className="aspect-w-1 relative aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:w-[14rem] lg:h-[17rem]">
                 <Link to={`/productview/${window.btoa(id*721426)}`}>
-            <img
-                src={`http://localhost:5000/${image}`}
-                alt={"product.imageAlt"}
-                className="w-full h-full object-cover object-center lg:w-full lg:h-full transition-transform duration-500 group-hover:scale-105 rounded-sm"
-            />
-            </Link>
+                    <img
+                        src={`http://localhost:5000/${image}`}
+                        alt={"product.imageAlt"}
+                        className="w-full h-full object-cover object-center lg:w-full lg:h-full transition-transform duration-500 group-hover:scale-105 rounded-sm"
+                    />
+                </Link>
             
             
             </div>

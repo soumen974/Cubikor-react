@@ -53,7 +53,7 @@ export default function Favorite(Props) {
           { id: 1, name: 'Home', href: '/' },
         ]};
   return (
-    <div className=''>
+    <div className="  relative  isolate mx-auto max-w-2xl px-0 py- sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
       { !Props.page ? 
       <div className='  pb-7'>
          <div className="  ">
@@ -102,14 +102,13 @@ export default function Favorite(Props) {
      {favorites.length === 0 ? (
         <p>No favorite products found.</p>
       ) : (
-        <div className="mt-6 grid grid-cols-2 gap-x-3 gap-y-3 md:grid-cols-2 lg:grid-cols-4 ">
+        <div className="mt-6 grid grid-cols-2  gap-3 md:grid-cols-2 lg:grid-cols-4 ">
           {favorites.map((favorite, index) => (
             <div key={index} className="">
-                  <div  className=" mt-6 grid grid-cols-2 gap-x-3 gap-y-3 md:grid-cols-2 lg:flex xl:overflow-x-auto scrollbar-hide   xl:gap-x-8">
-                    <div className="mt-6 grid grid-cols-2 gap-x-3 gap-y-3 md:grid-cols-2 lg:flex xl:overflow-x-auto scrollbar-hide   xl:gap-x-8">
+                  <div  className=" ">
                       
                     <ProductBox image={favorite.image_src} name={favorite.product_name} price={favorite.price} id={favorite.product_id} />
-                    </div>
+                    
                   </div>
             </div>
           ))}
