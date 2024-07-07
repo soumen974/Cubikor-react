@@ -46,6 +46,7 @@ export default function Favorite(Props) {
     fetchFavorites();
   }, []);
 
+
   
     const product = {
         name: '3x3 cubes',
@@ -103,11 +104,12 @@ export default function Favorite(Props) {
         <p>No favorite products found.</p>
       ) : (
         <div className="mt-6 grid grid-cols-2  gap-3 md:grid-cols-2 lg:grid-cols-4 ">
-          {favorites.map((favorite, index) => (
-            <div key={index} className="">
+          {favorites.map((favorite) => (
+            <div key={favorite.id} className="">
                   <div  className=" ">
+                    {console.log(favorite.id)}
                       
-                    <ProductBox image={favorite.image_src} name={favorite.product_name} price={favorite.price} id={favorite.product_id} />
+                    <ProductBox  image={favorite.image_src} name={favorite.product_name} price={favorite.price} id={favorite.product_id} />
                     
                   </div>
             </div>
