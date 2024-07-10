@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate ,Link, Navigate, useParams} from 'react-router-dom';
+import { useNavigate ,Link, useParams} from 'react-router-dom';
 import { PencilSquareIcon,PlusIcon,CheckIcon} from '@heroicons/react/24/outline';
 // import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 // import { MdKeyboardDoubleArrowRight } from "react-icons/md";
@@ -24,7 +24,7 @@ const FaArrowUpRightFromSquare=({className})=>{
 
 const CheckoutForm = () => {
 
-  const {prdid}=useParams();
+  // const {prdid}=useParams();
   // const productidforcheckout= window.atob(prdid)/721426;
   const [buynowProductData, setbuynowProductData] = useState([]);
 
@@ -369,7 +369,7 @@ const CheckoutForm = () => {
 
     // Proceed to Payment
     
-    const navigate=useNavigate();
+    // const navigate=useNavigate();
 
     const OrderPlaced = async () => {
       const usrAddress = `${userData.street}, ${userData.city}, ${userData.state}, pin-${userData.zipcode}, ${userData.country}`;
@@ -869,7 +869,7 @@ const product = {
         </div>
       </form>:
       <div className=" mx-auto h-[70vh] flex justify-center items-center">
-          <p className=' md:flex  gap-10 justify-center items-center text-green-400 '>
+          <div className=' md:flex  gap-10 justify-center items-center text-green-400 '>
             <CheckIcon className=' animate-bounce bg-green-100 md:p-5 p-2  mx-auto flex justify-center rounded-full md:h-40 h-20 md:w-40'/> 
             <div className='grid  py-2 text-gray-700 ' >
               <h1 className='flex justify-center md:justify-start text-gray-700 text-xl font-bold' >Thank You!</h1>
@@ -880,7 +880,7 @@ const product = {
               </div>
 
             </div>
-          </p>
+          </div>
 
       </div>}
       

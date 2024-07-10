@@ -5,7 +5,7 @@ import { CheckCircleIcon,ClockIcon} from '@heroicons/react/24/outline';
 
 
 const CustomerOrders = () => {
-  const token = localStorage.getItem('token');
+  // const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
   const customerId = userId;
   const [orders, setOrders] = useState([]);
