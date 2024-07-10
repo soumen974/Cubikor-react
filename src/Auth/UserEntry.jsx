@@ -1,5 +1,5 @@
 
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import pagelogo from "../Customer/Component/Data/images-app/page-logo.jpg";
 import { ExclamationTriangleIcon,CheckIcon } from '@heroicons/react/24/outline';
@@ -305,9 +305,9 @@ export default function UserEntry(Props) {
   
           <div className=" mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           {error && <p className='-mt-9 py-2 text-red-400 flex gap-2'><ExclamationTriangleIcon className='h-6 bg-red-100 p-1 rounded-full w-6'/>{error}</p>}
-          {success ?( <p className='grid justify-center items-center text-green-400 '><CheckIcon className=' bg-green-100 p-2 mx-auto flex justify-center rounded-full h-10 w-10'/> 
+          {success ?( <div className='grid justify-center items-center text-green-400 '><CheckIcon className=' bg-green-100 p-2 mx-auto flex justify-center rounded-full h-10 w-10'/> 
                        <h1 className='flex justify-center py-2 ' >{success}  </h1>
-                      </p>)
+                      </div>)
           :(
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>

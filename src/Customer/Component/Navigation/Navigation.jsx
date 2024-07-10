@@ -1,17 +1,15 @@
 
 import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
-import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon,HeartIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
 // import CloseIcon from '@mui/icons-material/Close';
 import pagelogo from "../Data/images-app/page-logo.jpg";
 import SearchBox from '../../SearchBox';
 import SHoppingCart from "../SHoppingCart";
 import navigation from "../Data/navigation.json";
 import UserEntry from '../../../Auth/UserEntry';
-import userDAta from "../Data/user.json";
 import Avatar from '../Avatar';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 // import { RiSignalWifiErrorLine } from "react-icons/ri";
 // import { MdOutlineCancel } from "react-icons/md";
 // import { MdFavoriteBorder } from "react-icons/md";

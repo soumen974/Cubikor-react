@@ -170,7 +170,7 @@ export default function SearchBox(Props) {
                 <div className="bg-gray-50  py-0 px- pb-0 overflow-y-auto max-h-60">
                     <ul className="divide-y divide-gray-200">
                       {error && 
-                        <li className="flex items-center truncate justify-between p-4" id="headlessui-combobox-option-:rp:" role="option" tabindex="-1" aria-selected="false" data-headlessui-state="">
+                        <li className="flex items-center truncate justify-between p-4" >
                           <span className="whitespace-nowrap font-semibold truncate text-red-500"> <h1>{error}</h1></span>
                           <span className="ml-4 text-right text-xs text-slate-600 truncate"></span>
                         </li>

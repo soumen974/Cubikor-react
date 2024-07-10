@@ -36,18 +36,6 @@ export default function Avatar() {
     }
     
 
-    const handleLogout = () => {
-      localStorage.removeItem('token');
-      localStorage.removeItem('userId');
-      Cookies.remove('UserToken');
-      Cookies.remove('userId');
-      // deleteCookie('UserToken');
-      // deleteCookie('userId');
-      Navigate('/');
-      setDialogopenOpen(false);
-      window.location.reload();
-     
-    };
 
 
 

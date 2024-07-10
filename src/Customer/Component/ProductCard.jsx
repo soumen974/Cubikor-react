@@ -36,7 +36,6 @@ export default function ProductCard() {
 
 
   const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('userId'); 
 
     // ----------------shops-all
     const [shopId, setShopId] = useState([]);

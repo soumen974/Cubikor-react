@@ -23,7 +23,7 @@ export default function AddtoCart({ ShopID, productID, catId }) {
         e.preventDefault();
         if(Authenticated){
           try {
-            const response = await axios.post(
+             await axios.post(
               `http://localhost:5000/users/${userId}/shopping_cart`,
               {
                 CategoryId: catId,
