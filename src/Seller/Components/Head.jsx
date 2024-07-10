@@ -15,7 +15,7 @@ export default function Head() {
     <>
         <SideBar  isSidebarOpen={sideBar} setIsSidebarOpen={setsideBar}/>
        
-        <div class=" sm:ml-64">
+        <div className=" sm:ml-64">
           <div className="">
            <div className=" pl-4 bg-white fixed w-full z-40 ">
             

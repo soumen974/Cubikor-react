@@ -98,7 +98,7 @@ export default function Searches() {
                     onKeyDown={handleChangeField}/> 
     <div className="">
         {isloading && 
-        <li className="flex items-center truncate justify-center p-4" id="headlessui-combobox-option-:rp:" role="option" tabindex="-1" aria-selected="false" data-headlessui-state="">
+        <li className="flex items-center truncate justify-center p-4" >
             <span className="whitespace-nowrap font-semibold truncate flex justify-center "> <h1><PageLoder/></h1></span>
         </li> }
 
