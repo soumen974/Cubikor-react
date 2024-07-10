@@ -2,7 +2,7 @@
 import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon,HeartIcon } from '@heroicons/react/24/outline'
-import CloseIcon from '@mui/icons-material/Close';
+// import CloseIcon from '@mui/icons-material/Close';
 import pagelogo from "../Data/images-app/page-logo.jpg";
 import SearchBox from '../../SearchBox';
 import SHoppingCart from "../SHoppingCart";
@@ -12,15 +12,46 @@ import userDAta from "../Data/user.json";
 import Avatar from '../Avatar';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { RiSignalWifiErrorLine } from "react-icons/ri";
-import { MdOutlineCancel } from "react-icons/md";
-import { IoIosArrowDown } from "react-icons/io";
-import { MdFavoriteBorder } from "react-icons/md";
+// import { RiSignalWifiErrorLine } from "react-icons/ri";
+// import { MdOutlineCancel } from "react-icons/md";
+// import { MdFavoriteBorder } from "react-icons/md";
 
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
+
+const CloseIcon=({className})=>{
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
+  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+
+ </svg>
+  );
+
+}
+
+
+const RiSignalWifiErrorLine=({className})=>{
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
+  <path strokeLinecap="round" strokeLinejoin="round" d="m3 3 8.735 8.735m0 0a.374.374 0 1 1 .53.53m-.53-.53.53.53m0 0L21 21M14.652 9.348a3.75 3.75 0 0 1 0 5.304m2.121-7.425a6.75 6.75 0 0 1 0 9.546m2.121-11.667c3.808 3.807 3.808 9.98 0 13.788m-9.546-4.242a3.733 3.733 0 0 1-1.06-2.122m-1.061 4.243a6.75 6.75 0 0 1-1.625-6.929m-.496 9.05c-3.068-3.067-3.664-7.67-1.79-11.334M12 12h.008v.008H12V12Z" />
+
+ </svg>
+  );
+
+}
+
+const IoIosArrowDown=({className})=>{
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+
+ </svg>
+  );
+
+}
+
 
 export default function Navigation() {
   const [open, setOpen] = useState(false)
@@ -262,7 +293,7 @@ useEffect(() => {
        <div className={`${Ad? "h-10": "h-0 hidden" } transform-h flex relative  items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8`}>
             <h1>Get 20% Discount on orders over ₹ 599/-</h1> 
             <div className="item-right absolute right-10 w-0 md:right-40 md:w-10 cursor-pointer " onClick={()=>setAd(false)}>
-            <CloseIcon/>
+            <CloseIcon className='w-6 h-6' />
             </div>
           </div>
 
@@ -310,7 +341,7 @@ useEffect(() => {
 >
                                 {category.name}
                                 <div className='flex   items-center '>
-                                 <IoIosArrowDown className='group-hover:rotate-180 transition-rotate transition ease-out duration-200' />
+                                 <IoIosArrowDown className='group-hover:rotate-180 transition-rotate transition ease-out duration-200 h-4 w-4' />
                                 </div>
                               </Popover.Button>
                               

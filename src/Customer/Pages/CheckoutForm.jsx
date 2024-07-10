@@ -2,8 +2,25 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate ,Link, Navigate, useParams} from 'react-router-dom';
 import { PencilSquareIcon,PlusIcon,CheckIcon} from '@heroicons/react/24/outline';
-import { FaArrowUpRightFromSquare } from "react-icons/fa6";
-import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+// import { FaArrowUpRightFromSquare } from "react-icons/fa6";
+// import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+
+
+const MdKeyboardDoubleArrowRight=({className})=>{
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+  </svg>
+  );
+}
+
+const FaArrowUpRightFromSquare=({className})=>{
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
+  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+</svg>
+  );
+}
 
 const CheckoutForm = () => {
 

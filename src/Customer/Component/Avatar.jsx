@@ -41,8 +41,8 @@ export default function Avatar() {
       localStorage.removeItem('userId');
       Cookies.remove('UserToken');
       Cookies.remove('userId');
-      deleteCookie('UserToken');
-      deleteCookie('userId');
+      // deleteCookie('UserToken');
+      // deleteCookie('userId');
       Navigate('/');
       setDialogopenOpen(false);
       window.location.reload();

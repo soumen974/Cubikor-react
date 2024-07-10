@@ -1,9 +1,28 @@
 import { Fragment, useRef, useState ,useEffect} from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { IoSearchOutline } from "react-icons/io5";
 import axios from 'axios';
 import { Link, useNavigate} from 'react-router-dom';
 import PageLoder from '../Loaders/PageLoder';
+
+
+const IoSearchOutline = ({ className }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className={className}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+      />
+    </svg>
+  );
+};
 
 
 export default function SearchBox(Props) {
@@ -142,7 +161,7 @@ export default function SearchBox(Props) {
                     onClick={handleSearch}
                     className="absolute right-2.5 bottom-3.5 pr-2 font-medium text-sm text-gray-400"
                   >
-                    <IoSearchOutline className="h-6 w-6" />
+                    <IoSearchOutline className=" size-6" />
                   </button>
                 </div>
               </form>

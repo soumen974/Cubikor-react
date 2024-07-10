@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import DialogBox from '../../Customer/DialogBox';
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import SideBar from './SideBar';
-import { useStepContext } from '@mui/material';
+// import { useStepContext } from '@mui/material';
 
 
 export default function Head() {
