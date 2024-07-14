@@ -4,11 +4,13 @@ import { Dialog, Transition } from '@headlessui/react'
 import pagelogo from "../Customer/Component/Data/images-app/page-logo.jpg";
 import { ExclamationTriangleIcon,CheckIcon } from '@heroicons/react/24/outline';
 import CodeInputForm from "./CodeInputForm";
-import PageLodernew from "../Loaders/PageLodernew";
 
 export default function UserEntry(Props) {
   const cancelButtonRef1 = useRef(null);
   const cancelButtonRef = useRef(null);
+
+  const [isOtpVerified,setIsOtpVerified]=useState(false);
+  const [isOtpopen,setIsOtpopen]=useState(false);
 
 
     // otp timer ---
@@ -22,12 +24,17 @@ export default function UserEntry(Props) {
         interval = setInterval(() => {
           setTime(time => time - 1);
         }, 1000);
+        if(isOtpVerified){
+          setTime(0);
+        }
       } else if (time === 0) {
         clearInterval(interval);
         setSuccess(null);
+        setIsOtpopen(false);
+        
       }
       return () => clearInterval(interval);
-    }, [isActive, time]);
+    }, [isActive, time,isOtpVerified]);
   
     const formatTime = (seconds) => {
       const minutes = Math.floor(seconds / 60);
@@ -38,58 +45,87 @@ export default function UserEntry(Props) {
   // ------------------------------------registration{signUp}
 
   const [email, setEmail] = useState('');
-  
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-   
-  
     setError('');
   
     const formData = {
-      email
+      email,
     };
   
-    try {
-      const response = await fetch('http://localhost:5000/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+    const formDatatoPasswordAdd = {
+      email,
+      password,
+    };
   
-      if (response.ok) {
-        const responseData = await response.json();
-        setSuccess(responseData.message );
-        // setTimeout(() => {
-        //   setSuccess(null);
-        //   Props.setOpenSignIn(true);
-        //   Props.setOpen(false);
-        // }, 2000);
-        
-        // Clear the form fields
-        // setEmail('');
-        setTime(360); 
-        setIsActive(true)
-        
-      } else {
-        const errorData = await response.json();
-        
-      //   setTimeout(() => {
-      //     setError('');
-      //  }, 3000);
-        setError(errorData.error );
+    if (isOtpVerified) {
+      if (password !== confirmPassword) {
+        setError('Passwords do not match');
+        return;
       }
-    } catch (error) {
-      setError('An error occurred while registering');
+  
+      try {
+        const response = await fetch('http://localhost:5000/addpassword', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formDatatoPasswordAdd),
+        });
+  
+        const responseData = await response.json();
+  
+        if (response.ok) {
+          setSuccess(responseData.message);
+          console.log(responseData.message);
+          setTimeout(() => {
+            setSuccess(null);
+            Props.setOpenSignIn(true);
+            Props.setOpen(false);
+          }, 2000);
+          setEmail('');
+          setPassword('');
+          setConfirmPassword('');
+        } else {
+          setError(responseData.errors ? responseData.errors.map(err => err.msg).join(', ') : 'An error occurred while creating the user');
+        }
+      } catch (error) {
+        setError('An error occurred while creating the user');
+      }
+    } else {
+      try {
+        const response = await fetch('http://localhost:5000/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+  
+        const responseData = await response.json();
+  
+        if (response.ok) {
+          setSuccess(responseData.message);
+          setTime(360);
+          setIsActive(true);
+          setIsOtpopen(true);
+        } else {
+          setError(responseData.error || 'An error occurred while registering');
+        }
+      } catch (error) {
+        setError('An error occurred while registering');
+      }
     }
   };
-
-
+  
+  
 
   
   // -------------------------signIn-/Login----------------
@@ -98,7 +134,7 @@ export default function UserEntry(Props) {
   const [SignInpassword, setSignInPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const [userRole, setuserRole] = useState(null);
+  // const [userRole, setuserRole] = useState(null);
 
   const SignInAuthCheck = async (e) => {
     e.preventDefault();
@@ -116,8 +152,7 @@ export default function UserEntry(Props) {
         const responseData = await response.json(); // Move this line inside if block
         const token = responseData.token;
         const userId=responseData.userId;
-        const user_type=responseData.user_type
-        setuserRole(user_type);
+        
 
         // console.log(userId);
         // console.log(token);
@@ -338,8 +373,7 @@ export default function UserEntry(Props) {
           {success ?( <div className='grid justify-center items-center text-green-400 '><CheckIcon className=' bg-green-100 p-2 mx-auto flex justify-center rounded-full h-10 w-10'/> 
                        <h1 className='flex justify-center py-2 ' >{success}  </h1>
 
-                        <div className="text-lg font-semibold text-gray-900 flex gap-3">Verify Email <h1 className='text-sm font-normal flex items-center text-blue-600 '>{formatTime(time)}</h1> {time === 0 && <button className='text-red-600 text-sm font-normal ' >Time out</button>}</div>
-                        <CodeInputForm email={email}/>
+                        
                       </div>)
           :(
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -360,7 +394,56 @@ export default function UserEntry(Props) {
                 />
               </div>
             </div>
-            
+
+          
+
+
+            {isOtpVerified&&(
+            <>
+            <div>
+              <div className="flex items-center justify-between">
+                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                  Password
+                </label>
+              </div>
+              <div className="mt-2">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  autoComplete="new-password"
+                  required
+                  className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+              <div>
+              <div className="flex items-center justify-between">
+                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                  Confirm Password
+                </label>
+              </div>
+              <div className="mt-2">
+                <input
+                  id="confirmpassword"
+                  name="confirmpassword"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  type="password"
+                  autoComplete="new-password"
+                  required
+                  className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+              </div>
+              </>
+            )}
+
+        
+                    
 
             
             
@@ -375,8 +458,12 @@ export default function UserEntry(Props) {
             </div>
           </form>
           )}
-          
-            
+
+          {isOtpopen&&(<>
+          <div className="text-lg font-semibold text-gray-900 flex gap-3">Enter Code  <h1 className='text-sm font-normal flex items-center text-blue-600 '>{formatTime(time)}</h1> {time === 0 && <button className='text-red-600 text-sm font-normal ' >Time out</button>}</div>
+          <CodeInputForm setSuccess={setSuccess} setIsOtpopen={setIsOtpopen} setIsOtpVerified={setIsOtpVerified} email={email}/>
+          </>)}    
+                      
           
 
   

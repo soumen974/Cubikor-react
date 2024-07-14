@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const CodeInputForm = ({ email }) => {
+const CodeInputForm = ({ email,setIsOtpVerified ,setIsOtpopen,setSuccess}) => {
   const [codes, setCodes] = useState(Array(6).fill(''));
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
@@ -24,8 +24,11 @@ const CodeInputForm = ({ email }) => {
     const code = codes.join('');
 
     try {
-      const response = await axios.post('http://localhost:5000/verify-email', { email, code });
+       await axios.post('http://localhost:5000/verify-email', { email, code });
       setMessage('Email verified successfully!');
+      setSuccess('Email verified successfully!');
+      setIsOtpVerified(true);
+      setIsOtpopen(false);
       setError('');
     } catch (err) {
       if (err.response && err.response.data && err.response.data.errors) {
@@ -76,50 +79,50 @@ export default CodeInputForm;
 
 
 
-{/* <div>
-<div className="flex items-center justify-between">
-  <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-    Password
-  </label>
-</div>
-<div className="mt-2">
-  <input
-    id="password"
-    name="password"
-    type="password"
-    value={password}
-    onChange={(e) => setPassword(e.target.value)}
-    autoComplete="new-password"
-    required
-    className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-  />
-</div>
-</div>
+//  <div>
+// <div className="flex items-center justify-between">
+//   <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+//     Password
+//   </label>
+// </div>
+// <div className="mt-2">
+//   <input
+//     id="password"
+//     name="password"
+//     type="password"
+//     value={password}
+//     onChange={(e) => setPassword(e.target.value)}
+//     autoComplete="new-password"
+//     required
+//     className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+//   />
+// </div>
+// </div>
 
-<div>
-<div className="flex items-center justify-between">
-  <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-    Confirm Password
-  </label>
-</div>
-<div className="mt-2">
-  <input
-    id="confirmpassword"
-    name="confirmpassword"
-    value={confirmPassword}
-     onChange={(e) => setConfirmPassword(e.target.value)}
-    type="password"
-    autoComplete="new-password"
-    required
-    className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-  />
-</div>
-</div>
+// <div>
+// <div className="flex items-center justify-between">
+//   <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+//     Confirm Password
+//   </label>
+// </div>
+// <div className="mt-2">
+//   <input
+//     id="confirmpassword"
+//     name="confirmpassword"
+//     value={confirmPassword}
+//      onChange={(e) => setConfirmPassword(e.target.value)}
+//     type="password"
+//     autoComplete="new-password"
+//     required
+//     className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+//   />
+// </div>
+// </div>
 
-const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+// const [password, setPassword] = useState('');
+//   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const formData = {
-    email,
-    password,
-  }; */}
+//   const formData = {
+//     email,
+//     password,
+//   }; 
