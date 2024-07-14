@@ -1,34 +1,56 @@
 
-import { Fragment, useRef, useState } from 'react'
+import { Fragment, useRef, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import pagelogo from "../Customer/Component/Data/images-app/page-logo.jpg";
 import { ExclamationTriangleIcon,CheckIcon } from '@heroicons/react/24/outline';
+import CodeInputForm from "./CodeInputForm";
+import PageLodernew from "../Loaders/PageLodernew";
 
 export default function UserEntry(Props) {
   const cancelButtonRef1 = useRef(null);
   const cancelButtonRef = useRef(null);
+
+
+    // otp timer ---
+
+    const [time, setTime] = useState(360); // 6 minutes in seconds
+    const [isActive, setIsActive] = useState(false);
+  
+    useEffect(() => {
+      let interval = null;
+      if (isActive && time > 0) {
+        interval = setInterval(() => {
+          setTime(time => time - 1);
+        }, 1000);
+      } else if (time === 0) {
+        clearInterval(interval);
+        setSuccess(null);
+      }
+      return () => clearInterval(interval);
+    }, [isActive, time]);
+  
+    const formatTime = (seconds) => {
+      const minutes = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+    };
   
   // ------------------------------------registration{signUp}
 
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
-      return;
-    }
+   
   
     setError('');
   
     const formData = {
-      email,
-      password,
+      email
     };
   
     try {
@@ -43,28 +65,32 @@ export default function UserEntry(Props) {
       if (response.ok) {
         const responseData = await response.json();
         setSuccess(responseData.message );
-        setTimeout(() => {
-          setSuccess(null);
-          Props.setOpenSignIn(true);
-          Props.setOpen(false);
-        }, 2000);
+        // setTimeout(() => {
+        //   setSuccess(null);
+        //   Props.setOpenSignIn(true);
+        //   Props.setOpen(false);
+        // }, 2000);
         
         // Clear the form fields
-        setEmail('');
-        setPassword('');
-        setConfirmPassword('');
+        // setEmail('');
+        setTime(360); 
+        setIsActive(true)
+        
       } else {
         const errorData = await response.json();
         
-        setTimeout(() => {
-          setError('');
-       }, 3000);
+      //   setTimeout(() => {
+      //     setError('');
+      //  }, 3000);
         setError(errorData.error );
       }
     } catch (error) {
       setError('An error occurred while registering');
     }
   };
+
+
+
   
   // -------------------------signIn-/Login----------------
 
@@ -267,6 +293,8 @@ export default function UserEntry(Props) {
 
     {/* signUp */}
 
+    
+
     <Transition.Root show={Props.open} as={Fragment}>
       <Dialog as="div" className="relative z-40" initialFocus={cancelButtonRef} onClose={Props.setOpen}>
         <Transition.Child
@@ -293,21 +321,25 @@ export default function UserEntry(Props) {
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="bg-white py-10 px-5  relative transform overflow-hidden rounded-lg text-left shadow-xl transition-all sm:my-8 w-full sm:max-w-lg">
+             
               <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img
-              className="mx-auto h-12 w-auto rounded-full"
-              src={pagelogo}
-              alt="Your Company"
-            />
-            <h2 className="mt-10 capitalize text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-              Create your account
-            </h2>
+                <img
+                  className="mx-auto h-12 w-auto rounded-full"
+                  src={pagelogo}
+                  alt="Your Company"
+                />
+                <h2 className="mt-10 capitalize text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+                  Create your account
+                </h2>
              </div>
   
           <div className=" mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           {error && <p className='-mt-9 py-2 text-red-400 flex gap-2'><ExclamationTriangleIcon className='h-6 bg-red-100 p-1 rounded-full w-6'/>{error}</p>}
           {success ?( <div className='grid justify-center items-center text-green-400 '><CheckIcon className=' bg-green-100 p-2 mx-auto flex justify-center rounded-full h-10 w-10'/> 
                        <h1 className='flex justify-center py-2 ' >{success}  </h1>
+
+                        <div className="text-lg font-semibold text-gray-900 flex gap-3">Verify Email <h1 className='text-sm font-normal flex items-center text-blue-600 '>{formatTime(time)}</h1> {time === 0 && <button className='text-red-600 text-sm font-normal ' >Time out</button>}</div>
+                        <CodeInputForm email={email}/>
                       </div>)
           :(
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -328,47 +360,9 @@ export default function UserEntry(Props) {
                 />
               </div>
             </div>
+            
 
-            <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                  Password
-                </label>
-              </div>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  autoComplete="new-password"
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                  Confirm Password
-                </label>
-              </div>
-              <div className="mt-2">
-                <input
-                  id="confirmpassword"
-                  name="confirmpassword"
-                  value={confirmPassword}
-                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  type="password"
-                  autoComplete="new-password"
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
+            
             
 
             <div>
@@ -376,11 +370,12 @@ export default function UserEntry(Props) {
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Sign Up
+                Go next
               </button>
             </div>
           </form>
           )}
+          
             
           
 
