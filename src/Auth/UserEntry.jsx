@@ -119,9 +119,13 @@ export default function UserEntry(Props) {
         } else {
           setError(responseData.error || 'An error occurred while registering');
         }
-      } catch (error) {
-        setError('An error occurred while registering');
-      }
+      } catch (err) {
+        if (err.response) {
+          setError(err.response.data.errors?.[0]?.msg || err.response.data.error || 'Registration failed');
+        } else {
+          setError('Registration failed');
+        }    
+       }
     }
   };
   

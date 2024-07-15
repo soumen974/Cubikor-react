@@ -27,8 +27,11 @@ const CodeInputForm = ({ email,setIsOtpVerified ,setIsOtpopen,setSuccess}) => {
        await axios.post('http://localhost:5000/verify-email', { email, code });
       setMessage('Email verified successfully!');
       setSuccess('Email verified successfully!');
-      setIsOtpVerified(true);
-      setIsOtpopen(false);
+      setTimeout(() => {
+        setIsOtpVerified(true);
+        setIsOtpopen(false);
+      }, 2000);
+     
       setError('');
     } catch (err) {
       if (err.response && err.response.data && err.response.data.errors) {
