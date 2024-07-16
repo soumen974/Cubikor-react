@@ -4,14 +4,14 @@ import { Dialog, Transition } from '@headlessui/react'
 import pagelogo from "../Customer/Component/Data/images-app/page-logo.jpg";
 import { ExclamationTriangleIcon,CheckIcon } from '@heroicons/react/24/outline';
 import CodeInputForm from "./CodeInputForm";
-
+import PageLoder from "../Loaders/PageLoder";
 export default function UserEntry(Props) {
   const cancelButtonRef1 = useRef(null);
   const cancelButtonRef = useRef(null);
 
   const [isOtpVerified,setIsOtpVerified]=useState(false);
   const [isOtpopen,setIsOtpopen]=useState(false);
-
+  const [isLoading,setIsLoading]=useState(false);
 
     // otp timer ---
 
@@ -46,6 +46,7 @@ export default function UserEntry(Props) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const[name,setName]=useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -62,6 +63,7 @@ export default function UserEntry(Props) {
   
     const formDatatoPasswordAdd = {
       email,
+      name,
       password,
     };
   
@@ -100,6 +102,7 @@ export default function UserEntry(Props) {
         setError('An error occurred while creating the user');
       }
     } else {
+      setIsLoading(true);
       try {
         const response = await fetch('http://localhost:5000/register', {
           method: 'POST',
@@ -116,14 +119,18 @@ export default function UserEntry(Props) {
           setTime(360);
           setIsActive(true);
           setIsOtpopen(true);
+          setIsLoading(false);
         } else {
+          setIsLoading(false);
           setError(responseData.error || 'An error occurred while registering');
         }
       } catch (err) {
         if (err.response) {
+          setIsLoading(false);
           setError(err.response.data.errors?.[0]?.msg || err.response.data.error || 'Registration failed');
         } else {
           setError('Registration failed');
+          setIsLoading(false);
         }    
        }
     }
@@ -380,92 +387,118 @@ export default function UserEntry(Props) {
                         
                       </div>)
           :(
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                Email address
-              </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  autoComplete="email"
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
+            isLoading?(
+              <div className="flex justify-center items-center h-[8rem]"><PageLoder/></div>
+            ):(
+            <form onSubmit={handleSubmit} className="space-y-6">
+            
+              
+            
+
+
+              {isOtpVerified?(
+              <>
+                <div>
+                  <div className="flex items-center justify-between">
+                    <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
+                      Name
+                    </label>
+                  </div>
+                  <div className="mt-2">
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      autoComplete="name"
+                      required
+                      className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex items-center justify-between">
+                    <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                      Password
+                    </label>
+                  </div>
+                  <div className="mt-2">
+                    <input
+                      id="password"
+                      name="password"
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      autoComplete="new-password"
+                      required
+                      className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                <div className="flex items-center justify-between">
+                  <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                    Confirm Password
+                  </label>
+                </div>
+                <div className="mt-2">
+                  <input
+                    id="confirmpassword"
+                    name="confirmpassword"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    type="password"
+                    autoComplete="new-password"
+                    required
+                    className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
+                </div>
+                </>
+              ):(
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                  Email address
+                </label>
+                <div className="mt-2">
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    autoComplete="email"
+                    required
+                    className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                </div>
               </div>
-            </div>
+
+              )}
 
           
+                      
 
-
-            {isOtpVerified&&(
-            <>
-            <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                  Password
-                </label>
-              </div>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  autoComplete="new-password"
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
+              
+              
 
               <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                  Confirm Password
-                </label>
+                <button
+                  type="submit"
+                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  {isOtpVerified? 'Register':'Go next'}
+                </button>
               </div>
-              <div className="mt-2">
-                <input
-                  id="confirmpassword"
-                  name="confirmpassword"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  type="password"
-                  autoComplete="new-password"
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-              </div>
-              </>
-            )}
-
-        
-                    
-
-            
-            
-
-            <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Go next
-              </button>
-            </div>
-          </form>
+            </form>)
           )}
 
           {isOtpopen&&(<>
           <div className="text-lg font-semibold text-gray-900 flex gap-3">Enter Code  <h1 className='text-sm font-normal flex items-center text-blue-600 '>{formatTime(time)}</h1> {time === 0 && <button className='text-red-600 text-sm font-normal ' >Time out</button>}</div>
-          <CodeInputForm setSuccess={setSuccess} setIsOtpopen={setIsOtpopen} setIsOtpVerified={setIsOtpVerified} email={email}/>
+          <CodeInputForm setSuccess={setSuccess} setIsLoading={setIsLoading} setIsOtpopen={setIsOtpopen} setIsOtpVerified={setIsOtpVerified} email={email}/>
           </>)}    
                       
           

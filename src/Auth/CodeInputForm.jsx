@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const CodeInputForm = ({ email,setIsOtpVerified ,setIsOtpopen,setSuccess}) => {
+const CodeInputForm = ({ email,setIsOtpVerified ,setIsOtpopen,setSuccess,setIsLoading}) => {
   const [codes, setCodes] = useState(Array(6).fill(''));
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
@@ -22,6 +22,7 @@ const CodeInputForm = ({ email,setIsOtpVerified ,setIsOtpopen,setSuccess}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const code = codes.join('');
+    setIsLoading(true);
 
     try {
        await axios.post('http://localhost:5000/verify-email', { email, code });
@@ -30,8 +31,9 @@ const CodeInputForm = ({ email,setIsOtpVerified ,setIsOtpopen,setSuccess}) => {
       setTimeout(() => {
         setIsOtpVerified(true);
         setIsOtpopen(false);
+        
       }, 2000);
-     
+     setIsLoading(false);
       setError('');
     } catch (err) {
       if (err.response && err.response.data && err.response.data.errors) {

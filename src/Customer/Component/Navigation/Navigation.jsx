@@ -15,6 +15,7 @@ import axios from 'axios';
 // import { MdFavoriteBorder } from "react-icons/md";
 
 
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -104,7 +105,7 @@ export default function Navigation() {
             productId: cart.productId,
             shopId: cart.shopId,
         }));
-        setcartData(cartItemsData);
+        // setcartData(cartItemsData);
         setItemCount(cartItemsData.length); 
         
     } catch (error) {
