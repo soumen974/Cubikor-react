@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchCartItems, addToCart, removeFromCart } from '../../redux/cartSlice';
 
 
 export default function AddtoCart({ ShopID, productID, catId }) {
