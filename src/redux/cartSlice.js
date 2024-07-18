@@ -1,70 +1,92 @@
+// cartSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// Async thunk for adding item to cart
-export const addToCart = createAsyncThunk(
-  'cart/addToCart',
-  async ({ userId, catId, productID, ShopID, token }, { rejectWithValue }) => {
-    try {
-      const response = await axios.post(
-        `http://localhost:5000/users/${userId}/shopping_cart`,
-        {
-          CategoryId: catId,
-          productId: productID,
-          shopId: ShopID,
-          quantity: 1,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      return response.data;
-    } catch (error) {
-      if (error.response && error.response.data.errors) {
-        return rejectWithValue(error.response.data.errors);
-      } else {
-        return rejectWithValue(error.message);
-      }
-    }
-  }
-);
+const token = localStorage.getItem('token');
+const userId = localStorage.getItem('userId');
+
+export const fetchCartItems = createAsyncThunk('cart/fetchCartItems', async () => {
+  const response = await axios.get(`http://localhost:5000/users/${userId}/shopping_cart`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+  return response.data.map(cart => ({
+    id: cart.id,
+    productId: cart.productId,
+    shopId: cart.shopId,
+  }));
+});
+
+export const addToCart = createAsyncThunk('cart/addToCart', async (payload) => {
+  const response = await axios.post(`http://localhost:5000/users/${userId}/shopping_cart`, payload, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+  return response.data;
+});
+
+export const removeFromCart = createAsyncThunk('cart/removeFromCart', async (cartId) => {
+  await axios.delete(`http://localhost:5000/users/${userId}/shopping_cart/${cartId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+  return cartId;
+});
 
 const cartSlice = createSlice({
   name: 'cart',
   initialState: {
-    items: [],
-    status: 'idle',
+    cartItems: [],
+    itemCount: 0,
+    loading: false,
     error: null,
-    message: '',
   },
-  reducers: {
-    clearErrors(state) {
-      state.error = null;
-    },
-    clearMessage(state) {
-      state.message = '';
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(fetchCartItems.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchCartItems.fulfilled, (state, action) => {
+        state.loading = false;
+        state.cartItems = action.payload;
+        state.itemCount = action.payload.length;
+      })
+      .addCase(fetchCartItems.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
       .addCase(addToCart.pending, (state) => {
-        state.status = 'loading';
+        state.loading = true;
       })
       .addCase(addToCart.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.items.push(action.payload);
-        state.message = `Item added to cart with ID: ${action.payload.id}`;
+        state.loading = false;
+        state.cartItems.push(action.payload);
+        state.itemCount += 1;
       })
       .addCase(addToCart.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.payload || 'Error adding item to cart';
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(removeFromCart.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(removeFromCart.fulfilled, (state, action) => {
+        state.loading = false;
+        state.cartItems = state.cartItems.filter(item => item.id !== action.payload);
+        state.itemCount -= 1;
+      })
+      .addCase(removeFromCart.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
       });
   },
 });
-
-export const { clearErrors, clearMessage } = cartSlice.actions;
 
 export default cartSlice.reducer;

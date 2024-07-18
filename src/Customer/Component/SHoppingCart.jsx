@@ -3,6 +3,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import axios from 'axios';
 import { Link} from 'react-router-dom';
+import EmptyCartImag from "../Component/Data/images-app/undraw_empty_cart_co35.svg";
 
 export default function ShoppingCart(Props) {
     const [productdata, setProductdata] = useState([]);
@@ -230,6 +231,11 @@ export default function ShoppingCart(Props) {
                                                             </div>
                                                         </li>
                                                     ))}
+                                                    {productdata.length === 0 && (
+                                                        <div className='flex items-center justify-center h-[50vh]' >
+                                                            <img className='h-40 w-40' src={EmptyCartImag} alt="" />
+                                                        </div>
+                                                    )}
                                                     </ul>
                                                 </div>
                                             </div>

@@ -21,9 +21,9 @@ import DashBoard from './Seller/DashBoard';
 import CheckoutForm from './Customer/Pages/CheckoutForm';
 import SellerOrders from './Seller/SellerOrders';
 import CustomerOrders from './Customer/Pages/CustomerOrders';
-import DemoApp from './Demo/DemoApp';
 import Favorite from './Customer/Pages/Favorite';
 import Searches from './Customer/Component/Searches';
+
 
 
 
@@ -61,8 +61,7 @@ export default function App() {
           {Authenticated ? (<Route path="/myorders" element={<CustomerOrders/>} />): null}
 
           <Route path="/result" element={<Searches/>}/ >
-
-          <Route path="/demouser" element={<DemoApp/>}/ >
+         
 
           
 
@@ -78,6 +77,7 @@ export default function App() {
           <Route path="/seller/orders" element={<SellerOrders/>} />
         </Route>
         
+       
         
         {!Seller ? (
         <>

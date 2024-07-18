@@ -185,7 +185,7 @@ export default function ProductOverview() {
             </nav>
           </div>
 
-          <div className="md:pt-20 relative">
+          <div className="md:pt-20 relative ">
             
             
 
@@ -227,7 +227,7 @@ export default function ProductOverview() {
                 />
               </div>
 
-              <div className="p-2 absolute hidden group-hover:block  top-3 z-40 text-gray-200 group hover:text-indigo-500">
+              <div className="p-2 absolute  right-0  top-3 z-0 text-gray-200 group hover:text-indigo-500">
                 <span className="sr-only">Favorite</span>
                 <Favorites prdId={productdata.id} prdName={productdata.name} prdImage_src={productdata.product_image} prdPrice={productdata.price}/>
               </div>
@@ -263,15 +263,15 @@ export default function ProductOverview() {
                   </div>
                 </div>
 
-                <form onSubmit={AddingToBag} className="mt-1">
+                <form onSubmit={AddingToBag} className="mt-1 z-40 bg-white max-md:py-4 max-md:fixed max-md:bottom-0 max-md:left-0 max-md:px-10 max-md:w-full max-md:gap-1  max-md:flex ">
                   <button
                     type="submit"
-                    className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    className="md:mt-10   flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
-                    Add to bag
+                    Add to cart
                   </button>
                   <Link to={`/checkout/${window.btoa(productdata.id*721426)}`}
-                    className="mt-5 flex w-full items-center justify-center rounded-md border border-transparent bg-yellow-300 px-8 py-3 text-base font-medium text-black hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
+                    className="md:mt-5  flex w-full items-center justify-center rounded-md border border-transparent bg-yellow-300 px-8 py-3 text-base font-medium text-black hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
                   >
                     Buy Now
                   </Link>

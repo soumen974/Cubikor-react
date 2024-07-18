@@ -199,8 +199,8 @@ export default function UserEntry(Props) {
   // google login
 
     const handleOAuthGoogleLogin = () => {
-    window.location.href = 'http://localhost:5000/auth/google'; 
-  };
+      window.location.href = 'http://localhost:5000/auth/google';
+    };
 
  
   

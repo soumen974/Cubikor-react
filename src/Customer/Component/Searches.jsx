@@ -30,6 +30,8 @@ export default function Searches() {
       setProductIds(response.data); // Assuming response.data is an array of product IDs
       fetchCategories();
       setError(false)
+      setisloading(false);
+
     } catch (error) {
       if (error.response) {
         if (error.response.status === 404) {
@@ -40,7 +42,6 @@ export default function Searches() {
       } else {
         setError('Error fetching products');
       }
-      setisloading(false);
     }
   };
 

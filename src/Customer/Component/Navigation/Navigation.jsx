@@ -14,6 +14,9 @@ import axios from 'axios';
 // import { MdOutlineCancel } from "react-icons/md";
 // import { MdFavoriteBorder } from "react-icons/md";
 
+import { fetchCartItems, addToCart, removeFromCart } from '../../../redux/cartSlice';
+import { useSelector, useDispatch } from 'react-redux';
+
 
 
 function classNames(...classes) {
@@ -59,7 +62,7 @@ export default function Navigation() {
   const [shoppingCart, setshoppingCart] = useState(false);
   const [signin, setsignin] = useState(false);
   const [signinUp, setsignUp] = useState(false);
-  const[error,seterrror]=useState(null);
+  // const[error,seterrror]=useState(null);
 
   const token = localStorage.getItem('token');
   // const token = Cookies.get('UserToken');
@@ -86,45 +89,52 @@ export default function Navigation() {
  
 
   // ----shopping-cart-item-count-
-  const [itemCount, setItemCount] = useState(0);
-  const [cartData,setcartData]=useState([]);
+//   const [cartItems, setCartItems] = useState([]);
+//   const [itemCount, setItemCount] = useState(0);
+
+//   const fetchCartItems = async () => {
+//     try {
+//       const response = await axios.get(
+//         `http://localhost:5000/users/${userId}/shopping_cart`,
+//         {
+//           headers: {
+//             Authorization: `Bearer ${token}`,
+//             'Content-Type': 'application/json',
+//           },
+//         }
+//       );
+
+//       const cartItemsData = response.data.map((cart) => ({
+//         id: cart.id,
+//         productId: cart.productId,
+//         shopId: cart.shopId,
+//       }));
+
+//       setCartItems(cartItemsData);
+//       setItemCount(cartItemsData.length);
+//     } catch (error) {
+//       console.error('Error fetching cart items:', error);
+//       if (error.response && error.response.data.errors) {
+//         console.log(error.response.data.errors);
+//       } else {
+//         console.log(`Error: ${error.message}`);
+//       }
+//     }
+//   };
+// useEffect(() => {
+//     fetchCartItems();
+// }, [userId]);
+
+
   
-  const fetchCartItems = async () => {
-    try {
-        const response = await axios.get(
-            `http://localhost:5000/users/${userId}/shopping_cart`,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-            }
-        );
-        const cartItemsData = response.data.map((cart) => ({
-            id: cart.id,
-            productId: cart.productId,
-            shopId: cart.shopId,
-        }));
-        // setcartData(cartItemsData);
-        setItemCount(cartItemsData.length); 
-        
-    } catch (error) {
-        console.error('Error fetching cart items:', error);
-        if (error.response && error.response.data.errors) {
-            console.log(error.response.data.errors);
-        } else {
-            console.log(`Error: ${error.message}`);
-            // seterrror(error.message);
-        }
-    }
-};
+const dispatch = useDispatch();
+const { cartItems, itemCount, loading, error } = useSelector((state) => state.cart);
 
 useEffect(() => {
-    fetchCartItems();
-}, [userId,itemCount]);
+  dispatch(fetchCartItems());
+}, [dispatch]);
 
 
-  
 
   return (
     <>
