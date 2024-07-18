@@ -1,6 +1,8 @@
 import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import ProductBox from "../Component/Product/ProductBoxComponent";
+import Emptyfav from "../Component/Data/images-app/undraw_waiting__for_you_ldha.svg";
+
 export default function Favorite(Props) {
 
 
@@ -101,7 +103,9 @@ export default function Favorite(Props) {
 
 
      {favorites.length === 0 ? (
-        <p>No favorite products found.</p>
+        <div className='flex items-center justify-center h-[50vh]' >
+           <img className='h-40 w-40' src={Emptyfav} alt="" />
+        </div>
       ) : (
         <div className="mt-6 grid grid-cols-2  gap-3 md:grid-cols-2 lg:grid-cols-4 ">
           {favorites.map((favorite) => (
