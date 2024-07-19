@@ -9,13 +9,13 @@ import SHoppingCart from "../SHoppingCart";
 import navigation from "../Data/navigation.json";
 import UserEntry from '../../../Auth/UserEntry';
 import Avatar from '../Avatar';
-import axios from 'axios';
 // import { RiSignalWifiErrorLine } from "react-icons/ri";
 // import { MdOutlineCancel } from "react-icons/md";
 // import { MdFavoriteBorder } from "react-icons/md";
 
 import { fetchCartItems, addToCart, removeFromCart } from '../../../redux/cartSlice';
 import { useSelector, useDispatch } from 'react-redux';
+import giftImg from "../Data/images-app/undraw_gifts_0ceh.svg";
 
 
 
@@ -337,6 +337,9 @@ useEffect(() => {
                 {/* Flyout menus */}
                 <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
                   <div className="flex h-full space-x-8">
+                    
+                    
+
                     <div className="flex group h-full space-x-8">
                     {navigation.categories.slice(0, 1).map((category) => (
                       <Popover key={category.name} className="flex">
@@ -362,15 +365,15 @@ useEffect(() => {
                             >
                               <div className="absolute inset-x-0 top-full text-sm text-gray-500">
                                 {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
-                                <div className="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true" />
+                                <div className="absolute inset-0 top-1/2 mx-auto rounded-xl  max-w-7xl  bg-white shadow" aria-hidden="true" />
 
-                                <div className="relative bg-white">
-                                  <div className="mx-auto max-w-7xl px-8">
-                                    <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-16">
-                                      <div className="col-start-2 grid grid-cols-2 gap-x-8">
+                                <div className="relative  rounded-xl pt-8 ">
+                                  <div className="mx-auto bg-white rounded-xl px-4 py-4 max-w-7xl ">
+                                    <div className="grid grid-cols-2 gap-x-8 gap-y-10 ">
+                                      <div className="col-start-2 bg-indigo-100  rounded-md p-10 grid grid-cols-2 gap-x-8">
                                         {category.featured.map((item) => (
-                                          <div key={item.name} className="group/img relative text-base sm:text-sm">
-                                            <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover/img:opacity-75">
+                                          <div key={item.name} className=" group/img relative text-base sm:text-sm">
+                                            <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg  group-hover/img:opacity-75">
                                               <img
                                                 src={item.imageSrc}
                                                 alt={item.imageAlt}
@@ -387,7 +390,7 @@ useEffect(() => {
                                           </div>
                                         ))}
                                       </div>
-                                      <div className="row-start-1 grid grid-cols-3 gap-x-8 gap-y-10 text-sm">
+                                      <div className="row-start-1 grid grid-cols-3 p-10 gap-x-8 gap-y-10 text-sm">
                                         {category.sections.map((section) => (
                                           <div key={section.name}>
                                             <p id={`${section.name}-heading`} className="font-medium text-gray-900">
@@ -420,7 +423,171 @@ useEffect(() => {
                     ))}
                     </div>
 
-                    
+
+                    <div className="flex group h-full space-x-8">
+                    {navigation.categories.slice(1, 2).map((category) => (
+                      <Popover key={category.name} className="flex">
+                       
+                          <div className='group hover:bg-red-00 flex'>
+                            <div className="group relative flex">
+                              <Popover.Button
+                                className={
+                                  
+                                    'group-hover:border-indigo-600 gap-x-2  group-hover:text-indigo-600 border-b-2 border-transparent text-gray-700 hover:text-gray-800 relative z-10 -mb-px flex items-center  pt-px text-sm font-medium transition-colors duration-200 ease-out'}
+>
+                                {category.name}
+                                <div className='flex   items-center '>
+                                 <IoIosArrowDown className='group-hover:rotate-180 transition-rotate transition ease-out duration-200 h-4 w-4' />
+                                </div>
+                              </Popover.Button>
+                              
+                            </div>
+
+                            <div
+                              // group-hover:translate-x-full translate-y-[4rem] translate-y-[-30rem] transform hidden group-hover:block transition ease-in-out duration-500 sm:duration-700
+                              className='transition ease-in-out delay-200 duration-500  group-hover:block hidden    fixed mx-auto left-0 -z-10 top-20 w-full   '
+                            >
+                              <div className="absolute inset-x-0 top-full text-sm text-gray-500">
+                                {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
+
+                                <div className="relative  rounded-xl pt-8 ">
+                                  <div className="mx-auto bg-white shadow rounded-xl px-4 py-4 max-w-7xl ">
+                                    <div className="grid grid-cols-2 gap-x-8 gap-y-10 ">
+                                      <div className="col-start-2 bg-green-100   rounded-md p-10 grid grid-cols-2 gap-x-8">
+                                        {category.featured.map((item) => (
+                                          <div key={item.name} className=" group/img relative text-base sm:text-sm">
+                                            <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg  group-hover/img:opacity-75">
+                                              <img
+                                                src={giftImg}
+                                                alt={item.imageAlt}
+                                                className="object-cover w-full object-center"
+                                              />
+                                            </div>
+                                            <a href={item.href} className="mt-6 block font-medium text-gray-900">
+                                              <span className="absolute inset-0 z-10" aria-hidden="true" />
+                                              {item.name}
+                                            </a>
+                                            <p aria-hidden="true" className="  mt-1">
+                                              <button className='bg-yellow-400 text-black px-2 py-1 '>Shop now</button>
+                                            </p>
+                                          </div>
+                                        ))}
+                                      </div>
+                                      <div className="row-start-1 grid grid-cols-3 p-10 gap-x-8 gap-y-10 text-sm">
+                                        {category.sections.map((section) => (
+                                          <div key={section.name}>
+                                            <p id={`${section.name}-heading`} className="font-medium text-gray-900">
+                                              {section.name}
+                                            </p>
+                                            <ul
+                                              role="list"
+                                              aria-labelledby={`${section.name}-heading`}
+                                              className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
+                                            >
+                                              {section.items.map((item) => (
+                                                <li key={item.name} className="flex">
+                                                  <a href={item.href} className="hover:text-gray-800">
+                                                    {item.name}
+                                                  </a>
+                                                </li>
+                                              ))}
+                                            </ul>
+                                          </div>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        
+                      </Popover>
+                    ))}
+                    </div>
+
+                    <div className="flex group h-full space-x-8">
+                    {navigation.categories.slice(2, 3).map((category) => (
+                      <Popover key={category.name} className="flex">
+                       
+                          <div className='group hover:bg-red-00 flex'>
+                            <div className="group relative flex">
+                              <Popover.Button
+                                className={
+                                  
+                                    'group-hover:border-indigo-600 gap-x-2  group-hover:text-indigo-600 border-b-2 border-transparent text-gray-700 hover:text-gray-800 relative z-10 -mb-px flex items-center  pt-px text-sm font-medium transition-colors duration-200 ease-out'}
+>
+                                {category.name}
+                                <div className='flex   items-center '>
+                                 <IoIosArrowDown className='group-hover:rotate-180 transition-rotate transition ease-out duration-200 h-4 w-4' />
+                                </div>
+                              </Popover.Button>
+                              
+                            </div>
+
+                            <div
+                              // group-hover:translate-x-full translate-y-[4rem] translate-y-[-30rem] transform hidden group-hover:block transition ease-in-out duration-500 sm:duration-700
+                              className='transition ease-in-out delay-200 duration-500  group-hover:block hidden    fixed mx-auto left-0 -z-10 top-20 w-full   '
+                            >
+                              <div className="absolute inset-x-0 top-full text-sm text-gray-500">
+                                {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
+                                <div className="absolute inset-0 top-1/2 mx-auto rounded-xl  max-w-7xl  bg-white shadow" aria-hidden="true" />
+
+                                <div className="relative  rounded-xl pt-8 ">
+                                  <div className="mx-auto bg-white rounded-xl px-4 py-4 max-w-7xl ">
+                                    <div className="grid grid-cols-2 gap-x-8 gap-y-10 ">
+                                      <div className="col-start-2 bg-yellow-100  rounded-md p-10 grid grid-cols-2 gap-x-8">
+                                        {category.featured.map((item) => (
+                                          <div key={item.name} className=" group/img relative text-base sm:text-sm">
+                                            <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg  group-hover/img:opacity-75">
+                                              <img
+                                                src={item.imageSrc}
+                                                alt={item.imageAlt}
+                                                className="object-cover w-full object-center"
+                                              />
+                                            </div>
+                                            <a href={item.href} className="mt-6 block font-medium text-gray-900">
+                                              <span className="absolute inset-0 z-10" aria-hidden="true" />
+                                              {item.name}
+                                            </a>
+                                            <p aria-hidden="true" className="  mt-1">
+                                              <button className='bg-yellow-400 text-black px-2 py-1 '>Shop now</button>
+                                            </p>
+                                          </div>
+                                        ))}
+                                      </div>
+                                      <div className="row-start-1 grid grid-cols-3 p-10 gap-x-8 gap-y-10 text-sm">
+                                        {category.sections.map((section) => (
+                                          <div key={section.name}>
+                                            <p id={`${section.name}-heading`} className="font-medium text-gray-900">
+                                              {section.name}
+                                            </p>
+                                            <ul
+                                              role="list"
+                                              aria-labelledby={`${section.name}-heading`}
+                                              className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
+                                            >
+                                              {section.items.map((item) => (
+                                                <li key={item.name} className="flex">
+                                                  <a href={item.href} className="hover:text-gray-800">
+                                                    {item.name}
+                                                  </a>
+                                                </li>
+                                              ))}
+                                            </ul>
+                                          </div>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        
+                      </Popover>
+                    ))}
+                    </div>
 
                     
 
