@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { CheckCircleIcon,ClockIcon} from '@heroicons/react/24/outline';
+import EmptyCartImag from "../Component/Data/images-app/undraw_empty_cart_co35.svg";
+
 
 
 const CustomerOrders = () => {
@@ -127,7 +129,11 @@ const product = {
 
         
         <div className="px-4 pt-2 sm:px-0">     
-          {error && <p style={{ color: 'red' }}>{error}</p>}
+          {orders.length === 0 &&
+            <div className='flex items-center justify-center h-[50vh]' >
+                <img className='h-40 w-40' src={EmptyCartImag} alt="" />
+            </div>}
+            
           <ul className='flex flex-col-reverse gap-x-4   border border-gray-200 rounded-[1rem]  divide-y divide-gray-200 '>
           {orders.map((product) => (
             <li key={product.order_id} className=" flex  py-8 px-8">
