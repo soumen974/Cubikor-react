@@ -337,7 +337,7 @@ useEffect(() => {
                     
                     
 
-                    <div className="flex group h-full space-x-8">
+                    <div className="flex group  h-full space-x-8">
                     {navigation.categories.slice(0, 1).map((category) => (
                       <Popover key={category.name} className="flex">
                        
@@ -367,7 +367,7 @@ useEffect(() => {
                                 <div className="relative  rounded-xl pt-8 ">
                                   <div className="mx-auto bg-white rounded-xl px-4 py-4 max-w-7xl ">
                                     <div className="grid grid-cols-2 gap-x-8 gap-y-10 ">
-                                      <div className="col-start-2 bg-indigo-100  rounded-md p-10 grid grid-cols-2 gap-x-8">
+                                      <div className="col-start-2 bg-[#96A8FE]  rounded-md p-10 grid grid-cols-2 gap-x-8">
                                         {category.featured.map((item) => (
                                           <div key={item.name} className=" group/img relative text-base sm:text-sm">
                                             <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg  group-hover/img:opacity-75">
@@ -450,7 +450,7 @@ useEffect(() => {
                                 <div className="relative  rounded-xl pt-8 ">
                                   <div className="mx-auto bg-white shadow rounded-xl px-4 py-4 max-w-7xl ">
                                     <div className="grid grid-cols-2 gap-x-8 gap-y-10 ">
-                                      <div className="col-start-2 bg-green-100   rounded-md p-10 grid grid-cols-2 gap-x-8">
+                                      <div className="col-start-2 bg-[#8bF9AF]   rounded-md p-10 grid grid-cols-2 gap-x-8">
                                         {category.featured.map((item) => (
                                           <div key={item.name} className=" group/img relative text-base sm:text-sm">
                                             <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg  group-hover/img:opacity-75">
@@ -533,7 +533,7 @@ useEffect(() => {
                                 <div className="relative  rounded-xl pt-8 ">
                                   <div className="mx-auto bg-white rounded-xl px-4 py-4 max-w-7xl ">
                                     <div className="grid grid-cols-2 gap-x-8 gap-y-10 ">
-                                      <div className="col-start-2 bg-yellow-100  rounded-md p-10 grid grid-cols-2 gap-x-8">
+                                      <div className="col-start-2 bg-[#FFFCAF]  rounded-md p-10 grid grid-cols-2 gap-x-8">
                                         {category.featured.map((item) => (
                                           <div key={item.name} className=" group/img relative text-base sm:text-sm">
                                             <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg  group-hover/img:opacity-75">
