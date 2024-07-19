@@ -104,7 +104,7 @@ export default function Avatar() {
   
   return (
     <div className=" group z  relative inline-block text-left">
-      <abbr className='no-underline  ' title={user.name}> 
+      <abbr className='no-underline hidden md:block ' title={user.name}> 
         <button
             id="dropdownUserAvatarButton"
             onClick={()=>{setIsOpen(!isOpen);}}
@@ -117,12 +117,13 @@ export default function Avatar() {
       <div className="md:group-hover:block md:hidden bg-red- z-10 lg:absolute  lg:right-0 md:mt-2 md:w-44 w-full top-2 md:pt-10">
         <div
             id="dropdownAvatar"
-            className=" md:pt-2  md:bg-white divide-y divide-gray-100 rounded-lg lg:shadow "
+            className=" md:pt-2 px-2 md:bg-white divide-y divide-gray-100 md:w-[13rem] w-full rounded-lg lg:shadow "
           >
-            <div className="md:px-4 py-3 truncate  text-gray-900 ">
+            <div className="md:px-4 py-3 truncate bg-green-100 rounded text-gray-900 ">
               <div className='capitalize text-sm font-medium text-gray-900 truncate '>{user.name}</div>
               <div className="text-sm text-gray-500 truncate "><abbr className='no-underline hover:underline decoration-solid' title={user.email}>{user.email}</abbr></div>
             </div>
+
             <ul className="py-2 text-sm text-gray-700 " aria-labelledby="dropdownUserAvatarButton">
             <li>
                 <NavLink to={"/profile"} className={({isActive}) => ` ${isActive ? ' hover:bg-indigo-50 hover:text-indigo-700 text-indigo-500  bg-indigo-100 ':' hover:bg-gray-100 text-gray-400 hover:text-gray-500 '} px-4 py-2 flex gap-2`}> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5">
@@ -152,6 +153,7 @@ export default function Avatar() {
               </li>
             
             </ul>
+
             <div onClick={()=>{setDialogopenOpen(true);setIsOpen(!isOpen);}}  className="py-2">
               <div className="cursor-pointer flex gap-2 px-4 py-2 text-sm text-gray-400 hover:text-gray-500 hover:bg-gray-100 "><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5">
               <path fillRule="evenodd" d="M3 4.25A2.25 2.25 0 0 1 5.25 2h5.5A2.25 2.25 0 0 1 13 4.25v2a.75.75 0 0 1-1.5 0v-2a.75.75 0 0 0-.75-.75h-5.5a.75.75 0 0 0-.75.75v11.5c0 .414.336.75.75.75h5.5a.75.75 0 0 0 .75-.75v-2a.75.75 0 0 1 1.5 0v2A2.25 2.25 0 0 1 10.75 18h-5.5A2.25 2.25 0 0 1 3 15.75V4.25Z" clipRule="evenodd" />

@@ -142,7 +142,7 @@ useEffect(() => {
     <SHoppingCart open={shoppingCart} setOpen={setshoppingCart}/>
     {/* error */}
     {
-    <div  className={` ${Ad &&error ? 'top-[48rem] md:left-0  md:top-2':'top-[48rem] -left-[22rem] transition-all md:left-0 md:-top-20'} z-50  duration-200 ease-out fixed  md:px-[30%] px-[10%]   w-full flex justify-center `}>
+    <div  className={` ${Ad &&error ? '   top-2':'  -top-20'} transition-all z-50  duration-200 ease-out fixed  md:px-[30%] px-[10%]   w-full flex justify-center `}>
         <div className="flex relative items-center w-fit  px-4  py-3 space-x-4  text-gray-500 bg-white divide-x  divide-gray-200 rounded-md shadow-md border space-x " role="alert">
             <div className={`mx-auto flex  flex-shrink-0 items-center justify-center rounded-full  bg-red-100  p-2`}>
                 <RiSignalWifiErrorLine className="h-5 w-5 text-red-600" aria-hidden="true" />
