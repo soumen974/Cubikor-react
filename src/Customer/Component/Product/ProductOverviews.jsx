@@ -263,7 +263,7 @@ export default function ProductOverview() {
                   </div>
                 </div>
 
-                <form onSubmit={AddingToBag} className="mt-1 z-40 bg-white max-md:py-4 max-md:fixed max-md:bottom-0 max-md:left-0 max-md:px-10 max-md:w-full max-md:gap-1  max-md:flex ">
+                <form onSubmit={AddingToBag} className="mt-1 z-40  max-md:backdrop-blur-2xl  max-md:py-4 max-md:fixed max-md:bottom-0 max-md:left-0 max-md:px-3 max-md:w-full max-md:gap-3  max-md:flex ">
                   <button
                     type="submit"
                     className="md:mt-10   flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"

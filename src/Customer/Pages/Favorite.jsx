@@ -85,7 +85,7 @@ export default function Favorite(Props) {
               
                 <li className="text-sm">
                       <a href="/new" aria-current="page" className="font-medium text-gray-500 hover:text-gray-600">
-                      New
+                      Favorites
                       </a>
                     </li>
                 
