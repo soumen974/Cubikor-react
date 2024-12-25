@@ -12,7 +12,7 @@ export default function Fav({ prdId, prdName, prdImage_src, prdPrice }) {
   const addToFavorite = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:5000/favorite/${userId}`,
+        `${REACT_APP_API_URL}/favorite/${userId}`,
         {
           product_id: prdId,
           product_name: prdName,
@@ -40,7 +40,7 @@ export default function Fav({ prdId, prdName, prdImage_src, prdPrice }) {
   const removeFromFavorite = async () => {
     try {
       const response = await axios.delete(
-        `http://localhost:5000/favorite/${userId}/${removeFaveid}`,
+        `${REACT_APP_API_URL}/favorite/${userId}/${removeFaveid}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -61,7 +61,7 @@ export default function Fav({ prdId, prdName, prdImage_src, prdPrice }) {
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/favorite/all`, {
+        const response = await axios.get(`${REACT_APP_API_URL}/favorite/all`, {
           withCredentials: true, // Ensure cookies are sent with the request
         });
 

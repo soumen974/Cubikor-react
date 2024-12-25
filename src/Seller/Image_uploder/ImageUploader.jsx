@@ -15,7 +15,7 @@ function ImageUploader() {
     formData.append('image', file);
 
     try {
-      const response = await axios.post('http://localhost:5000/upload', formData);
+      const response = await axios.post('${REACT_APP_API_URL}/upload', formData);
       setMessage(response.data);
     } catch (error) {
       setMessage(`Error: ${error.response ? error.response.data : 'Server Error'}`);

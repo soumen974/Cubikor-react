@@ -26,7 +26,7 @@ const PasswordAdd = () => {
     }
 
     try {
-      const response = await axios.post('/api/addpassword', {
+      const response = await axios.post(`${REACT_APP_API_URL}/addpassword`, {
         email: formData.email,
         password: formData.password
       });

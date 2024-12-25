@@ -23,7 +23,7 @@ export default function DrawerCat({ drawerOpen, setDrawerOpen, ProductIdforEdit 
 
     const fetchCategoryData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/shops/${shopId}/categories/${categoryId}`, {
+        const response = await axios.get(`${REACT_APP_API_URL}/shops/${shopId}/categories/${categoryId}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -46,7 +46,7 @@ export default function DrawerCat({ drawerOpen, setDrawerOpen, ProductIdforEdit 
     }
 
     try {
-      const response = await axios.put(`http://localhost:5000/shops/${shopId}/categories/${categoryId}`, data, {
+      const response = await axios.put(`${REACT_APP_API_URL}/shops/${shopId}/categories/${categoryId}`, data, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

@@ -70,7 +70,7 @@ const CreateProduct = () => {
 
     try {
       await axios.post(
-        `http://localhost:5000/shops/${shopId}/products`,
+        `${REACT_APP_API_URL}/shops/${shopId}/products`,
         data,
         {
           headers: {
@@ -118,7 +118,7 @@ const CreateProduct = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/shops/${shopId}/categories`, {
+        const response = await axios.get(`${REACT_APP_API_URL}/shops/${shopId}/categories`, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -140,7 +140,7 @@ const CreateProduct = () => {
   useEffect(() => {
     const fetchShopName = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/shops/${shopId}`, {
+        const response = await axios.get(`${REACT_APP_API_URL}/shops/${shopId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json'

@@ -13,7 +13,7 @@ const Products = () => {
     useEffect(() => {
         const fetchCategories = async () => {
           try {
-            const response = await axios.get(`http://localhost:5000/shops/${shopId}/products`, {
+            const response = await axios.get(`${REACT_APP_API_URL}/shops/${shopId}/products`, {
               headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -140,7 +140,7 @@ const Products = () => {
                   >
                     
                     <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap ">
-                      <img className="w-10 h-10 rounded-full" src={`http://localhost:5000/${product.product_image}`} alt={`${product.name} image`} />
+                      <img className="w-10 h-10 rounded-full" src={`${REACT_APP_API_URL}/${product.product_image}`} alt={`${product.name} image`} />
 
                       <div className="ps-3 truncate">
                         <div className="text-base font-semibold truncate">{product.name}</div>

@@ -23,7 +23,7 @@ export default function ShoppingCart(Props) {
         const cartId = cartItem.id;
 
         try {
-            await axios.delete(`http://localhost:5000/users/${userId}/shopping_cart/${cartId}`, {
+            await axios.delete(`${REACT_APP_API_URL}/users/${userId}/shopping_cart/${cartId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
@@ -49,7 +49,7 @@ export default function ShoppingCart(Props) {
     const fetchCartItems = async () => {
         try {
             const response = await axios.get(
-                `http://localhost:5000/users/${userId}/shopping_cart`,
+                `${REACT_APP_API_URL}/users/${userId}/shopping_cart`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -83,7 +83,7 @@ export default function ShoppingCart(Props) {
             try {
                 if (Array.isArray(cartItems) && cartItems.length > 0) {
                     const responses = await Promise.all(cartItems.map(product => 
-                        fetch(`http://localhost:5000/products/${product.productId}`, {
+                        fetch(`${REACT_APP_API_URL}/products/${product.productId}`, {
                             method: 'GET',
                             headers: {
                                 'Authorization': `Bearer ${token}`
@@ -199,7 +199,7 @@ export default function ShoppingCart(Props) {
                                                         <li key={product.id} className="flex py-6">
                                                             <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                                                <Link to={`/productview/${window.btoa(product.id*721426)}`} onClick={() => Props.setOpen(false)} > <img
-                                                                    src={`http://localhost:5000/${product.product_image}`}
+                                                                    src={`${REACT_APP_API_URL}/${product.product_image}`}
                                                                     alt={product.name}
                                                                     className="h-full w-full object-cover object-center"
                                                                 />

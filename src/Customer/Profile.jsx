@@ -19,7 +19,7 @@ export default function Profile() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/users/${userId}`, {
+        const response = await fetch(`${REACT_APP_API_URL}/users/${userId}`, {
           method: 'GET', 
           headers: {
             'Authorization': `Bearer ${token}`

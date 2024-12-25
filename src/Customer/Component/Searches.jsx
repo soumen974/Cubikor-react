@@ -26,7 +26,7 @@ export default function Searches() {
 
    
     try {
-      const response = await axios.get(`http://localhost:5000/products?q=${searchTerm}`);
+      const response = await axios.get(`${REACT_APP_API_URL}/products?q=${searchTerm}`);
       setProductIds(response.data); // Assuming response.data is an array of product IDs
       fetchCategories();
       setError(false)
@@ -65,7 +65,7 @@ export default function Searches() {
           try {
               if (Array.isArray(productIds) && productIds.length > 0) {
                   const responses = await Promise.all(productIds.map(id => 
-                      fetch(`http://localhost:5000/products/${id}`, {
+                      fetch(`${REACT_APP_API_URL}/products/${id}`, {
                           method: 'GET',
                           headers: {
                               'Authorization': `Bearer ${token}`
@@ -124,7 +124,7 @@ export default function Searches() {
               <div className="aspect-w-1 relative aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:w-[14rem] lg:h-[17rem]">
                  <Link to={`/productview/${window.btoa(product.id*721426)}`}>
                 <img
-                  src={`http://localhost:5000/${product.product_image}`}
+                  src={`${REACT_APP_API_URL}/${product.product_image}`}
                   alt={product.imageAlt}
                   className="w-full h-full object-cover object-center lg:w-full lg:h-full transition-transform duration-500 group-hover:scale-105 rounded-sm"
                 />

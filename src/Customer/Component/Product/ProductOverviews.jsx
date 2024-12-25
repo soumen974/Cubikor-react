@@ -27,7 +27,7 @@ export default function ProductOverview() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/products/${cubeId}`, {
+        const response = await fetch(`${REACT_APP_API_URL}/${cubeId}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`
@@ -71,7 +71,7 @@ export default function ProductOverview() {
           quantity: quantity 
         };
         const response = await axios.post(
-          `http://localhost:5000/users/${userId}/shopping_cart`, payload,
+          `${REACT_APP_API_URL}/users/${userId}/shopping_cart`, payload,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -109,7 +109,7 @@ export default function ProductOverview() {
   useEffect(() => {
     const fetchCategory = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/shops/${shopId}/categories/${CategoryId}`, {
+        const response = await axios.get(`${REACT_APP_API_URL}/shops/${shopId}/categories/${CategoryId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json'

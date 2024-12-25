@@ -27,7 +27,7 @@ export default function SignUp() {
       };
     
       try {
-        const response = await fetch('http://localhost:5000/shops/register', {
+        const response = await fetch(`${REACT_APP_API_URL}/shops/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

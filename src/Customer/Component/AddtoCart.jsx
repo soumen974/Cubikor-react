@@ -26,7 +26,7 @@ export default function AddtoCart({ ShopID, productID, catId }) {
         if(Authenticated){
           try {
              await axios.post(
-              `http://localhost:5000/users/${userId}/shopping_cart`,
+              `${REACT_APP_API_URL}/users/${userId}/shopping_cart`,
               {
                 CategoryId: catId,
                 productId: productID,

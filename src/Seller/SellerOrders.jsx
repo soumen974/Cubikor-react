@@ -46,7 +46,7 @@ const SellerOrders = () => {
   
    const UpdateStatus = async (order_id,newStatus) => {
     try {
-      const response = await axios.put(`http://localhost:5000/update-order-status/${order_id}`, { status: newStatus });
+      const response = await axios.put(`${REACT_APP_API_URL}/update-order-status/${order_id}`, { status: newStatus });
       console.log(response.data.message);
     } catch (error) {
       console.log(error.response ? error.response.data.message : 'Error updating order status');
@@ -65,7 +65,7 @@ const SellerOrders = () => {
   useEffect(() => {
     const fetchSellerOrders = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/seller-orders/${sellerId}`);       
+        const response = await axios.get(`${REACT_APP_API_URL}/seller-orders/${sellerId}`);       
         setOrderItems(response.data.orders);
       } catch (err) {
         setError(err.response ? err.response.data.message : 'Error fetching seller orders');

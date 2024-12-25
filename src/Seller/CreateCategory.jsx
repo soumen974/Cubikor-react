@@ -15,7 +15,7 @@ const CategoryForm = () => {
   const onSubmit = async (data) => {
     const token = localStorage.getItem('SellerToken');
     try {
-       await axios.post(`http://localhost:5000/shops/${shopId}/categories`, data, {
+       await axios.post(`${REACT_APP_API_URL}/shops/${shopId}/categories`, data, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

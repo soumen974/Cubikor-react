@@ -4,7 +4,7 @@ import axios from 'axios';
 const Logout = () => {
   const handleLogout = async () => {
     try {
-      await axios.post('http://localhost:5000/logout'); // Implement logout in backend if needed
+      await axios.post(`${REACT_APP_API_URL}/logout`); // Implement logout in backend if needed
       document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
       // Redirect to login or home
     } catch (error) {

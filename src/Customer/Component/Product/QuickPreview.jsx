@@ -28,7 +28,7 @@ export default function QuickPreview({ open, setOpen, ShopIDsend, CubeId, catId 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/shops/${ShopID}/products/${productID}`, {
+        const response = await axios.get(`${REACT_APP_API_URL}/shops/${ShopID}/products/${productID}`, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -46,7 +46,7 @@ export default function QuickPreview({ open, setOpen, ShopIDsend, CubeId, catId 
   useEffect(() => {
     const fetchCategory = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/shops/${ShopID}/categories/${catId}`, {
+        const response = await axios.get(`${REACT_APP_API_URL}/shops/${ShopID}/categories/${catId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -76,7 +76,7 @@ export default function QuickPreview({ open, setOpen, ShopIDsend, CubeId, catId 
     if(Authenticated){
       try {
         const response = await axios.post(
-          `http://localhost:5000/users/${userId}/shopping_cart`,
+          `${REACT_APP_API_URL}/users/${userId}/shopping_cart`,
           {
             CategoryId: catId,
             productId: productID,
@@ -190,7 +190,7 @@ export default function QuickPreview({ open, setOpen, ShopIDsend, CubeId, catId 
 
                         <div className="aspect-h-3 aspect-w-2 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5">
                           <Link to={`/productview/${window.btoa(productData.id*721426)}`} onClick={() => setOpen(false)}>
-                            <img src={`http://localhost:5000/${productData.product_image}`} alt={productData.name} className="cursor-pointer object-cover object-center" />
+                            <img src={`${REACT_APP_API_URL}/${productData.product_image}`} alt={productData.name} className="cursor-pointer object-cover object-center" />
                           </Link>
                         </div>
 

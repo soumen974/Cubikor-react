@@ -15,7 +15,7 @@ export default function SuggestedProduct({categoryName,catID}) {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/products/related/${catID}`);
+        const response = await fetch(`${REACT_APP_API_URL}/products/related/${catID}`);
         if (response.ok) {
           const suggestionData = await response.json();
           setProductData(suggestionData);
@@ -48,7 +48,7 @@ export default function SuggestedProduct({categoryName,catID}) {
                             <Link to={`/productview/${window.btoa(product.id*721426)}`}>
                               <img
                                onClick={()=>{window.scrollTo(0, 0);}}
-                                src={`http://localhost:5000/${product.product_image}`}
+                                src={`${REACT_APP_API_URL}/${product.product_image}`}
                                 alt={product.imageAlt}
                                 className="h-full w-full object-cover object-center lg:h-full lg:w-full scale-[1] group-hover:scale-[1.1] rounded-sm transform-scale duration-500"
                             />

@@ -19,7 +19,7 @@ export default function Category() {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/shops/${shopId}/categories`, {
+                const response = await axios.get(`${REACT_APP_API_URL}/shops/${shopId}/categories`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         'Content-Type': 'application/json'
@@ -45,7 +45,7 @@ export default function Category() {
 
     const deletecategory = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:5000/shops/${shopId}/categories/${id}`, {
+            const response = await axios.delete(`${REACT_APP_API_URL}/shops/${shopId}/categories/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
