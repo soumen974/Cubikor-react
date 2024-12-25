@@ -30,7 +30,7 @@ export default function ProductBoxComponent({image,name,price,id}) {
             <div className="aspect-w-1 relative aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:w-[14rem] lg:h-[17rem]">
                 <Link to={`/productview/${window.btoa(id*721426)}`}>
                     <img
-                        src={`${REACT_APP_API_URL}/${image}`}
+                        src={`${process.env.REACT_APP_API_URL}/${image}`}
                         alt={"product.imageAlt"}
                         className="w-full h-full object-cover object-center lg:w-full lg:h-full transition-transform duration-500 group-hover:scale-105 rounded-sm"
                     />

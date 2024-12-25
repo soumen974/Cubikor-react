@@ -25,7 +25,7 @@ const CodeInputForm = ({ email,setIsOtpVerified ,setIsOtpopen,setSuccess,setIsLo
     setIsLoading(true);
 
     try {
-       await axios.post(`${REACT_APP_API_URL}/verify-email`, { email, code });
+       await axios.post(`${process.env.REACT_APP_API_URL}/verify-email`, { email, code });
       setMessage('Email verified successfully!');
       setSuccess('Email verified successfully!');
       setTimeout(() => {

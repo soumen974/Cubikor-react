@@ -11,7 +11,7 @@ function ImageList() {
     const fetchImages = async () => {
       try {
         console.log('Fetching images...');
-        const response = await axios.get('${REACT_APP_API_URL}/images');
+        const response = await axios.get('${process.env.REACT_APP_API_URL}/images');
         console.log('Response received:', response.data);
 
         // Ensure response data is an array

@@ -46,7 +46,7 @@ export default function ProductCard() {
     useEffect(() => {
       const fetchCategories = async () => {
         try {
-          const response = await axios.get(`${REACT_APP_API_URL}/shops`, {
+          const response = await axios.get(`${process.env.REACT_APP_API_URL}/shops`, {
             method: 'GET', 
               headers: {
                 'Authorization': `Bearer ${token}`
@@ -73,7 +73,7 @@ export default function ProductCard() {
         try {
           // Iterate over each shop and fetch products
           await Promise.all(shopId.map(async (shop) => {
-            const response = await fetch(`${REACT_APP_API_URL}/shops/${shop.id}/products`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/shops/${shop.id}/products`, {
               method: 'GET', 
               headers: {
                 'Authorization': `Bearer ${token}`
@@ -175,7 +175,7 @@ export default function ProductCard() {
               <div className="aspect-w-1 relative aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:w-[14rem] lg:h-[17rem]">
                  <Link to={`/productview/${window.btoa(product.id*721426)}`}>
                 <img
-                  src={`${REACT_APP_API_URL}/${product.product_image}`}
+                  src={`${process.env.REACT_APP_API_URL}/${product.product_image}`}
                   alt={product.imageAlt}
                   className="w-full h-full object-cover object-center lg:w-full lg:h-full transition-transform duration-500 group-hover:scale-105 rounded-sm"
                 />

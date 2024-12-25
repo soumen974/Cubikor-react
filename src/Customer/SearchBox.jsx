@@ -44,7 +44,7 @@ export default function SearchBox(Props) {
     setisloading(true);
    
     try {
-      const response = await axios.get(`${REACT_APP_API_URL}/products?q=${searchTerm}`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/products?q=${searchTerm}`);
       setProductIds(response.data); // Assuming response.data is an array of product IDs
       fetchCategories();
       setError(false)
@@ -83,7 +83,7 @@ export default function SearchBox(Props) {
         try {
             if (Array.isArray(productIds) && productIds.length > 0) {
                 const responses = await Promise.all(productIds.map(id => 
-                    fetch(`${REACT_APP_API_URL}/products/${id}`, {
+                    fetch(`${process.env.REACT_APP_API_URL}/products/${id}`, {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${token}`
@@ -188,7 +188,7 @@ export default function SearchBox(Props) {
                         <Link onClick={()=>{Props.setOpen(false)}} className='flex' to={`/productview/${window.btoa(product.id*721426)}`} >
                         
                           <img
-                              src={`${REACT_APP_API_URL}/${product.product_image}`}
+                              src={`${process.env.REACT_APP_API_URL}/${product.product_image}`}
                               alt={product.name}
                               className="h-6 w-6 rounded-full object-cover object-center"
                           />

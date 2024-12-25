@@ -16,7 +16,7 @@ export default function Avatar() {
 
 
     function logout() {
-      axios.post('${REACT_APP_API_URL}/logout', {}, { withCredentials: true })
+      axios.post('${process.env.REACT_APP_API_URL}/logout', {}, { withCredentials: true })
         .then(response => {
           console.log(response.data);
           // Redirect to login page or show a logged-out message
@@ -48,7 +48,7 @@ export default function Avatar() {
     //   const fetchUser = async () => {
     //     if(token && userId){
     //       try {
-    //         const response = await fetch(`${REACT_APP_API_URL}/users/${userId}`, {
+    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/users/${userId}`, {
     //           method: 'GET',
     //           headers: {
     //             'Authorization': `Bearer ${token}`
@@ -78,7 +78,7 @@ export default function Avatar() {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axios.get(`${REACT_APP_API_URL}/protected`, {
+          const response = await axios.get(`${process.env.REACT_APP_API_URL}/protected`, {
             withCredentials: true  // Ensure credentials (cookies) are sent
           });
           setUser(response.data);

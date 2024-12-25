@@ -97,7 +97,7 @@ const [orderItems, setOrderItems] = useState([]);
 useEffect(() => {
    const fetchSellerOrders = async () => {
      try {
-       const response = await axios.get(`${REACT_APP_API_URL}/seller-orders/${shopId}`);       
+       const response = await axios.get(`${process.env.REACT_APP_API_URL}/seller-orders/${shopId}`);       
        setOrderItems(response.data.orders);
      } catch (err) {
        console.log(err.response ? err.response.data.message : 'Error fetching seller orders');

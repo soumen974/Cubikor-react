@@ -8,7 +8,7 @@ function ShoppingBag() {
     const fetchItems = async () => {
       const token = localStorage.getItem('token');
       try {
-        const response = await axios.get(`${REACT_APP_API_URL}/users/1/shopping_bag`, {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/1/shopping_bag`, {
           headers: {
             Authorization: `Bearer ${token}`
           }

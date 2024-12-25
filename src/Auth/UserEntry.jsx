@@ -74,7 +74,7 @@ export default function UserEntry(Props) {
       }
   
       try {
-        const response = await fetch(`${REACT_APP_API_URL}/addpassword`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/addpassword`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -104,7 +104,7 @@ export default function UserEntry(Props) {
     } else {
       setIsLoading(true);
       try {
-        const response = await fetch(`${REACT_APP_API_URL}/register`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -150,7 +150,7 @@ export default function UserEntry(Props) {
   const SignInAuthCheck = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${REACT_APP_API_URL}/login`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -199,7 +199,7 @@ export default function UserEntry(Props) {
   // google login
 
     const handleOAuthGoogleLogin = () => {
-      window.location.href = `${REACT_APP_API_URL}/auth/google`;
+      window.location.href = `${process.env.REACT_APP_API_URL}/auth/google`;
     };
 
  

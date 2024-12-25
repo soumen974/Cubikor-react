@@ -15,7 +15,7 @@ export default function Login() {
     const SignInAuthCheck = async (e) => {
       e.preventDefault();
       try {
-        const response = await fetch(`${REACT_APP_API_URL}/shops/login`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/shops/login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
